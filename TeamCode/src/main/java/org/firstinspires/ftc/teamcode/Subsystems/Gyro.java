@@ -32,17 +32,27 @@ public class Gyro extends SubsystemBase {
         YawAngle = gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES)+YawAngleOffset;
     }
 
-    /** get gyro angle - returns angle in deg between -180 and 180 */
+    /**
+     * Get gyro angle
+     *
+     * @return angle in deg between -180 and 180
+     */
     public double getYawAngle() {
         return YawAngle;
     }
 
-    // resets gyro and offset value
+    /**
+     * Resets gyro and offset value
+     */
     public void resetYawAngle() {
         setYawAngle(0.0);
     }
 
-    // sets gyro to provided angle (in deg)
+    /**
+     * sets gyro to provided angle (in deg)
+     *
+     * @param angle an angle in degrees
+     */
     public void setYawAngle(double angle) {
 
         YawAngleOffset -= getYawAngle() - angle;

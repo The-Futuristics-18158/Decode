@@ -159,12 +159,23 @@ public class DriveTrain extends SubsystemBase {
 
     /**
      * drive robot in field coordinates
-     * Inputs: X, y and Rotation speed - all -1 to +1
+     *
+     * @param Vx - forward/backward velocity, range -1 to 1
+     * @param Vy - left/right velocity, range -1 to 1
+     * @param Omega - rotation velocity, range -1 to 1
      */
     public void FieldDrive(double Vx, double Vy, double Omega) {
         FieldDrive(Vx, Vy, Omega, 1.0);
     }
 
+    /**
+     * drive robot in field coordinates
+     *
+     * @param Vx - forward/backward velocity, range -1 to 1
+     * @param Vy - left/right velocity, range -1 to 1
+     * @param Omega - rotation velocity, range -1 to 1
+     * @param powerFactor - scaling factor for power, range 0 to 1
+     */
     public void FieldDrive(double Vx, double Vy, double Omega, double powerFactor) {
 
         // get angle of vector rotation angle
@@ -179,13 +190,24 @@ public class DriveTrain extends SubsystemBase {
         RobotDrive(x, y, Omega, powerFactor);
     }
 
+    /**
+     * drive robot in robot coordinates
+     *
+     * @param Vx - forward/backward velocity, range -1 to 1
+     * @param Vy - left/right velocity, range -1 to 1
+     * @param Omega - rotation velocity, range -1 to 1
+     */
     public void RobotDrive(double Vx, double Vy, double Omega) {
         RobotDrive(Vx, Vy, Omega, 1.0);
     }
 
     /**
      * drive robot in robot coordinates
-     * Inputs: X, y and Rotation speed
+     *
+     * @param Vx - forward/backward velocity, range -1 to 1
+     * @param Vy - left/right velocity, range -1 to 1
+     * @param Omega - rotation velocity, range -1 to 1
+     * @param powerFactor - scaling factor for power, range 0 to 1
      */
     public void RobotDrive(double Vx, double Vy, double Omega, double powerFactor) {
         // create a chassis speed object and populate with x, y, and omega
@@ -216,7 +238,9 @@ public class DriveTrain extends SubsystemBase {
 
 
     /**
-     * returns current speeds of mecanum drive wheels in m/s
+     * gets the current speeds of mecanum drive wheels
+     *
+     * @return current speeds of mecanum drive wheels in m/s
      */
     public MecanumDriveWheelSpeeds GetWheelSpeeds() {
         // motor speeds are in encoder ticks/s - convert to m/s
@@ -229,14 +253,21 @@ public class DriveTrain extends SubsystemBase {
         return speeds;
     }
 
-    /* returns the defined mecanum drive kinematics */
+    /**
+     * gets the mecanum drive kinematics
+     *
+     * @return the defined mecanum drive kinematics
+     * */
     public MecanumDriveKinematics GetKinematics() {
         return driveKinematics;
     }
 
-    // Special motor control class - specifically tailored for drive motor control
-    // implemented as subclass to facilitate application to all four drive motors
-    // Motor controller class
+    //needs JavaDoc comments for each method
+    /**
+     * Special motor control class - specifically tailored for drive motor control
+     * implemented as subclass to facilitate application to all four drive motors
+     * Motor controller class
+     */
     private class MotorControl {
         // motor max no-load speed = 6000rpm
         // motor full power control = 1
@@ -319,15 +350,16 @@ public class DriveTrain extends SubsystemBase {
             if (error < -400.0 && IntegratedError > 0.0)
                 IntegratedError = 0.0;
 
-            // Dec 31/2024 KN: Removed. From testing this code found to add little to no improvement
-            // of performance.
-            // If integrated error is over-compensating, then help reduce over time
-            //if (error < 0.0 && IntegratedError > 0.0)
-            //    IntegratedError *= 0.98;
-            //if (error > 0.0 && IntegratedError < 0.0)
-            //    IntegratedError *= 0.98;
-
-            ///// end I controller special logic
+            /*
+             * Dec 31/2024 KN: Removed. From testing this code found to add little to no improvement
+             * of performance.
+             * If integrated error is over-compensating, then help reduce over time
+             * if (error < 0.0 && IntegratedError > 0.0)
+             *     IntegratedError *= 0.98;
+             * if (error > 0.0 && IntegratedError < 0.0)
+             *     IntegratedError *= 0.98;
+             * end I controller special logic
+             */
 
             // implement PIF controller and return the desired control action
             return (Fgain * ReferenceSpeed) + (Pgain * error) + (IntegratedError);

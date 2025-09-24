@@ -55,7 +55,6 @@ public class RobotContainer {
     // List of robot control and expansion hubs - used for caching of I/O
     static List<LynxModule> allHubs;
 
-
     // Robot initialization for teleop - Run this once at start of teleop
     // mode - current opmode that is being run
     // RedAlliance - true if robot in red alliance, false if blue

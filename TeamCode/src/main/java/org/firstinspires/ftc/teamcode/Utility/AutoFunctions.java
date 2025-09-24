@@ -6,10 +6,23 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
-// These functions are used to mirror
+/**
+ * A class containing functions to mirror our automated movements between red and blue
+ *
+ * @author knutt5
+ *
+ * */
 public class AutoFunctions {
 
-    // mirror provided pose2d for red vs blue team
+    /**
+     * mirrors the provided Pose2d from the blue side to the red side.
+     * Requires a public boolean variable in RobotContainer called isRedAlliance that is true when
+     * we're on the red alliance and false when on blue alliance.
+     *
+     * @param pose the Pose2d to be mirrored
+     *
+     * @return a Pose2d with coordinates for the correct alliance side
+     */
     public static Pose2d redVsBlue(Pose2d pose) {
         if (RobotContainer.isRedAlliance)
             return new Pose2d (-pose.getX(),
@@ -19,7 +32,15 @@ public class AutoFunctions {
             return pose;
     }
 
-    // mirror provided translation2d for red vs blue team
+    /**
+     * Mirror provided Translation2d from the blue side to the red side.
+     * Requires a public boolean variable in RobotContainer called isRedAlliance that is true when
+     * we're on the red alliance and false when on blue alliance.
+     *
+     * @param translation the Translation2d to be mirrored
+     *
+     * @return a Translation2d with coordinates for the correct alliance side
+     */
     public static Translation2d redVsBlue(Translation2d translation) {
         if (RobotContainer.isRedAlliance)
             return new Translation2d (-translation.getX(),
@@ -28,7 +49,15 @@ public class AutoFunctions {
             return translation;
     }
 
-    // mirror provided rotation2d for red vs blue team
+    /**
+     * Mirror provided Rotation2d from the blue side to the red side.
+     * Requires a public boolean variable in RobotContainer called isRedAlliance that is true when
+     * we're on the red alliance and false when on blue alliance.
+     *
+     * @param rotation the Rotation2d to be mirrored
+     *
+     * @return a Rotation2d with coordinates for the correct alliance side
+     */
     public static Rotation2d redVsBlue(Rotation2d rotation) {
         if (RobotContainer.isRedAlliance)
             return new Rotation2d (rotation.getRadians() - Math.PI);
