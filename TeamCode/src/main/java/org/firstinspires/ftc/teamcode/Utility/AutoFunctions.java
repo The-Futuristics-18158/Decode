@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
- * A class containing functions to mirror our automated movements between red and blue
+ * A class containing functions to mirror our automated movements from the blue side to the red side.
  *
  * @author knutt5
  *
