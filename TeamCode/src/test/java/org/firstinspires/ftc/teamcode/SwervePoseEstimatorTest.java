@@ -95,7 +95,7 @@ public class SwervePoseEstimatorTest {
     }
 
     /**
-     * Test basic odometry functionality
+     * Test basic odometry functionality with incremental updates
      */
     @Test
     public void testOdometry() {
@@ -107,18 +107,39 @@ public class SwervePoseEstimatorTest {
         assertEquals("Initial X should be 0", 0.0, odometry.getPoseMeters().getX(), 0.01);
         assertEquals("Initial Y should be 0", 0.0, odometry.getPoseMeters().getY(), 0.01);
         
-        // Simulate forward motion for 1 meter
-        SwerveModulePosition[] newPositions = {
-            new SwerveModulePosition(1.0, new Rotation2d(0)),
-            new SwerveModulePosition(1.0, new Rotation2d(0)),
-            new SwerveModulePosition(1.0, new Rotation2d(0)),
-            new SwerveModulePosition(1.0, new Rotation2d(0))
-        };
+        // Simulate realistic incremental motion over 10 time steps
+        // Each step represents 0.1 meters of forward motion (like encoder updates)
+        Pose2d currentPose = odometry.getPoseMeters();
         
-        Pose2d newPose = odometry.update(initialGyro, newPositions);
-        assertTrue("Should have moved forward", newPose.getX() > 0.5);
+        for (int step = 1; step <= 10; step++) {
+            // Each module moves 0.1m forward per step
+            double cumulativeDistance = step * 0.1;
+            
+            SwerveModulePosition[] newPositions = {
+                new SwerveModulePosition(cumulativeDistance, new Rotation2d(0)),
+                new SwerveModulePosition(cumulativeDistance, new Rotation2d(0)),
+                new SwerveModulePosition(cumulativeDistance, new Rotation2d(0)),
+                new SwerveModulePosition(cumulativeDistance, new Rotation2d(0))
+            };
+            
+            currentPose = odometry.update(initialGyro, newPositions);
+            
+            // Verify incremental progress
+            assertTrue("Step " + step + ": Should be moving forward", currentPose.getX() >= (step - 1) * 0.05);
+            assertEquals("Step " + step + ": Should stay on X axis", 0.0, currentPose.getY(), 0.05);
+            
+            System.out.printf("Step %d: Position = (%.3f, %.3f, %.1f°)%n", 
+                step, currentPose.getX(), currentPose.getY(), 
+                Math.toDegrees(currentPose.getRotation().getRadians()));
+        }
         
-        System.out.println("Odometry test passed!");
+        // Final verification - should have moved approximately 1 meter forward
+        assertTrue("Final position should be close to 1m forward", 
+            Math.abs(currentPose.getX() - 1.0) < 0.1);
+        assertEquals("Should end up on X axis", 0.0, currentPose.getY(), 0.05);
+        assertEquals("Should maintain heading", 0.0, currentPose.getRotation().getRadians(), 0.05);
+        
+        System.out.println("Incremental odometry test passed!");
     }
 
     /**

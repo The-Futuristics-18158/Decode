@@ -48,25 +48,21 @@ public class SwerveDriveKinematics {
         m_inverseKinematics = new SimpleMatrix(m_numModules * 2, 3);
         
         for (int i = 0; i < m_numModules; i++) {
-            // R = [sin(1)  -cos(1)  -(x * sin(1) - y * cos(1))]
-            //     [cos(1)   sin(1)   x * cos(1) + y * sin(1) ]
-            // cos(0) = 1, sin(0) = 0
-            // cos(0) = 1, sin(0) = 0
-            // R = [0 -1  y]
-            //     [1  0 -x]
+            // Inverse kinematics matrix setup
+            // For each module, we need two rows:
+            // Row 2*i:   [0, 1, +moduleX]  (x-component of module velocity - was y)  
+            // Row 2*i+1: [1, 0, -moduleY]  (y-component of module velocity - was x)
             m_inverseKinematics.setRow(
                 i * 2 + 0,
                 0, /* vx */
-                0, /* vy */
-                1, /* omega */
-                -m_modules[i].getY() /* -y */
+                1, /* vy */
+                +m_modules[i].getX() /* omega * +x */
             );
             m_inverseKinematics.setRow(
                 i * 2 + 1,
-                0, /* vx */
-                1, /* vy */
-                0, /* omega */
-                +m_modules[i].getX() /* +x */
+                1, /* vx */
+                0, /* vy */
+                -m_modules[i].getY() /* omega * -y */
             );
         }
         
@@ -112,17 +108,15 @@ public class SwerveDriveKinematics {
             for (int i = 0; i < m_numModules; i++) {
                 m_inverseKinematics.setRow(
                     i * 2 + 0,
-                    0, /* vx */
+                    1, /* vx */
                     0, /* vy */
-                    1, /* omega */
-                    -m_modules[i].getY() + centerOfRotationMeters.getY() /* -y + cor_y */
+                    -m_modules[i].getY() + centerOfRotationMeters.getY() /* omega * (-y + cor_y) */
                 );
                 m_inverseKinematics.setRow(
                     i * 2 + 1,
                     0, /* vx */
                     1, /* vy */
-                    0, /* omega */
-                    +m_modules[i].getX() - centerOfRotationMeters.getX() /* +x - cor_x */
+                    +m_modules[i].getX() - centerOfRotationMeters.getX() /* omega * (+x - cor_x) */
                 );
             }
             m_prevCoR = centerOfRotationMeters;
@@ -143,7 +137,7 @@ public class SwerveDriveKinematics {
             double y = moduleStatesMatrix.get(i * 2 + 1, 0);
 
             double speed = Math.sqrt(x * x + y * y);
-            Rotation2d angle = new Rotation2d(x, y);
+            Rotation2d angle = new Rotation2d(Math.atan2(y, x));
 
             moduleStates[i] = new SwerveModuleState(speed, angle);
         }
