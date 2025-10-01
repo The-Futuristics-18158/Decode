@@ -143,12 +143,12 @@ public class SwerveDriveOdometry {
 
         ChassisSpeeds chassisSpeeds = m_kinematics.toChassisSpeeds(moduleStates);
 
-        var twist = new Twist2d(
+        Twist2d twist = new Twist2d(
             chassisSpeeds.vxMetersPerSecond,
             chassisSpeeds.vyMetersPerSecond,
             angle.getRadians() - m_previousAngle.getRadians());
 
-        var newPose = m_poseMeters.exp(twist);
+        Pose2d newPose = m_poseMeters.exp(twist);
 
         m_previousAngle = angle;
         m_poseMeters = new Pose2d(newPose.getTranslation(), angle);
@@ -187,12 +187,12 @@ public class SwerveDriveOdometry {
 
         ChassisSpeeds chassisSpeeds = m_kinematics.toChassisSpeeds(moduleStates);
 
-        var twist = new Twist2d(
+        Twist2d twist = new Twist2d(
             chassisSpeeds.vxMetersPerSecond,
             chassisSpeeds.vyMetersPerSecond,
             chassisSpeeds.omegaRadiansPerSecond);
 
-        var newPose = m_poseMeters.exp(twist);
+        Pose2d newPose = m_poseMeters.exp(twist);
         m_poseMeters = newPose;
 
         return m_poseMeters;

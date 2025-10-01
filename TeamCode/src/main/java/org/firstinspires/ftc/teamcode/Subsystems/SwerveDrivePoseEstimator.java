@@ -290,7 +290,7 @@ public class SwerveDrivePoseEstimator {
     public Pose2d updateWithTime(
         double currentTimeSeconds, Rotation2d gyroAngle, SwerveModulePosition[] modulePositions) {
         
-        var odometryEstimate = m_odometry.update(gyroAngle, modulePositions);
+        Pose2d odometryEstimate = m_odometry.update(gyroAngle, modulePositions);
 
         m_poseBuffer.put(
             currentTimeSeconds,
@@ -357,7 +357,7 @@ public class SwerveDrivePoseEstimator {
             SwerveModulePosition top = topBoundSample.get(i);
 
             double interpolatedDistance = bottom.distanceMeters + t * (top.distanceMeters - bottom.distanceMeters);
-            Rotation2d interpolatedAngle = bottom.angle.interpolate(top.angle, t);
+            Rotation2d interpolatedAngle = interpolateRotation2d(bottom.angle, top.angle, t);
 
             result.put(i, new SwerveModulePosition(interpolatedDistance, interpolatedAngle));
         }
@@ -380,12 +380,36 @@ public class SwerveDrivePoseEstimator {
             new Rotation2d(vector.get(2, 0)));
     }
 
-    private static SimpleMatrix createMatrix(double[] values) {
+    public static SimpleMatrix createMatrix(double[] values) {
         SimpleMatrix matrix = new SimpleMatrix(values.length, 1);
         for (int i = 0; i < values.length; i++) {
             matrix.set(i, 0, values[i]);
         }
         return matrix;
+    }
+
+    /**
+     * Interpolates between two Rotation2d objects.
+     * This is a workaround since FTCLib doesn't provide the interpolate method.
+     * 
+     * @param start The starting rotation
+     * @param end The ending rotation
+     * @param t The interpolation parameter (0.0 to 1.0)
+     * @return The interpolated rotation
+     */
+    private static Rotation2d interpolateRotation2d(Rotation2d start, Rotation2d end, double t) {
+        // Find the shortest angular distance
+        double startRadians = start.getRadians();
+        double endRadians = end.getRadians();
+        
+        // Normalize the difference to [-π, π]
+        double difference = endRadians - startRadians;
+        while (difference > Math.PI) difference -= 2 * Math.PI;
+        while (difference < -Math.PI) difference += 2 * Math.PI;
+        
+        // Interpolate
+        double interpolatedRadians = startRadians + t * difference;
+        return new Rotation2d(interpolatedRadians);
     }
 
     /**
