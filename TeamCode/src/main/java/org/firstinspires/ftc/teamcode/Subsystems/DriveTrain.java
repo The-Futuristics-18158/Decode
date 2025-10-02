@@ -308,7 +308,14 @@ public class DriveTrain extends SubsystemBase {
         }
 
 
-        // run the motor control, return desired control action
+        /**
+         * Run the motor control, return desired control action
+         *
+         * @param ReferenceSpeed
+         * @param CurrentSpeed
+         *
+         * @return desired control action
+         */
         private double calculate(double ReferenceSpeed, double CurrentSpeed) {
 
             // time since last calculate was executed

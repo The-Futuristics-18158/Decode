@@ -15,7 +15,7 @@
 
 **Example:**
 
-\**
+/**
  * This method takes in two numbers and adds them.
  * 
  * @author Kw126
