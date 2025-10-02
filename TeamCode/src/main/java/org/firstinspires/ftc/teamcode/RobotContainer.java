@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Subsystems.DriveWheelOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
@@ -47,6 +48,8 @@ public class RobotContainer {
     public static OctQuad odometryPod;
     public static DriveTrain drivesystem;
     public static Odometry odometry;
+    public static DriveWheelOdometry driveWheelOdometry;
+
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
