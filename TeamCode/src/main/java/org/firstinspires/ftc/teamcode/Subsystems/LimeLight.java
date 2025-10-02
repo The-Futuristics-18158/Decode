@@ -23,6 +23,13 @@ public class LimeLight extends SubsystemBase {
     // robot limelight
     private Limelight3A limeLight;
     private Pose2D pose2D;
+    public static enum pipeline {
+        POSITION,
+        TAG_GPP,
+        TAG_PGP,
+        TAG_PPG
+    }
+
 
     /** Place code here to initialize subsystem */
     public LimeLight() { // initialize limelight in
@@ -57,5 +64,33 @@ public class LimeLight extends SubsystemBase {
     public Pose2D getFieldPosition() {
         return pose2D;
     }
+
+    public boolean hasObelisk() {
+        boolean obelisk = false;
+        LLResult result = limeLight.getLatestResult();
+        limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
+        if (limeLight.getLatestResult() != null) {
+            obelisk = true;
+        } else {
+            limeLight.pipelineSwitch(pipeline.TAG_PGP.ordinal());
+            if (limeLight.getLatestResult() != null) {
+                obelisk = true;
+            } else {
+                limeLight.pipelineSwitch(pipeline.TAG_PPG.ordinal());
+                if (limeLight.getLatestResult() != null) {
+                    obelisk = true;
+                }
+            }
+
+        }
+        return obelisk;
+    }
+
+    public pipeline getObeliskID(){
+
+    }
+
+
+
 
 }
