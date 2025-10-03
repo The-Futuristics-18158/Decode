@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -62,6 +63,7 @@ public class LimeLight extends SubsystemBase {
      * @return Pose2D
      */
     public Pose2D getFieldPosition() {
+
         return pose2D;
     }
 
@@ -69,25 +71,44 @@ public class LimeLight extends SubsystemBase {
         boolean obelisk = false;
         LLResult result = limeLight.getLatestResult();
         limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
-        if (limeLight.getLatestResult() != null) {
+        if (result != null && result.isValid()) {
             obelisk = true;
         } else {
             limeLight.pipelineSwitch(pipeline.TAG_PGP.ordinal());
-            if (limeLight.getLatestResult() != null) {
+            if (result != null && result.isValid()) {
                 obelisk = true;
             } else {
                 limeLight.pipelineSwitch(pipeline.TAG_PPG.ordinal());
-                if (limeLight.getLatestResult() != null) {
+                if (result != null && result.isValid()) {
                     obelisk = true;
                 }
             }
 
         }
+
+
         return obelisk;
     }
 
     public pipeline getObeliskID(){
+        pipeline obelisk = null;
+        LLResult result = limeLight.getLatestResult();
+        limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
+        if (result != null && result.isValid()) {
+            obelisk = pipeline.TAG_GPP;
+        } else {
+            limeLight.pipelineSwitch(pipeline.TAG_PGP.ordinal());
+            if (result != null && result.isValid()) {
+                obelisk = pipeline.TAG_PGP;
+            } else {
+                limeLight.pipelineSwitch(pipeline.TAG_PPG.ordinal());
+                if (result != null && result.isValid()) {
+                    obelisk = pipeline.TAG_PPG;
+                }
+            }
 
+        }
+        return obelisk;
     }
 
 

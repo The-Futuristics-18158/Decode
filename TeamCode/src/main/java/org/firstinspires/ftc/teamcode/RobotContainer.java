@@ -185,7 +185,17 @@ public class RobotContainer {
             // report time interval on robot controller
             RCTelemetry.addData("interval time(ms)", intervaltime);
             RCTelemetry.addData("execute time(ms)", exectimer.milliseconds());
+            RCTelemetry.addData("Has Obelisk", limeLight.hasObelisk());
+//            if (limeLight.hasObelisk()){
+//                RCTelemetry.addData("Obelisk ID", limeLight.getObeliskID().ordinal());
+//            }
             RCTelemetry.update();
+            // report obelisk id on robot controller
+
+
+
+
+
         }
     }
 
