@@ -24,6 +24,7 @@ public class DriveTrain extends SubsystemBase {
     final double WHEEL_DIA = 0.1;                   // wheel diameter in m
     final double GEAR_RATIO = 12.0;                 // drive gear ratio
     final double TICKSPS_TO_MPS = WHEEL_DIA * Math.PI / TICKS_PER_ROTATION / GEAR_RATIO;
+    final double TICKSPS_TO_RADSPS = 2.0 * Math.PI / TICKS_PER_ROTATION;
     final double MPS_TO_TICKSPS = 1.0 / TICKSPS_TO_MPS;
     public final double MAX_SPEED = MAXRPS * Math.PI * WHEEL_DIA / GEAR_RATIO;
 
@@ -251,6 +252,22 @@ public class DriveTrain extends SubsystemBase {
         speeds.frontRightMetersPerSecond = TICKSPS_TO_MPS * rightFrontDrive.getVelocity();
 
         return speeds;
+    }
+
+    /**
+     * gets the current speeds of mecanum drive wheels
+     *
+     * @return current speeds of mecanum drive wheels in m/s
+     */
+    public MecanumDriveWheelSpeeds GetWheelRadsPerSec() {
+        // motor speeds are in encoder ticks/s - convert to m/s
+        MecanumDriveWheelSpeeds RadsPerSec = new MecanumDriveWheelSpeeds();
+        RadsPerSec.rearLeftMetersPerSecond = TICKSPS_TO_RADSPS * leftBackDrive.getVelocity();
+        RadsPerSec.frontLeftMetersPerSecond = TICKSPS_TO_RADSPS * leftFrontDrive.getVelocity();
+        RadsPerSec.rearRightMetersPerSecond = TICKSPS_TO_RADSPS * rightBackDrive.getVelocity();
+        RadsPerSec.frontRightMetersPerSecond = TICKSPS_TO_RADSPS * rightFrontDrive.getVelocity();
+
+        return RadsPerSec;
     }
 
     /**

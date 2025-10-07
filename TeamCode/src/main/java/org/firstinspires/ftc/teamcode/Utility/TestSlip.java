@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.Utility;
 
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Transform2d;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Subsystems.DriveWheelOdometry;
 
 import com.arcrobotics.ftclib.geometry.Translation2d;
+
+import java.util.function.BooleanSupplier;
 
 /**
  * class that contains an automatic function that determines max acceleration that utilizes a while loop
@@ -45,6 +50,7 @@ public class TestSlip {
         Pose2d driveWheelPos; //the position from the drive wheel encoders
         Pose2d odometryPos;
         Pose2d slip;
+        BooleanSupplier supplierBool;
 
         int direction;
 
@@ -69,12 +75,11 @@ public class TestSlip {
             accelMove.schedule();
 
             // wait for path command to finish
-            while (!accelMove.isFinished()) {
-            }
+            new WaitUntilCommand(supplierBool = accelMove::isFinished);
 
             // do some stuff to compare drive wheel odometry with pod odometry
             //compare odometry to determine if the acceleration is too fast
-            getSlip(true);
+            getAccumulatedSlip(true);
 
             // figure out some new parameters
             if(tooFast){
@@ -90,15 +95,15 @@ public class TestSlip {
             turnIn--;
             lastTested = accToTest;
 
-
         }
         return accToTest;
     }
 
-    public static Pose2d getSlip(boolean resetSlipCalc){
+    public static Pose2d getAccumulatedSlip(boolean resetSlipCalc){
         Pose2d driveWheelPos; //the position from the drive wheel encoders
         Pose2d odometryPos;
         Pose2d slip;
+        double slipOverTime, r, w, v;
 
         driveWheelPos = RobotContainer.driveWheelOdometry.GetPosition();
         odometryPos = RobotContainer.odometry.getCurrentPos();
@@ -106,6 +111,33 @@ public class TestSlip {
 
         if (resetSlipCalc){
             RobotContainer.driveWheelOdometry.SetPosition(RobotContainer.odometry.getCurrentPos());
+            RobotContainer.slipTimer.reset();
+        }
+
+        return slip;
+    };
+
+    public static Pose2d getSlip(boolean resetSlipCalc){
+        Pose2d driveWheelPos; //the position from the drive wheel encoders
+        Pose2d odometryPos;
+        Pose2d slip;
+        double slipOverTime, r, w, v;
+
+        driveWheelPos = RobotContainer.driveWheelOdometry.GetPosition();
+        odometryPos = RobotContainer.odometry.getCurrentPos();
+        slip = driveWheelPos.relativeTo(odometryPos);
+        r=0.1;
+        //w = RobotContainer.drivesystem.GetWheelRadsPerSec();
+        /*
+         * r: wheel radius(meters)
+         * w: wheel’s angular speed (radians per second)
+         * v: ground speed
+         */
+        //slipOverTime = ((r*w)-v)/(v);
+
+        if (resetSlipCalc){
+            RobotContainer.driveWheelOdometry.SetPosition(RobotContainer.odometry.getCurrentPos());
+            RobotContainer.slipTimer.reset();
         }
 
         return slip;
@@ -116,7 +148,7 @@ public class TestSlip {
         if (write_data == 0){
             write_data = 50;
             written+=1;
-            WriteToFile.writeToTextFile( written + getSlip(false).toString(), "test slip file");
+            WriteToFile.writeToTextFile( written + getAccumulatedSlip(false).toString(), "test slip file");
         }
     };
 }

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -20,7 +19,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
 import org.firstinspires.ftc.teamcode.Utility.TestSlip;
-import org.firstinspires.ftc.teamcode.Utility.Utils;
 
 import java.util.List;
 
@@ -41,6 +39,9 @@ public class RobotContainer {
     // timer used to determine how often to run scheduler periodic
     private static ElapsedTime timer;
     private static ElapsedTime exectimer;
+    public static ElapsedTime slipTimer;
+
+
 
     // create robot GamePads
     public static GamepadEx driverOp;
@@ -131,7 +132,10 @@ public class RobotContainer {
         timer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         timer.reset();
         exectimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-        timer.reset();
+        exectimer.reset();
+        slipTimer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        slipTimer.reset();
+
 
         // set up dashboard and various telemetries
         DashBoard = FtcDashboard.getInstance();
@@ -183,13 +187,13 @@ public class RobotContainer {
             RCTelemetry.addData("Yaw", position.getRotation().getDegrees());
             //RCTelemetry.addData("Yaw", gyro.getYawAngle());
 
-            RCTelemetry.addData("X slip", TestSlip.getSlip(false).getX());
-            RCTelemetry.addData("Y slip", TestSlip.getSlip(false).getY());
-            RCTelemetry.addData("total slip", TestSlip.getSlip(false).getX() + TestSlip.getSlip(false).getY());
+            RCTelemetry.addData("X slip", TestSlip.getAccumulatedSlip(false).getX());
+            RCTelemetry.addData("Y slip", TestSlip.getAccumulatedSlip(false).getY());
+            RCTelemetry.addData("total slip", TestSlip.getAccumulatedSlip(false).getX() + TestSlip.getAccumulatedSlip(false).getY());
             TestSlip.write();
-            DBTelemetry.addData("X slip", Math.abs(TestSlip.getSlip(false).getX()));
-            DBTelemetry.addData("Y slip", Math.abs(TestSlip.getSlip(false).getY()));
-            DBTelemetry.addData("total slip",Math.abs( TestSlip.getSlip(false).getX() )+ Math.abs( TestSlip.getSlip(false).getY()));
+            DBTelemetry.addData("X slip", Math.abs(TestSlip.getAccumulatedSlip(false).getX()));
+            DBTelemetry.addData("Y slip", Math.abs(TestSlip.getAccumulatedSlip(false).getY()));
+            DBTelemetry.addData("total slip",Math.abs( TestSlip.getAccumulatedSlip(false).getX() )+ Math.abs( TestSlip.getAccumulatedSlip(false).getY()));
             DBTelemetry.update();
 
             // report time interval on robot controller
