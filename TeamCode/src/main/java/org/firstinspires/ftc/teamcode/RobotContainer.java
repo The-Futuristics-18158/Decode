@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -18,6 +19,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.DriveWheelOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
+import org.firstinspires.ftc.teamcode.Utility.TestSlip;
+import org.firstinspires.ftc.teamcode.Utility.Utils;
 
 import java.util.List;
 
@@ -147,7 +150,7 @@ public class RobotContainer {
         odometryPod = new OctQuad();
         odometry = new Odometry();
         drivesystem = new DriveTrain();
-
+        driveWheelOdometry = new DriveWheelOdometry();
     }
 
     // call this function periodically to operate scheduler
@@ -180,6 +183,14 @@ public class RobotContainer {
             RCTelemetry.addData("Yaw", position.getRotation().getDegrees());
             //RCTelemetry.addData("Yaw", gyro.getYawAngle());
 
+            RCTelemetry.addData("X slip", TestSlip.getSlip(false).getX());
+            RCTelemetry.addData("Y slip", TestSlip.getSlip(false).getY());
+            RCTelemetry.addData("total slip", TestSlip.getSlip(false).getX() + TestSlip.getSlip(false).getY());
+            TestSlip.write();
+            DBTelemetry.addData("X slip", Math.abs(TestSlip.getSlip(false).getX()));
+            DBTelemetry.addData("Y slip", Math.abs(TestSlip.getSlip(false).getY()));
+            DBTelemetry.addData("total slip",Math.abs( TestSlip.getSlip(false).getX() )+ Math.abs( TestSlip.getSlip(false).getY()));
+            DBTelemetry.update();
 
             // report time interval on robot controller
             RCTelemetry.addData("interval time(ms)", intervaltime);
