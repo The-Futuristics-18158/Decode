@@ -17,11 +17,11 @@ public class DriveTrain extends SubsystemBase {
     // constants for Tetrix DC Motor
     final double MAXRPM = 5500.0;
     final double MAXRPS = MAXRPM / 60.0;
-
+    
     // motor speed ticks per revolution to m/s travel speed
     final double TICKS_PER_ROTATION = (28.0);       // encoder pulses per motor revolution
     final double MAX_SPEED_TICKS_PER_SEC = MAXRPS * TICKS_PER_ROTATION;
-    final double WHEEL_DIA = 0.1;                   // wheel diameter in m
+    final double WHEEL_DIA = 0.104;                   // wheel diameter in m
     final double GEAR_RATIO = 12.0;                 // drive gear ratio
     final double TICKSPS_TO_MPS = WHEEL_DIA * Math.PI / TICKS_PER_ROTATION / GEAR_RATIO;
     final double MPS_TO_TICKSPS = 1.0 / TICKSPS_TO_MPS;
