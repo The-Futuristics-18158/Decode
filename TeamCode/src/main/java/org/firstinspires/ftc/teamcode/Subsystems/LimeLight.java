@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -25,13 +24,18 @@ public class LimeLight extends SubsystemBase {
     private Limelight3A limeLight;
     private Pose2D pose2D;
     public static enum pipeline {
-        POSITION,
-        TAG_GPP,
-        TAG_PGP,
-        TAG_PPG
+        POSITION(0),
+        TAG_GPP(21),
+        TAG_PGP(22),
+        TAG_PPG(23);
+        private final int value;
+
+        pipeline(int value) {
+            this.value = value;
+        }
     }
-
-
+   private Telemetry telemetry = RobotContainer.RCTelemetry;
+    private LLResult result;
     /** Place code here to initialize subsystem */
     public LimeLight() { // initialize limelight in
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
@@ -46,7 +50,12 @@ public class LimeLight extends SubsystemBase {
         // First, tell Limelight which way your robot is facing
         double robotYaw = RobotContainer.gyro.getYawAngle();
         limeLight.updateRobotOrientation(robotYaw);
-        LLResult result = limeLight.getLatestResult();
+        result = limeLight.getLatestResult();
+        if (result != null){
+            telemetry.addData("Has valid result", result.isValid());
+        }else{
+            telemetry.addData("null result", true);
+        }
         if (result != null && result.isValid()) {
             Pose3D botpose_mt2 = result.getBotpose_MT2();
             if (botpose_mt2 != null) {
@@ -55,6 +64,8 @@ public class LimeLight extends SubsystemBase {
                 pose2D = new Pose2D(DistanceUnit.METER, x,y,AngleUnit.DEGREES,robotYaw);
             }
         }
+
+
     }
 
     /**
@@ -69,7 +80,7 @@ public class LimeLight extends SubsystemBase {
 
     public boolean hasObelisk() {
         boolean obelisk = false;
-        LLResult result = limeLight.getLatestResult();
+         result = limeLight.getLatestResult();
         limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
         if (result != null && result.isValid()) {
             obelisk = true;
@@ -92,7 +103,6 @@ public class LimeLight extends SubsystemBase {
 
     public pipeline getObeliskID(){
         pipeline obelisk = null;
-        LLResult result = limeLight.getLatestResult();
         limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
         if (result != null && result.isValid()) {
             obelisk = pipeline.TAG_GPP;
