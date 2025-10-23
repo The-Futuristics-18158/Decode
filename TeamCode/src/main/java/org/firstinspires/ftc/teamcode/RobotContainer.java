@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.message.redux.ReceiveGamepadState;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
@@ -19,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision.Camera;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision.RampCamera;
 import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
 
 import java.util.List;
@@ -51,7 +49,7 @@ public class RobotContainer {
     public static OctQuad odometryPod;
     public static DriveTrain drivesystem;
     public static Odometry odometry;
-    public static Camera camera;
+    public static RampCamera rampCamera;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -155,7 +153,7 @@ public class RobotContainer {
         odometryPod = new OctQuad();
         odometry = new Odometry();
         drivesystem = new DriveTrain();
-        camera = new Camera("rampcam");
+        rampCamera = new RampCamera("rampcam");
 
     }
 
@@ -168,22 +166,22 @@ public class RobotContainer {
         }
 
         if ( driverOp.getButton(GamepadKeys.Button.A)){
-            RobotContainer.camera.setVisionProcessingMode(VisionProcessorMode.PURPLE_CIRCLE_BLOB_ONLY);
+            RobotContainer.rampCamera.setVisionProcessingMode(VisionProcessorMode.PURPLE_CIRCLE_BLOB_ONLY);
         } else if (driverOp.getButton(GamepadKeys.Button.B)) {
-            RobotContainer.camera.setVisionProcessingMode(VisionProcessorMode.GREEN_CIRCLE_BLOB_ONLY);
+            RobotContainer.rampCamera.setVisionProcessingMode(VisionProcessorMode.GREEN_CIRCLE_BLOB_ONLY);
         } else if (driverOp.getButton(GamepadKeys.Button.X)){
-            RobotContainer.camera.setVisionProcessingMode(VisionProcessorMode.NONE);
+            RobotContainer.rampCamera.setVisionProcessingMode(VisionProcessorMode.NONE);
         }
 
-        DBTelemetry.addData("Vision Mode", camera.getVisionProcessingMode());
+        DBTelemetry.addData("Vision Mode", rampCamera.getVisionProcessingMode());
 
         try {
-            piece_angle = (int) Math.round( camera.GetBlobDetections().get(0).getBoxFit().angle);
-            if (camera.GetBlobDetections().get(0).getBoxFit().size.width<camera.GetBlobDetections().get(0).getBoxFit().size.height){
+            piece_angle = (int) Math.round( rampCamera.GetBlobDetections().get(0).getBoxFit().angle);
+            if (rampCamera.GetBlobDetections().get(0).getBoxFit().size.width< rampCamera.GetBlobDetections().get(0).getBoxFit().size.height){
                 piece_angle += 90;
             }
-            piece_center_X = camera.GetBlobDetections().get(0).getBoxFit().center.x;
-            piece_center_Y = camera.GetBlobDetections().get(0).getBoxFit().center.y;
+            piece_center_X = rampCamera.GetBlobDetections().get(0).getBoxFit().center.x;
+            piece_center_Y = rampCamera.GetBlobDetections().get(0).getBoxFit().center.y;
             piece_detected = true;
 
         } catch (Exception e) {

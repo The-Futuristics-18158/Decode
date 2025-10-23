@@ -28,8 +28,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-/** Subsystem */
-public class Camera extends SubsystemBase {
+/** Ramp Camera Subsystem
+ * @author kw126
+ * @author Glenn
+ * @author knutt5
+ */
+public class RampCamera extends SubsystemBase {
 
     // Camera vision portal
     private volatile VisionPortal visionPortal;
@@ -49,7 +53,7 @@ public class Camera extends SubsystemBase {
     private VisionProcessorMode currentMode = VisionProcessorMode.NONE;
 
     /** Place code here to initialize subsystem */
-    public Camera(String cameraName) {
+    public RampCamera(String cameraName) {
 
         // Build the AprilTag processor
         aprilTagProcessor = new AprilTagProcessor.Builder()
@@ -68,7 +72,7 @@ public class Camera extends SubsystemBase {
         purpleCircleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.75, 0.75, 0.75, -0.75))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1, 1, -1))
                 .setDrawContours(true)   // Show contours on the Stream Preview
                 .setBoxFitColor(0)       // Disable the drawing of rectangles
                 .setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
@@ -84,7 +88,7 @@ public class Camera extends SubsystemBase {
         greenCircleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.75, 0.75, 0.75, -0.75))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1, 1, -1))
                 .setDrawContours(true)   // Show contours on the Stream Preview
                 .setBoxFitColor(0)       // Disable the drawing of rectangles
                 .setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
@@ -229,7 +233,9 @@ public class Camera extends SubsystemBase {
     public void periodic() {
     }
 
-    // use this function to set vision processing mode of the camera
+    /**use this function to set vision processing mode of the camera
+     * @param newMode the new mode from VisionProcessorMode Enum
+     */
     public void setVisionProcessingMode(@NonNull VisionProcessorMode newMode) {
 
         enableDashBoardView(false);
@@ -388,6 +394,8 @@ public class Camera extends SubsystemBase {
     }
 
     // use this function to set vision processing mode of the camera
+    /** used to get the current vision processing mode
+     */
     public VisionProcessorMode getVisionProcessingMode()
     { return currentMode; }
 

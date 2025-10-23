@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode.Utility;
 
-// available processing modes of camera
+/**
+ * available processing modes of camera
+ * @author kw126
+ * @author Glenn
+ * @author knutt5
+ */
 public enum VisionProcessorMode {
     APRIL_TAG_ONLY,
     PURPLE_CIRCLE_BLOB_ONLY,
