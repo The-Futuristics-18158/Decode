@@ -13,6 +13,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
+import org.firstinspires.ftc.teamcode.Subsystems.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
@@ -47,6 +48,8 @@ public class RobotContainer {
     public static OctQuad odometryPod;
     public static DriveTrain drivesystem;
     public static Odometry odometry;
+
+    public static ColourSensor colourSensor;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -144,6 +147,7 @@ public class RobotContainer {
         odometryPod = new OctQuad();
         odometry = new Odometry();
         drivesystem = new DriveTrain();
+        colourSensor = new ColourSensor();
 
     }
 
