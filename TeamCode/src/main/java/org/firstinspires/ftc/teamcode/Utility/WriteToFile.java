@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.Utility;
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.util.ReadWriteFile;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
@@ -21,6 +23,7 @@ public class WriteToFile {
      * @param toFileName The name of the file to write to (e.g., "mydata.txt").
      */
     public static void writeToFile (double myNumber, String toFileName) {
+        toFileName = toFileName + ".txt";
 
         // Using the properties of the specified "to" file name,
         // declare a filename to be used in this method.  See Note 1 above.
@@ -28,7 +31,8 @@ public class WriteToFile {
 
         // Write the provided number to the newly declared filename.
         // See Note 3 above.
-        ReadWriteFile.writeFile(myFileName, String.valueOf(myNumber));
+        //ReadWriteFile.writeFile(myFileName, String.valueOf(myNumber));
+        ReadWriteFile.updateFileRequiringCommit(myFileName, String.valueOf(myNumber));
 
 //        telemetry.addData("Filename", toFileName);
 //        telemetry.addData("Number being written", myNumber);
@@ -46,11 +50,37 @@ public class WriteToFile {
      * @param fileName The name of the file to write to (e.g., "mydata.txt").
      */
     public static void writeToTextFile(String dataToWrite, String fileName) {
+        fileName = fileName + ".txt";
+
         // Get the file object for the specified filename.
         // This will create the file in the FIRST/settings directory if it doesn't exist.
         File myFile = AppUtil.getInstance().getSettingsFile(fileName);
 
         // Write the data to the file.
-        ReadWriteFile.writeFile(myFile, dataToWrite);
+        //ReadWriteFile.writeFile(myFile, dataToWrite);
+        ReadWriteFile.updateFileRequiringCommit(myFile, dataToWrite);
+    }
+
+    public static void appendToFile(String dataToAppend, String fileName) {
+        fileName = fileName + ".txt";
+
+        // Get the file object for the specified filename.
+        // This will create the file in the FIRST/settings directory if it doesn't exist.
+        File myFile = AppUtil.getInstance().getSettingsFile(fileName);
+
+
+        String existingData = ReadWriteFile.readFile(myFile);
+
+        // Write the data to the file.
+        ReadWriteFile.updateFileRequiringCommit(myFile, existingData + dataToAppend + "\n");
+    }
+
+    public static String readFile(String fileName) {
+        fileName = fileName + ".txt";
+
+        File myFile = AppUtil.getInstance().getSettingsFile(fileName);
+
+        String existingData = ReadWriteFile.readFile(myFile);
+        return existingData;
     }
 }
