@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
-import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
+import org.firstinspires.ftc.teamcode.Subsystems.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision.RampCamera;
 import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
@@ -46,7 +46,7 @@ public class RobotContainer {
 
     // create pointers to robot subsystems
     public static Gyro gyro;
-    public static OctQuad odometryPod;
+    public static PinpointOdometry odometryPod;
     public static DriveTrain drivesystem;
     public static Odometry odometry;
     public static RampCamera rampCamera;
@@ -150,7 +150,7 @@ public class RobotContainer {
 
         // create systems
         gyro = new Gyro();
-        odometryPod = new OctQuad();
+        odometryPod = new PinpointOdometry();
         odometry = new Odometry();
         drivesystem = new DriveTrain();
         rampCamera = new RampCamera("rampcam");
