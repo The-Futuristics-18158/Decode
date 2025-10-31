@@ -165,7 +165,7 @@ public class DriveWheelOdometry extends SubsystemBase {
      *
      * @return the robot x,y,angular field speeds (in m/s and rad/s)
      */
-    public class Speed {double vx=0.0; double vy=0.0; double omega=0.0; }
+    public class Speed {public double vx=0.0; public double vy=0.0; public double omega=0.0; }
     public Speed GetSpeed() {
         return filteredCurrentSpeed2;
     }

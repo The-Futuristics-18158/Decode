@@ -286,7 +286,7 @@ public class Odometry extends SubsystemBase {
      *
      * @return the robot x,y,angular field speeds (in m/s and rad/s)
      */
-    public class Speed {double vx=0.0; double vy=0.0; double omega=0.0; }
+    public class Speed {public double vx=0.0; public double vy=0.0; public double omega=0.0; }
     public Speed GetSpeed() {
         return filteredCurrentSpeed2;
     }
@@ -311,7 +311,7 @@ public class Odometry extends SubsystemBase {
      *
      * @return the robot x,y,angular field accelerations (in m/s2 and rad/s2)
      */
-    public class Acceleration { double ax=0.0; double ay=0.0; double alpha=0.0;}
+    public class Acceleration { public double ax=0.0; public double ay=0.0; public double alpha=0.0;}
     public Acceleration GetAcceleration() {
         return currentAcceleration;
     }

@@ -202,9 +202,9 @@ public class RobotContainer {
             RCTelemetry.addData("Yaw", position.getRotation().getDegrees());
             //RCTelemetry.addData("Yaw", gyro.getYawAngle());
 
-            RCTelemetry.addData("Accumulated X slip", TestSlip.getAccumulatedSlip(false).getX());
-            RCTelemetry.addData("Accumulated Y slip", TestSlip.getAccumulatedSlip(false).getY());
-            RCTelemetry.addData("Accumulated total slip", TestSlip.getAccumulatedSlip(false).getX() + TestSlip.getAccumulatedSlip(false).getY());
+//            RCTelemetry.addData("Accumulated X slip", TestSlip.getAccumulatedSlip(false).getX());
+//            RCTelemetry.addData("Accumulated Y slip", TestSlip.getAccumulatedSlip(false).getY());
+//            RCTelemetry.addData("Accumulated total slip", TestSlip.getAccumulatedSlip(false).getX() + TestSlip.getAccumulatedSlip(false).getY());
 
             //slipData = WriteToFile.readFile(TestSlip.FILE_NAME);
 
@@ -218,26 +218,31 @@ public class RobotContainer {
             xyacc = TestSlip.getAccel();
             acc = Math.abs(xyacc.dx) + Math.abs(xyacc.dy);
 
-            RCTelemetry.addData("X slip", xSlip);
-            RCTelemetry.addData("Y slip", ySlip);
-            RCTelemetry.addData("Total slip", totalSlip);
-            RCTelemetry.addData("slip", slip.toString());
+//            RCTelemetry.addData("X slip", xSlip);
+//            RCTelemetry.addData("Y slip", ySlip);
+//            RCTelemetry.addData("Total slip", totalSlip);
+//            RCTelemetry.addData("slip", slip.toString());
+//
+//
+//            RCTelemetry.addData("highest slip", highestSlip);
 
+            //TestSlip.writeSlip();
 
-            RCTelemetry.addData("highest slip", highestSlip);
+//            DBTelemetry.addData("Accumulated X slip", Math.abs(TestSlip.getAccumulatedSlip(false).getX()));
+//            DBTelemetry.addData("Accumulated Y slip", Math.abs(TestSlip.getAccumulatedSlip(false).getY()));
+//            DBTelemetry.addData("Accumulated total slip",Math.abs( TestSlip.getAccumulatedSlip(false).getX() )+ Math.abs( TestSlip.getAccumulatedSlip(false).getY()));
+//
+//            DBTelemetry.addData("acc", acc);
+//            DBTelemetry.addData("X slip", slip.dx);
+//            DBTelemetry.addData("Y slip", slip.dy);
+//            DBTelemetry.addData("Total slip", Math.abs(slip.dx) + Math.abs(slip.dy));
+//            DBTelemetry.addData("slip", slip.toString());
+//            DBTelemetry.addData("highest slip", highestSlip);
 
-            TestSlip.writeSlip();
-
-            DBTelemetry.addData("Accumulated X slip", Math.abs(TestSlip.getAccumulatedSlip(false).getX()));
-            DBTelemetry.addData("Accumulated Y slip", Math.abs(TestSlip.getAccumulatedSlip(false).getY()));
-            DBTelemetry.addData("Accumulated total slip",Math.abs( TestSlip.getAccumulatedSlip(false).getX() )+ Math.abs( TestSlip.getAccumulatedSlip(false).getY()));
-
-            DBTelemetry.addData("acc", acc);
-            DBTelemetry.addData("X slip", slip.dx);
-            DBTelemetry.addData("Y slip", slip.dy);
-            DBTelemetry.addData("Total slip", Math.abs(slip.dx) + Math.abs(slip.dy));
-            DBTelemetry.addData("slip", slip.toString());
-            DBTelemetry.addData("highest slip", highestSlip);
+            DBTelemetry.addData("X Acceleration", TestSlip.ax);
+            DBTelemetry.addData("Y Acceleration", TestSlip.ay);
+            DBTelemetry.addData("X Slip", TestSlip.slipX);
+            DBTelemetry.addData("Y Slip", TestSlip.slipY);
             DBTelemetry.update();
 
             // report time interval on robot controller

@@ -11,6 +11,8 @@ import com.arcrobotics.ftclib.geometry.Transform2d;
 
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.DriveWheelOdometry;
+import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
 
 import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.geometry.Twist2d;
@@ -35,23 +37,27 @@ public class TestSlip {
     private static Twist2d spreviousVelocity = new Twist2d();
     private static long spreviousTime = System.nanoTime();
 
+    public static double ax;
+    public static double ay;
+    public static double slipX;
+    public static double slipY;
+
     /**
      * Function that can be used to determine the fastest acceleration the robot can use without creating slip
      *
-     * @param maxSpeed the max speed the robot is allowed to reach during the test movement
-     * @param accToTest the starting acceleration to test
-     * @param distance the distance the robot will travel during each test movement
+     * @param maxSpeed      the max speed the robot is allowed to reach during the test movement
+     * @param accToTest     the starting acceleration to test
+     * @param distance      the distance the robot will travel during each test movement
      * @param maxBeforeTurn the max number of test movements before the robot direction flips
-     * @param allowedError an acceptable amount of slip
-     *
+     * @param allowedError  an acceptable amount of slip
      * @return the fasted acceleration the robot can use without creating slip
      */
-    public static int findMaxAcc(int maxSpeed, int accToTest, int distance, int maxBeforeTurn, double allowedError){
+    public static int findMaxAcc(int maxSpeed, int accToTest, int distance, int maxBeforeTurn, double allowedError) {
 
         //declare variables
         int add = 10; // how much to add to the test acceleration. if the acceleration is too fast the amount to add will be changed.
         boolean tooFast = false; //was last tested too fast
-        int turnIn = maxBeforeTurn-1;
+        int turnIn = maxBeforeTurn - 1;
         boolean goForward = true;
         int lastTested = 0;//the last acceleration that was tested
         int lastOver = 0;//the last acceleration that was too fast
@@ -62,17 +68,17 @@ public class TestSlip {
 
         int direction;
 
-        if (RobotContainer.isRedAlliance()){
+        if (RobotContainer.isRedAlliance()) {
             direction = distance;
-        }else{
+        } else {
             direction = -distance;
         }
 
         //WHILE ()
-        while(true) {
+        while (true) {
             //code to make sure robot does not drive off mat
-            if (turnIn == 0){
-                direction=direction*-1;
+            if (turnIn == 0) {
+                direction = direction * -1;
                 turnIn = maxBeforeTurn;
             }
 
@@ -81,7 +87,6 @@ public class TestSlip {
 
             // schedule command (add to scheduler)
             accelMove.schedule();
-
 
 
             // wait for path command to finish
@@ -94,20 +99,20 @@ public class TestSlip {
             // do some stuff to compare drive wheel odometry with pod odometry
             //compare odometry to determine if the acceleration is too fast
             slip = getAccumulatedSlip(true);
-            AverageSlip = (Math.abs(slip.getX()) + Math.abs(slip.getY()))/distance;
-            if (AverageSlip > allowedError){
+            AverageSlip = (Math.abs(slip.getX()) + Math.abs(slip.getY())) / distance;
+            if (AverageSlip > allowedError) {
                 tooFast = true;
             } else {
                 tooFast = false;
             }
 
             // figure out some new parameters
-            if(tooFast){
+            if (tooFast) {
                 add = (accToTest - lastTested) / 2;
                 lastOver = accToTest;
             } else if (lastOver != 0) {
-                add = (lastOver - accToTest)/2;
-            } else if ((lastOver-allowedError) < accToTest && accToTest < (lastOver + allowedError)){
+                add = (lastOver - accToTest) / 2;
+            } else if ((lastOver - allowedError) < accToTest && accToTest < (lastOver + allowedError)) {
                 break;
             }//if none of these conditions are met, 10 is added to accToTest
 
@@ -123,9 +128,9 @@ public class TestSlip {
      * slip vs acc
      */
 
-    public static Twist2d getspeed(){
+    public static Twist2d getspeed() {
         long currentTime = System.nanoTime();
-        double deltaTime = ((double)(currentTime - spreviousTime)) / 1.0e9; // Delta time in seconds
+        double deltaTime = ((double) (currentTime - spreviousTime)) / 1.0e9; // Delta time in seconds
 
         if (deltaTime <= 0) {
             return new Twist2d(0, 0, 0); // Avoid division by zero
@@ -147,9 +152,9 @@ public class TestSlip {
         return currentVelocity;
     }
 
-    public static Twist2d getAccel(){
+    public static Twist2d getAccel() {
         long currentTime = System.nanoTime();
-        double deltaTime = ((double)(currentTime - previousTime)) / 1.0e9; // Delta time in seconds
+        double deltaTime = ((double) (currentTime - previousTime)) / 1.0e9; // Delta time in seconds
 
         if (deltaTime <= 0) {
             return new Twist2d(0, 0, 0); // Avoid division by zero
@@ -181,10 +186,9 @@ public class TestSlip {
      * Tracks how much slip has accumulated since last reset
      *
      * @param resetSlipCalc resets the slip calculation if set to true
-     *
      * @return the accumulated slip
      */
-    public static Pose2d getAccumulatedSlip(boolean resetSlipCalc){
+    public static Pose2d getAccumulatedSlip(boolean resetSlipCalc) {
         Pose2d driveWheelPos; //the position from the drive wheel encoders
         Pose2d odometryPos;
         Pose2d slip;
@@ -194,22 +198,23 @@ public class TestSlip {
         odometryPos = RobotContainer.odometry.getCurrentPos();
         slip = driveWheelPos.relativeTo(odometryPos);
 
-        if (resetSlipCalc){
+        if (resetSlipCalc) {
             RobotContainer.driveWheelOdometry.SetPosition(RobotContainer.odometry.getCurrentPos());
             RobotContainer.slipTimer.reset();
         }
 
         return slip;
-    };
+    }
+
+    ;
 
     /**
      * Calculates the rate of change of the slip
      *
      * @return A Twist2d representing the rate of change of the slip dx and dy are in units per
      * second, and dtheta is in radians per second.
-     *
      */
-    public static Twist2d getSlip(){
+    public static Twist2d getSlip() {
         Pose2d currentSlip = getAccumulatedSlip(false);
         double deltaTime = RobotContainer.slipTimer.time() / 1000.0; // convert to seconds
 
@@ -232,20 +237,41 @@ public class TestSlip {
 
 
         return new Twist2d(dx, dy, dtheta);
-    };
+    }
 
-    /**
-     * Writes the slip to a text file every 25 times the function is called
-     */
-    @SuppressLint("DefaultLocale")
-    public static void writeSlip(){
-        writeDataIn -=1;
-        if (writeDataIn == 0){
+    public void updateData() {
+        Odometry.Acceleration ActualAcceleration = RobotContainer.odometry.GetChassisAcceleration();
+        ax = ActualAcceleration.ax;
+        ay = ActualAcceleration.ay;
+
+        Odometry.Speed ActualSpeed = RobotContainer.odometry.GetChassisSpeed();
+        DriveWheelOdometry.Speed MeasuredSpeed = RobotContainer.driveWheelOdometry.GetChassisSpeed();
+        slipX = ActualSpeed.vx - MeasuredSpeed.vx;
+        slipY = ActualSpeed.vy - MeasuredSpeed.vy;
+
+        writeDataIn -= 1;
+        if (writeDataIn == 0) {
             writeDataIn = 25;
-            linesWritten +=1;
+            linesWritten += 1;
             Twist2d slip = TestSlip.getSlip();
             //WriteToFile.appendToFile( String.format("%d%s%f%s%f%s%f%s%f", linesWritten, 't', RobotContainer.totalSlip, 'h', RobotContainer.highestSlip, 'x', RobotContainer.xSlip, 'y', RobotContainer.ySlip), FILE_NAME);
-            System.out.println(String.format("%s%d%s%f%s%f%s%f%s%f%s%f%s%f%s%f", "slipData", linesWritten, 'a', RobotContainer.acc, 't', RobotContainer.totalSlip, 'h', RobotContainer.highestSlip, 'x', RobotContainer.xSlip, 'y', RobotContainer.ySlip, 'v',RobotContainer.xyacc.dx, 'w', RobotContainer.xyacc.dy));
-        }//+ 'x' + slip.dx +'y' + slip.dy
-    };
+            System.out.println(String.format("%s%d%s%f%s%f%s%f%s%f%s", "slipData|", linesWritten, "|Ax,Sx,Ay,Sy|", ax, "|", slipX, "|", ay, "|", slipY));
+
+        }
+
+        /**
+         * Writes the slip to a text file every 25 times the function is called
+         */
+//    @SuppressLint("DefaultLocale")
+//    public static void writeSlip(){
+//        writeDataIn -=1;
+//        if (writeDataIn == 0){
+//            writeDataIn = 25;
+//            linesWritten +=1;
+//            Twist2d slip = TestSlip.getSlip();
+//            //WriteToFile.appendToFile( String.format("%d%s%f%s%f%s%f%s%f", linesWritten, 't', RobotContainer.totalSlip, 'h', RobotContainer.highestSlip, 'x', RobotContainer.xSlip, 'y', RobotContainer.ySlip), FILE_NAME);
+//            System.out.println(String.format("%s%d%s%f%s%f%s%f%s%f%s%f%s%f%s%f", "slipData", linesWritten, 'a', RobotContainer.acc, 't', RobotContainer.totalSlip, 'h', RobotContainer.highestSlip, 'x', RobotContainer.xSlip, 'y', RobotContainer.ySlip, 'v',RobotContainer.xyacc.dx, 'w', RobotContainer.xyacc.dy));
+//        }//+ 'x' + slip.dx +'y' + slip.dy
+    }
 }
+
