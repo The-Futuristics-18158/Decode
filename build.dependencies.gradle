@@ -2,6 +2,10 @@ repositories {
     mavenCentral()
     google() // Needed for androidx
     maven { url = 'https://maven.brott.dev/' }
+    maven {
+        name = "Panels"
+        url = "https://mymaven.bylazar.com/releases"
+    }
 }
 
 dependencies {
@@ -15,5 +19,6 @@ dependencies {
     implementation 'org.firstinspires.ftc:Vision:11.0.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.acmerobotics.dashboard:dashboard:0.5.0'
+    implementation "com.bylazar:fullpanels:1.0.8"
 }
 
