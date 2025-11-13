@@ -7,6 +7,8 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
@@ -54,9 +56,9 @@ public class Odometry extends SubsystemBase {
             double rightPos;
             double frontPos;
 
-            leftPos = RobotContainer.odometryPod.getLeftEncoderDistance();
-            rightPos = RobotContainer.odometryPod.getRightEncoderDistance();
-            frontPos = RobotContainer.odometryPod.getFrontEncoderDistance();
+            leftPos = RobotContainer.odometryPod.pinpointDriver.getPosX(DistanceUnit.METER);
+            rightPos = RobotContainer.odometryPod.pinpointDriver.getPosY(DistanceUnit.METER);
+            frontPos = RobotContainer.odometryPod.pinpointDriver.getHeading(AngleUnit.DEGREES);
 
             double leftChangePos;
             double rightChangePos;
@@ -70,7 +72,7 @@ public class Odometry extends SubsystemBase {
             previousRightPos = rightPos;
             previousFrontPos = frontPos;
 
-            // creating the value of sin theta (aka the angle of the hipotinuse)
+            // creating the value of sin theta (aka the angle of the hypotenuse)
             double theta = Math.asin((rightChangePos - leftChangePos) / RobotContainer.odometryPod.LATERAL_DISTANCE);
 
             // equation that tells us how much the robot has moved forward

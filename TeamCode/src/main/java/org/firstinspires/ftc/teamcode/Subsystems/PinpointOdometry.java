@@ -55,9 +55,7 @@ public class PinpointOdometry extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        pinpointDriver.update();
-        xPos = pinpointDriver.getPosX(DistanceUnit.METER);
-        yPos = pinpointDriver.getPosY(DistanceUnit.METER);
+        pinpointDriver.update(); // the fast one
 
     }
 
