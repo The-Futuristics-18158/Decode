@@ -48,7 +48,7 @@ public class Odometry extends SubsystemBase {
     @Override
     public void periodic() {
 
-        // only update odometry if op mode is not about to shut down
+        /*/// only update odometry if op mode is not about to shut down
         // this prevents possible error in calculation cycle
         if (!RobotContainer.ActiveOpMode.isStopRequested()) {
             updateDashboardCounter += 1;
@@ -109,6 +109,8 @@ public class Odometry extends SubsystemBase {
             if (!RobotContainer.ActiveOpMode.isStopRequested())
                 StoredRobotPose = new Pose2d(fieldX, fieldY, new Rotation2d(fieldAngle));
         }
+
+         */
     }
 
     // place special subsystem methods here

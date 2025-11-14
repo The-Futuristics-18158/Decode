@@ -81,10 +81,9 @@ public class RobotContainer {
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
-                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))))
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new InstantCommand(()-> odometryPod.reset())
         );
-        //driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.resetYawAngle(), gyro));
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.setYawAngle(-90.0), gyro));
 
 
         // example sequential command
@@ -153,7 +152,7 @@ public class RobotContainer {
         odometryPod = new PinpointOdometry();
         odometry = new Odometry();
         drivesystem = new DriveTrain();
-        rampCamera = new RampCamera("rampcam");
+        rampCamera = new RampCamera("RampCam");
 
     }
 

@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
@@ -36,7 +37,7 @@ public class PinpointOdometry extends SubsystemBase {
      */
     public PinpointOdometry() {
         // Set up pinpoint driver object
-        pinpointDriver = RobotContainer.ActiveOpMode.hardwareMap.get(GoBildaPinpointDriver.class, "Pinpoint Driver");
+        pinpointDriver = RobotContainer.ActiveOpMode.hardwareMap.get(GoBildaPinpointDriver.class, "PinpointDriver");
 
         // Reset pinpoint driver
         pinpointDriver.resetPosAndIMU();
@@ -55,10 +56,16 @@ public class PinpointOdometry extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        pinpointDriver.update(); // the fast one
-
+//        pinpointDriver.update(); // the fast one
+        RobotContainer.DBTelemetry.addData("PosX",pinpointDriver.getPosX(DistanceUnit.METER));
+        RobotContainer.DBTelemetry.addData("PosY", pinpointDriver.getPosY(DistanceUnit.METER));
+        RobotContainer.DBTelemetry.addData("Angle", pinpointDriver.getHeading(AngleUnit.DEGREES));
+        RobotContainer.DBTelemetry.update();
     }
 
+    public void reset(){
+        pinpointDriver.resetPosAndIMU();
+    }
 
 
 }
