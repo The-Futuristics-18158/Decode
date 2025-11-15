@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 /**
  * Place description of subsystem here
  * Setting up the intake subsystem.
- * This makes the robot know that the intke motor exists.
+ * This makes the robot know that the intake motor exists.
  * This motor should run continuously not to a specific position.
  * Therefor this subsystem only has start and stop functions.
  * @author Zoe
@@ -23,7 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
     /** Place code here to initialize subsystem */
     public IntakeSubsystem() {
         // Creates the motor using the hardware map
-        intakeMotor = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "intake");
+        intakeMotor = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "intakeMotor");
         // Resets the encoders
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Sets motor direction

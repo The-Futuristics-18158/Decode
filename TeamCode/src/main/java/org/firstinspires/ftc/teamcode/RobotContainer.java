@@ -12,12 +12,18 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.CommandGroups.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
+import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.OctQuad;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
+import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 
 import java.util.List;
 
@@ -48,8 +54,11 @@ public class RobotContainer {
     public static OctQuad odometryPod;
     public static DriveTrain drivesystem;
     public static Odometry odometry;
+    public static ColourSensor colour;
 
-    public static ColourSensor colourSensor;
+    public static IntakeSubsystem intake;
+    public static FlywheelSubsystem shooter;
+    public static UptakeSubsystem uptake;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -75,12 +84,18 @@ public class RobotContainer {
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
-                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))))
-        );
+//        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
+//                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))))
+//        );
+
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.setYawAngle(-90.0), gyro));
+
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new IntakeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new CycleLeftUptake());
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new CycleRightUptake());
+
         //driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.resetYawAngle(), gyro));
-
-
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 
@@ -146,8 +161,14 @@ public class RobotContainer {
         gyro = new Gyro();
         odometryPod = new OctQuad();
         odometry = new Odometry();
+        colour = new ColourSensor();
+
         drivesystem = new DriveTrain();
-        colourSensor = new ColourSensor();
+
+        intake = new IntakeSubsystem();
+        shooter = new FlywheelSubsystem();
+        uptake = new UptakeSubsystem();
+
 
     }
 
