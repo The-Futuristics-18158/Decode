@@ -163,7 +163,7 @@ public class FollowPath extends CommandBase {
         }
 
         // set trajectory in odometry for display on dashboard
-        RobotContainer.odometry.DisplayTrajectory(trajectory);
+        //RobotContainer.odometry.DisplayTrajectory(trajectory);
 
         // reset PID controllers - to be ready to run path
         xController.reset();
@@ -273,7 +273,7 @@ public class FollowPath extends CommandBase {
     public void end(boolean interrupted) {
 
         // this command is done. Remove trajectory in odometry from display on dashboard
-        RobotContainer.odometry.DisplayTrajectory(null);
+        // RobotContainer.odometry.DisplayTrajectory(null);
 
         // if end speed is 0m/s, then stop drive to ensure robot drive is not left 'creeping'
         // use 0.01 in case of any floating point rounding error that would make

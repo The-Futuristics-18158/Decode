@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  *
  * @author Zoe
  */
-@Config
-
+@Configurable
 public class FlywheelSubsystem extends SubsystemBase {
 
     // Local objects and variables here
@@ -97,9 +96,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         else
             flywheelMotor.setPower(0.0);
 
-        RobotContainer.DBTelemetry.addData("Speed", CurrentSpeed);
-        RobotContainer.DBTelemetry.addData("Target", TargetSpeed);
-        RobotContainer.DBTelemetry.update();
+        RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
+        RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here
