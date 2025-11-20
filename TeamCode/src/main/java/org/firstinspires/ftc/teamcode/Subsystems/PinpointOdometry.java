@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
@@ -67,5 +70,16 @@ public class PinpointOdometry extends SubsystemBase {
         pinpointDriver.resetPosAndIMU();
     }
 
+  public void SetPose(Pose2d pose){
+         Pose2D newPose = new Pose2D(DistanceUnit.METER, pose.getX(), pose.getY(), AngleUnit.RADIANS, pose.getHeading());
 
+        pinpointDriver.setPosition(newPose);
+  }
+
+  public Pose2d GetPose(){
+       Pose2d pose = new Pose2d(pinpointDriver.getPosX(DistanceUnit.METER),
+               pinpointDriver.getPosY(DistanceUnit.METER),
+               new Rotation2d(pinpointDriver.getHeading(AngleUnit.RADIANS)));
+        return pose;
+  }
 }

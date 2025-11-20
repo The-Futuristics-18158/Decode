@@ -30,7 +30,8 @@ public class Odometry extends SubsystemBase {
     public void periodic() {
 
         // get/save current robot position
-        //CurrentPose = RobotContainer.odometryPod.getCurrentPose();
+       CurrentPose =  RobotContainer.odometryPod.GetPose();
+
 
         // process any limelight or other odometry stuff here
         //
@@ -63,6 +64,7 @@ public class Odometry extends SubsystemBase {
         CurrentPose = pos;
 
         // set position of odometry pods
+        RobotContainer.odometryPod.SetPose(pos);
         // TBD
 
         // set angle of gyro
