@@ -30,7 +30,7 @@ public class FlywheelSubsystem extends SubsystemBase {
     // PIF Controller Gains
     private final double FsGain = 0.0;
     private final double FvGain = 0.00018;  // unit=power/rpm   initial value=1.0/6000rpm=0.00016667
-    public final double PGain = 0.0002;
+    public final double PGain = 0.0003;
     public final double IGain = 0.0001;
 
     // integrated error
@@ -82,7 +82,7 @@ public class FlywheelSubsystem extends SubsystemBase {
         if (SpeedError > 50.0 && IError < 0.0)
             IError *=0.90;
         // integrated error limiter
-        if (IError > 0.1) IError=0.1;
+        if (IError > 0.15) IError=0.15;
         if (IError < -0.1) IError=-0.1;
 
         // PIF controller
