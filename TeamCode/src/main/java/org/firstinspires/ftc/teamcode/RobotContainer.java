@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -81,11 +82,11 @@ public class RobotContainer {
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        // driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
-        //               new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))))
-        //                );
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
+                       new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
+                        );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.setYawAngle(-90.0), gyro));
+        //driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> gyro.setYawAngle(-90.0), gyro));
 
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new IntakeCommand());
 

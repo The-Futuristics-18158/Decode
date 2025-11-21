@@ -32,7 +32,10 @@ public class Odometry extends SubsystemBase {
         // get/save current robot position
        CurrentPose =  RobotContainer.odometryPod.GetPose();
 
-
+        RobotContainer.Panels.FTCTelemetry.addData("X", CurrentPose.getX());
+        RobotContainer.Panels.FTCTelemetry.addData("Y", CurrentPose.getY());
+        RobotContainer.Panels.FTCTelemetry.addData("Heading", CurrentPose.getHeading());
+        RobotContainer.Panels.FTCTelemetry.update();
         // process any limelight or other odometry stuff here
         //
         // TBD
