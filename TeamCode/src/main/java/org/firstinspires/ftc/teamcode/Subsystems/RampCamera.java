@@ -18,6 +18,7 @@ import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -44,19 +45,6 @@ public class RampCamera extends SubsystemBase {
     /** Place code here to initialize subsystem */
     public RampCamera(String cameraName) {
 
-        // Build the AprilTag processor
-        //aprilTagProcessor = new AprilTagProcessor.Builder()
-        //        .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
-        //        .setDrawTagID(true)
-        //        .setDrawTagOutline(true)
-        //        .setDrawAxes(true)
-        //        .setDrawCubeProjection(true)
-        //        .setTagLibrary(AprilTagGameDatabase.getIntoTheDeepTagLibrary())
-        //        //.setNumThreads(tbd)
-        //        .build();
-        // set apriltag resolution decimation factor
-        //SetDecimation(2);
-
         purpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
                 //.setTargetColorRange(new ColorRange(ColorSpace.YCrCb,
@@ -75,8 +63,10 @@ public class RampCamera extends SubsystemBase {
                 .build();
 
         // available filtering functions
-        //purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 6000, 40000));
+        purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 2000, 76800));
+        purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_ASPECT_RATIO, 1.0, 2.0));
         //purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
@@ -91,7 +81,7 @@ public class RampCamera extends SubsystemBase {
                 //.setTargetColorRange(new ColorRange(ColorSpace.YCrCb,
                 //                    new Scalar(32.0, 50.0, 118.0),
                 //                    new Scalar(255.0, 105.0, 145.0)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1, 1, -1))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1, 1, -1))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -104,8 +94,10 @@ public class RampCamera extends SubsystemBase {
                 .build();
 
         // available filtering functions
-        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 6000, 40000));
+        greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 2000, 76800));
+        greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_ASPECT_RATIO, 1.0, 2.0));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
@@ -178,41 +170,6 @@ public class RampCamera extends SubsystemBase {
     public VisionProcessorMode getVisionProcessingMode()
     { return currentMode; }
 
-
-
-    // ---------- Apriltag Access functions ----------
-
-    // get fresh AprilTag detections (if any) from camera
-    // returns list containing info on each tag detected
-    /*public List<AprilTagDetection> GetFreshAprilTagDetections() {
-        if (currentMode==VisionProcessorMode.APRIL_TAG_ONLY)
-            return aprilTagProcessor.getFreshDetections();
-        else
-            return new ArrayList<>();
-    } */
-
-    // get current AprilTag detections (if any) from camera
-    // returns list containing info on each tag detected
-    /*public List<AprilTagDetection> GetCurrentAprilTagDetections() {
-        if (currentMode==VisionProcessorMode.APRIL_TAG_ONLY)
-            return aprilTagProcessor.getDetections();
-        else
-            return new ArrayList<>();
-    } */
-
-    // sets decimation of AprilTag processing
-    // Adjust Image Decimation to trade-off detection-range for detection-rate.
-    // eg: Some typical detection data using a Logitech C920 WebCam
-    // Decimation = 1 ..  Detect 2" Tag from 10 feet away at 10 Frames per second
-    // Decimation = 2 ..  Detect 2" Tag from 6  feet away at 22 Frames per second
-    // Decimation = 3 ..  Detect 2" Tag from 4  feet away at 30 Frames Per Second (default)
-    // Decimation = 3 ..  Detect 5" Tag from 10 feet away at 30 Frames Per Second (default)
-    // Note: Decimation can be changed on-the-fly to adapt during a match.
-    /*public void SetDecimation (int num) {
-        aprilTagProcessor.setDecimation(num);
-    } */
-
-
     // ---------- Colour blob access functions ----------
 
     // get all blob detections (if any) from camera
@@ -241,8 +198,9 @@ public class RampCamera extends SubsystemBase {
         //ColorBlobLocatorProcessor.Util.sortByCriteria(ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, SortOrder.DESCENDING, blobs);
 
         // use if we only want to return the top item (if any) and disregard rest
-        //blobs = Collections.singletonList(blobs.get(0));
-
+        if (blobs!= null && !blobs.isEmpty()){
+            blobs = Collections.singletonList(blobs.get(0));
+        }
         return blobs;
     }
 
@@ -262,7 +220,9 @@ public class RampCamera extends SubsystemBase {
         ColorBlobLocatorProcessor.Util.sortByCriteria(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING, blobs);
 
         // use if we only want to return the top item (if any) and disregard rest
-        //blobs = Collections.singletonList(blobs.get(0));
+        if (blobs!= null && !blobs.isEmpty()){
+            blobs = Collections.singletonList(blobs.get(0));
+        }
 
         return blobs;
     }
@@ -283,7 +243,9 @@ public class RampCamera extends SubsystemBase {
         ColorBlobLocatorProcessor.Util.sortByCriteria(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING, blobs);
 
         // use if we only want to return the top item (if any) and disregard rest
-        //blobs = Collections.singletonList(blobs.get(0));
+        if (blobs!= null && !blobs.isEmpty()){
+            blobs = Collections.singletonList(blobs.get(0));
+        }
 
         return blobs;
     }
