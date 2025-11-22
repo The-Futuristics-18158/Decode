@@ -4,7 +4,11 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import java.util.function.BooleanSupplier;
 
-
+/**
+ * Four-Way Conditional Command Utility
+ *
+ * @author knutt5
+ */
 public class FourWayConditionalCommand extends CommandBase {
 
     private final Command m_Command1;

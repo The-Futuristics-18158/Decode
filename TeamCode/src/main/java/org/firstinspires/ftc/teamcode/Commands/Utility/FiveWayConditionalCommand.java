@@ -2,10 +2,13 @@ package org.firstinspires.ftc.teamcode.Commands.Utility;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
-
 import java.util.function.BooleanSupplier;
 
-
+/**
+ * Five-Way Conditional Command Utility
+ *
+ * @author knutt5
+ */
 public class FiveWayConditionalCommand extends CommandBase {
 
     private final Command m_Command1;
