@@ -38,6 +38,7 @@ public class LimeLight extends SubsystemBase {
         OBELISK_MODE,
         POSITION_MODE;
     }
+
     private Telemetry telemetry = RobotContainer.RCTelemetry;
 
     private LLResult result;
@@ -46,6 +47,7 @@ public class LimeLight extends SubsystemBase {
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
         limeLight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
         limeLight.start(); // This tells Limelight to start looking
+        limeLight.pipelineSwitch(1);
     }
 
     /** Method called periodically by the scheduler
@@ -57,7 +59,13 @@ public class LimeLight extends SubsystemBase {
         limeLight.updateRobotOrientation(robotYaw);
         result = limeLight.getLatestResult();
 
-            telemetry.addData("Obelisk ID", getObeliskID());;
+//       telemetry.addData("Obelisk ID", getObeliskID());;
+        LLResultTypes.FiducialResult kaitlyn = getTargetInfo();
+        if (kaitlyn != null){
+            telemetry.addData("target angle", kaitlyn.getTargetXDegrees());
+        }else{
+            telemetry.addData("no target", 0);
+        }
 
         if (result != null && result.isValid()) {
             Pose3D botpose_mt2 = result.getBotpose_MT2();
