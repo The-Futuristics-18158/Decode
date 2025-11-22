@@ -30,7 +30,7 @@ public class Odometry extends SubsystemBase {
     public void periodic() {
 
         // get/save current robot position
-        //CurrentPose = RobotContainer.odometryPod.getCurrentPose();
+        RobotContainer.odometryPod.GetPose();
 
         // process any limelight or other odometry stuff here
         //
@@ -63,7 +63,7 @@ public class Odometry extends SubsystemBase {
         CurrentPose = pos;
 
         // set position of odometry pods
-        // TBD
+        RobotContainer.odometryPod.SetPose(pos);
 
         // set angle of gyro
         RobotContainer.gyro.setYawAngle(Math.toDegrees(pos.getHeading()));

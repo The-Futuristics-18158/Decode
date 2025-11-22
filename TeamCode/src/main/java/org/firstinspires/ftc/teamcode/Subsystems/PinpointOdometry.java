@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
+import com.arcrobotics.ftclib.geometry.Pose2d;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
@@ -14,14 +16,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  */
 public class PinpointOdometry extends SubsystemBase {
 
-    // Odometry pods - constants
-    private double wheelRadius_mm;
-    private double wheelCircumference_mm = Math.PI * 2 * wheelRadius_mm;
-    private double ticsPerRev;
-    // Travel distance per encoder pulse (m)
-    private double tics_per_mm = ticsPerRev / wheelCircumference_mm;
-    public double xPos;
-    public double yPos;
+
     // Create pinpoint driver object
     GoBildaPinpointDriver pinpointDriver;
 
@@ -31,6 +26,8 @@ public class PinpointOdometry extends SubsystemBase {
     double OdometryRightEncoder;
     double OdometryFrontEncoder;
 
+    Pose2D myPose2D;
+
     /**
      * Constructor for the OctQuad class.
      * Initializes the OctoQuad hardware and resets encoders.
@@ -39,14 +36,18 @@ public class PinpointOdometry extends SubsystemBase {
         // Set up pinpoint driver object
         pinpointDriver = RobotContainer.ActiveOpMode.hardwareMap.get(GoBildaPinpointDriver.class, "PinpointDriver");
 
-        // Reset pinpoint driver
-        pinpointDriver.resetPosAndIMU();
-
         // Set encoder directions
-        pinpointDriver.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        pinpointDriver.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
         // Set encoder resolution
-        pinpointDriver.setEncoderResolution(tics_per_mm, DistanceUnit.MM);
+        pinpointDriver.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
+
+        // set x and y offset from centre
+        pinpointDriver.setOffsets(152,-70, DistanceUnit.MM);
+
+
+        // Reset pinpoint driver
+        pinpointDriver.resetPosAndIMU();
 
     }
 
@@ -56,16 +57,32 @@ public class PinpointOdometry extends SubsystemBase {
      */
     @Override
     public void periodic() {
-//        pinpointDriver.update(); // the fast one
-        RobotContainer.Panels.FTCTelemetry.addData("PosX",pinpointDriver.getPosX(DistanceUnit.METER));
-        RobotContainer.Panels.FTCTelemetry.addData("PosY", pinpointDriver.getPosY(DistanceUnit.METER));
-        RobotContainer.Panels.FTCTelemetry.addData("Angle", pinpointDriver.getHeading(AngleUnit.DEGREES));
-        RobotContainer.Panels.FTCTelemetry.update();
+        pinpointDriver.update(); // the fast one
+        //Pose2D myPose2d = pinpointDriver.getPosition();
+        //RobotContainer.Panels.FTCTelemetry.addData("PosX",myPose2d.getX(DistanceUnit.METER));
+        //RobotContainer.Panels.FTCTelemetry.addData("PosY", myPose2d.getY(DistanceUnit.METER));
+        //RobotContainer.Panels.FTCTelemetry.addData("Angle", myPose2d.getHeading(AngleUnit.DEGREES));
+        //RobotContainer.Panels.FTCTelemetry.update();
     }
 
     public void reset(){
         pinpointDriver.resetPosAndIMU();
     }
 
+    public void SetPose(Pose2d pose){
+        Pose2D newPose = new Pose2D(DistanceUnit.METER, pose.getX(), pose.getY(), AngleUnit.RADIANS, pose.getHeading());
 
+        pinpointDriver.setHeading(pose.getHeading(), AngleUnit.RADIANS);
+        pinpointDriver.setPosition(newPose);
+
+    }
+
+
+
+    public Pose2d GetPose(){
+        Pose2d pose = new Pose2d(pinpointDriver.getPosX(DistanceUnit.METER),
+                pinpointDriver.getPosY(DistanceUnit.METER),
+                new Rotation2d(pinpointDriver.getHeading(AngleUnit.RADIANS)));
+        return pose;
+    }
 }

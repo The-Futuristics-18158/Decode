@@ -19,7 +19,7 @@ public class BlueAuto extends CommandOpMode {
     public void initialize() {
 
         // initialize for Auto in robot container
-        // set team alliance color to red (isRedAlliance=true)
+        // set team alliance color to blue (isRedAlliance=false)
         RobotContainer.Init_Auto(this, false);
 
         // do not proceed until start button is pressed
