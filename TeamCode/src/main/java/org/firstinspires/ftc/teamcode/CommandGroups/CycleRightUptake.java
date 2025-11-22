@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.CommandGroups;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-import org.firstinspires.ftc.teamcode.Commands.Pause;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 // Example Sequential Command Group

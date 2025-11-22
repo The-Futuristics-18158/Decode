@@ -22,6 +22,29 @@ public class ExampleCommandGroup extends SequentialCommandGroup {
 
 }
 
+// Example #2: Using conditional command
+// conditionally run commands depending on condition
+/*      new FourWayConditionalCommand(
+            ()-> { return true; },
+            new SequentialCommandGroup(
+                commands to do this
+            ),
+            ()-> { return false; },
+            new SequentialCommandGroup(
+                commands to do that
+            ),
+            ()-> { return false; },
+            new SequentialCommandGroup(
+                commands to do those
+            ),
+            new SequentialCommandGroup(
+                commands to do something else
+            )
+
+        ) // end FourWayCondition
+*/
+
+
 // Example #1: Lily's 2023 FRC super cube auto
 /*          // enable arm, and lift to stow position
             new InstantCommand(() -> RobotContainer.arm.SetEnableArm(true)),

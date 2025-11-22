@@ -33,6 +33,7 @@ public class Panels extends SubsystemBase {
     public FieldManager Field;
     public PanelsGamepad Gamepad;
     public PanelsLights Lights;
+    //public PanelsCameraStream CameraStream;
 
     // field update counter
     private int FieldUpdateCounter;
@@ -46,6 +47,7 @@ public class Panels extends SubsystemBase {
         Field = PanelsField.INSTANCE.getField();
         Gamepad = PanelsGamepad.INSTANCE;
         Lights = PanelsLights.INSTANCE;
+        //CameraStream = PanelsCameraStream.INSTANCE;
 
         FieldUpdateCounter=0;
     }
