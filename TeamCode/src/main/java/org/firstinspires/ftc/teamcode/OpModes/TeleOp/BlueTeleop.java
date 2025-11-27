@@ -18,14 +18,23 @@ public class BlueTeleop extends CommandOpMode {
     @Override
     public void initialize() {
 
-        // initialize for TeleOp in robot container
+        // initialize robot
         // set team alliance color to blue (isRedAlliance=false)
-        RobotContainer.Init_TeleOp(this, false);
+        RobotContainer.Init(this, false);
+
+        // perform any teleop initialization
+        RobotContainer.Init_TeleOp();
+
+        // wait for start button
         waitForStart();
 
-        // ---------- teleop command ----------
+        // if start button has been pressed
+        if (opModeIsActive()) {
 
-        // add any command to run automatically at start of teleop
+            // ---------- teleop command ----------
+
+            // add any command to run automatically at start of teleop
+        }
 
     }
 

@@ -9,47 +9,64 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+
+import java.util.List;
 
 /** Gyro Subsystem */
 public class LimeLight extends SubsystemBase {
 
-    // robot limelight
+    //  limelight constants
     private Limelight3A limeLight;
     private Pose2D pose2D;
-    public static enum pipeline {
-        POSITION(0),
+
+    // tag id for obelisk tags
+    public static enum tagId {
         TAG_GPP(21),
         TAG_PGP(22),
-        TAG_PPG(23);
+        TAG_PPG(23),
+        TAG_NULL(0);
         private final int value;
 
-        pipeline(int value) {
+        tagId(int value) {
             this.value = value;
         }
     }
+    // different pipelines for obelisk tags and location tags
+    public  static enum pipeline{
+        OBELISK_MODE,
+        POSITION_MODE;
+    }
+
     private Telemetry telemetry = RobotContainer.RCTelemetry;
+
     private LLResult result;
     /** Place code here to initialize subsystem */
     public LimeLight() { // initialize limelight in
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
         limeLight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
         limeLight.start(); // This tells Limelight to start looking
+        limeLight.pipelineSwitch(1);
     }
 
     /** Method called periodically by the scheduler
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        // First, tell Limelight which way your robot is facing
+        // tell Limelight which way robot is facing
         double robotYaw = RobotContainer.gyro.getYawAngle();
         limeLight.updateRobotOrientation(robotYaw);
         result = limeLight.getLatestResult();
-        if (result != null){
-            telemetry.addData("Has valid result", result.isValid());
+
+//       telemetry.addData("Obelisk ID", getObeliskID());;
+        LLResultTypes.FiducialResult kaitlyn = getTargetInfo();
+        if (kaitlyn != null){
+            telemetry.addData("target angle", kaitlyn.getTargetXDegrees());
         }else{
-            telemetry.addData("null result", true);
+            telemetry.addData("no target", 0);
         }
+
         if (result != null && result.isValid()) {
             Pose3D botpose_mt2 = result.getBotpose_MT2();
             if (botpose_mt2 != null) {
@@ -72,50 +89,54 @@ public class LimeLight extends SubsystemBase {
         return pose2D;
     }
 
-    public boolean hasObelisk() {
-        boolean obelisk = false;
-        result = limeLight.getLatestResult();
-        limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
-        if (result != null && result.isValid()) {
-            obelisk = true;
-        } else {
-            limeLight.pipelineSwitch(pipeline.TAG_PGP.ordinal());
-            if (result != null && result.isValid()) {
-                obelisk = true;
-            } else {
-                limeLight.pipelineSwitch(pipeline.TAG_PPG.ordinal());
-                if (result != null && result.isValid()) {
-                    obelisk = true;
-                }
+    // switch between detecting obelisk id and position tags
+    public void SetPipelineMode(int pipelineMode){
+        if (pipelineMode == 0 || pipelineMode == 1){
+            limeLight.pipelineSwitch(pipelineMode);
+        }
+    }
+    // get obelisk id from limelight
+    public tagId getObeliskID(){
+        int detectedTag = tagId.TAG_NULL.value;
+        LLResult detectedtags=limeLight.getLatestResult();
+        List<LLResultTypes.FiducialResult> results = detectedtags.getFiducialResults();
+
+        if (results!=null && !results.isEmpty()){
+            detectedTag = results.get(0).getFiducialId();
+
+            if (detectedTag == tagId.TAG_GPP.value){
+                return tagId.TAG_GPP;
+            } else if (detectedTag == tagId.TAG_PPG.value ) {
+                return tagId.TAG_PPG;
+            } else if (detectedTag == tagId.TAG_PGP.value) {
+                return tagId.TAG_PGP;
+            }
+        }
+        return tagId.TAG_NULL;
+    }
+
+    public LLResultTypes.FiducialResult getTargetInfo(){
+        LLResult detectedtags = limeLight.getLatestResult();
+        List<LLResultTypes.FiducialResult> results = detectedtags.getFiducialResults();
+        if (results!=null){
+            if(RobotContainer.isRedAlliance() && results.size()>0 && results.get(0).getFiducialId() == 24){
+                return results.get(0);
+            } else if (RobotContainer.isRedAlliance() && results.size()>1 && results.get(1).getFiducialId() == 24) {
+                return results.get(1);
+            }else if (!RobotContainer.isRedAlliance() && results.size()>0 && results.get(0).getFiducialId() == 20){
+                return  results.get(0);
+            }else if (!RobotContainer.isRedAlliance() && results.size()>1 && results.get(1).getFiducialId() == 20){
+                return results.get(1);
+            }else{
+                return  null;
             }
 
+        }else{
+            return null;
         }
 
 
-        return obelisk;
+
     }
-
-    public pipeline getObeliskID(){
-        pipeline obelisk = null;
-        limeLight.pipelineSwitch(pipeline.TAG_GPP.ordinal());
-        if (result != null && result.isValid()) {
-            obelisk = pipeline.TAG_GPP;
-        } else {
-            limeLight.pipelineSwitch(pipeline.TAG_PGP.ordinal());
-            if (result != null && result.isValid()) {
-                obelisk = pipeline.TAG_PGP;
-            } else {
-                limeLight.pipelineSwitch(pipeline.TAG_PPG.ordinal());
-                if (result != null && result.isValid()) {
-                    obelisk = pipeline.TAG_PPG;
-                }
-            }
-
-        }
-        return obelisk;
-    }
-
-
-
 
 }
