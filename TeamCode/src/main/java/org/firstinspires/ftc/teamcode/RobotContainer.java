@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.LimeLight;
+import org.firstinspires.ftc.teamcode.Subsystems.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.PinpointOdometry;
@@ -60,6 +61,7 @@ public class RobotContainer {
     public static IntakeSubsystem intake;
     public static FlywheelSubsystem shooter;
     public static UptakeSubsystem uptake;
+    public static Obelisk obelisk;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -68,71 +70,17 @@ public class RobotContainer {
     // List of robot control and expansion hubs - used for caching of I/O
     static List<LynxModule> allHubs;
 
-    // Robot initialization for teleop - Run this once at start of teleop
-    // mode - current opmode that is being run
-    // RedAlliance - true if robot in red alliance, false if blue
-    public static void Init_TeleOp(CommandOpMode mode, boolean RedAlliance) {
-        // set alliance colour
-        isRedAlliance = RedAlliance;
-
-        // Initialize robot subsystems
-        Init(mode);
-
-        // set drivetrain default command to manual driving mode
-        drivesystem.setDefaultCommand(new ManualDrive());
-
-        // bind commands to buttons
-        // bind gyro reset to back button.
-        // Note: since reset is very simple command, we can just use 'InstandCommand'
-        // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
-                       new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
-                        );
-
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new IntakeCommand());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new HuntModeCommand());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new CycleLeftUptake());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new CycleRightUptake());
-
-
-        // example sequential command
-        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
-
-        // example of binding more complex command to a button. This would be in a separate command file
-        // driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new ExampleCommand());
-
-        // add other button commands here
-        // Note: can trigger commands on
-        // whenPressed - once when button is pressed
-        // whenHeld - runs command while button held, but does not restart if command ends
-        // whileHeld - runs command while button held, but will restart command if it ends
-        // whenReleased - runs once when button is released
-        // togglewhenPressed - turns command on and off at each button press
-
-    }
-
-
-    // Robot initialization for auto - Run this once at start of auto
-    // mode - current opmode that is being run
-    // RedAlliance - true if robot in red alliance, false if blue
-    public static void Init_Auto(CommandOpMode mode, boolean RedAlliance) {
-        // set alliance colour
-        isRedAlliance = RedAlliance;
-
-        // Initialize robot subsystems
-        Init(mode);
-
-        // perform any autonomous-specific initialization here
-    }
 
     // robot initialization - common to both auto and teleop
-    private static void Init(CommandOpMode mode) {
+    // mode - current opmode that is being run
+    // RedAlliance - true if robot in red alliance, false if blue
+    public static void Init(CommandOpMode mode, boolean RedAlliance) {
 
         // save pointer to active OpMode
         ActiveOpMode = mode;
+
+        // set alliance colour
+        isRedAlliance = RedAlliance;
 
         // create list of robot control and expansion hubs
         // set each for manual caching - cache updated in periodic()
@@ -169,7 +117,71 @@ public class RobotContainer {
         intake = new IntakeSubsystem();
         shooter = new FlywheelSubsystem();
         uptake = new UptakeSubsystem();
+        obelisk = new Obelisk();
     }
+
+    // Robot initialization for teleop - This runs once at initialization of teleop
+    public static void Init_TeleOp() {
+
+        // set drivetrain default command to manual driving mode
+        drivesystem.setDefaultCommand(new ManualDrive());
+
+        // bind commands to buttons
+        // bind gyro reset to back button.
+        // Note: since reset is very simple command, we can just use 'InstandCommand'
+        // instead of creating a full command, just to run one line of java code.
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
+                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
+        );
+
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new IntakeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new HuntModeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new CycleLeftUptake());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new CycleRightUptake());
+
+
+        // example sequential command
+        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
+
+        // example of binding more complex command to a button. This would be in a separate command file
+        // driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new ExampleCommand());
+
+        // add other button commands here
+        // Note: can trigger commands on
+        // whenPressed - once when button is pressed
+        // whenHeld - runs command while button held, but does not restart if command ends
+        // whileHeld - runs command while button held, but will restart command if it ends
+        // whenReleased - runs once when button is released
+        // togglewhenPressed - turns command on and off at each button press
+
+        // set limelight to apriltag pipeline
+        limeLight.SetPipelineMode(1);
+
+    }
+
+    // Robot initialization for auto - This runs once at initialization of auto
+    public static void Init_Auto() {
+
+        // perform any autonomous-specific initialization here
+        // set limelight to obelisk pipeline
+        limeLight.SetPipelineMode(0);
+
+        obelisk.StartObeliskScan();
+    }
+
+    // Robot starting code for auto - This runs once at start of auto
+    public static void Start_Auto() {
+
+        // perform any autonomous-specific start functions here
+        obelisk.RecordPattern();
+
+        // set limelight to apriltag pipeline
+        limeLight.SetPipelineMode(1);
+    }
+
 
     // call this function periodically to operate scheduler
     public static void Periodic() {

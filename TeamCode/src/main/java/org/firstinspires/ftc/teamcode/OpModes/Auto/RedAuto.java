@@ -18,17 +18,29 @@ public class RedAuto extends CommandOpMode {
     @Override
     public void initialize() {
 
-        // initialize for Auto in robot container
+        // initialize robot
         // set team alliance color to red (isRedAlliance=true)
-        RobotContainer.Init_Auto(this, true);
+        RobotContainer.Init(this, true);
 
-        // do not proceed until start button is pressed
-        waitForStart();
+        // perform any auto initialization
+        RobotContainer.Init_Auto();
 
-        // ---------- autonomous command ----------
+        // do not proceed until start button is pressed or stop is requested
+        // note: this code replaces the previous "waitForStart()"
+        while (!isStarted() && !isStopRequested())
+            RobotContainer.Periodic();
 
-        // add autonomous command to scheduler and run it
-        //new RightSideAuto().schedule();
+        // if start button has been pressed
+        if (opModeIsActive()) {
+
+            // perform any functions to be run at start of auto
+            RobotContainer.Start_Auto();
+
+            // ---------- autonomous command ----------
+
+            // add autonomous command to scheduler and run it
+            //new RightSideAuto().schedule();
+        }
 
     }
 
