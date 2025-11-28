@@ -1,14 +1,12 @@
-package org.firstinspires.ftc.teamcode.Commands;
+package org.firstinspires.ftc.teamcode.Commands.Shoot;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 
-import org.firstinspires.ftc.robotcore.internal.camera.delegating.DelegatingCaptureSequence;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Obelisk;
 
 
@@ -41,29 +39,22 @@ public class ShootObeliskColor extends CommandBase {
         // get desired obelisk color
         Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(colorIndex);
 
-        // insert logic here to shoot ball
-
-        if (color.name().equals(RobotContainer.colour.GetLeftColour().name()))
-        // if desired obelisk colour matches colour reported by left colour sensor then
-            // cycle left side
+        // Logic to shoot ball
+        if((color.name().equals(RobotContainer.colour.GetLeftColour().name()))){
             cmd = new CycleLeftUptake();
 
-        // else desired obelisk colour matches colour reported by right colour sensor then
-        //  cycle right side
+        } else if (color.name().equals(RobotContainer.colour.GetRightColour().name())) {
+            cmd = new CycleRightUptake();
 
-        // we don't have desired color
-        // else if left has artifact of any color
-        // cycle left side
+        }else if(RobotContainer.colour.isLeftArtifactPresent()){
+            cmd = new CycleLeftUptake();
 
+        }else if (RobotContainer.colour.isRightArtifactPresent()) {
+            cmd = new CycleRightUptake();
 
-        // else if right has artifact of any color
-        // cycle right side
-
-        // maybe we have artifact but sensor not working
-        // else
-        // cycle both sides just in case
-        cmd = new ParallelCommandGroup(new CycleLeftUptake(), new CycleRightUptake());
-
+        }else{
+            cmd = new ParallelCommandGroup(new CycleLeftUptake(), new CycleRightUptake());
+        }
 
         // initialize shoot command
         cmd.initialize();

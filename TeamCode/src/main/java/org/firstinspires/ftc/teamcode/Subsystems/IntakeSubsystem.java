@@ -42,7 +42,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     // Run the intake at set percentage of motor voltage
     public void intakeRun(){
-        intakeMotor.setPower(1.0);
+        intakeMotor.setPower(0.85);
     }
     // Stop intake
     public void intakeStop(){

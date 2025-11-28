@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.Commands;
+package org.firstinspires.ftc.teamcode.Commands.Shoot;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 // This command shoots a SINGLE artifact of ANY COLOR
@@ -23,18 +24,16 @@ public class ShootAnyColor extends CommandBase {
     @Override
     public void initialize() {
 
-        // insert logic here to shoot any ball, regardless of colour
-        // if left side has a ball then:
-        //      cycle left side  (use:  cmd = new CycleLeftUpdate();  )
+        // Logic to shoot ball
+        if(RobotContainer.colour.isLeftArtifactPresent()){
+            cmd = new CycleLeftUptake();
 
-        // else if right side as a ball then:
-        //      cycle right side
-
-        // else
-        // we don't have a ball, or else sensor(s) not working
-        // shoot both sides simultaneously in case one side has a ball but bad sensor
-        //cmd = new ParallelCommandGroup(new CycleLeftUptake(), new CycleRightUptake());
-
+        } else if (RobotContainer.colour.isRightArtifactPresent()) {
+            cmd = new CycleRightUptake();
+        }
+        else{
+            cmd = new ParallelCommandGroup(new CycleLeftUptake(), new CycleRightUptake());
+        }
 
         // initialize shoot command
         cmd.initialize();

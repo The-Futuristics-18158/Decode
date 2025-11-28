@@ -10,11 +10,12 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
-import org.firstinspires.ftc.teamcode.Commands.HuntModeCommand;
-import org.firstinspires.ftc.teamcode.Commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootGreen;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootPurple;
 import org.firstinspires.ftc.teamcode.Subsystems.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
@@ -134,13 +135,15 @@ public class RobotContainer {
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
         );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new IntakeCommand());
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootGreen());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new HuntModeCommand());
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new CycleLeftUptake());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootPurple());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new CycleRightUptake());
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new HuntModeCommand());
 
 
         // example sequential command
