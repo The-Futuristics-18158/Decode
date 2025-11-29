@@ -79,7 +79,7 @@ public class Obelisk extends SubsystemBase {
      * Switches camera to obelisk mode
      */
     public void StartObeliskScan() {
-        RobotContainer.limeLight.SetPipelineMode(0);
+        RobotContainer.limeLight.SetPipelineMode(1);
     }
 
     /**
