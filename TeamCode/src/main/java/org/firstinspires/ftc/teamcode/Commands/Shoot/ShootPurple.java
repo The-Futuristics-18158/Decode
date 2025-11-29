@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.ColourSensor;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 
 
 // This command shoots a SINGLE artifact of ANY COLOR

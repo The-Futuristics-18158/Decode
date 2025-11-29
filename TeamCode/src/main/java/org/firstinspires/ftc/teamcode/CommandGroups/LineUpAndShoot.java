@@ -17,9 +17,7 @@ public class LineUpAndShoot extends SequentialCommandGroup {
                 // spin up flywheel (continuous on odometry dist if slow spinup)
                 // command (needed) to 'go to nearest shooting position'
                 // command (needed) to aim to target (based limelight detection)
-                // anchor? (strategy team?)
                 // uptake (might be sequence to 'shoot all (everything)
-                // un-anchor
                 // stop flywheel (if spinup is fast)
                 // end
         );

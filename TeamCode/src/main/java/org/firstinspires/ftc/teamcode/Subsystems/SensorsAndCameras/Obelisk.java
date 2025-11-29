@@ -1,10 +1,7 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Obelisk module is used to monitor and record obelisk pattern.
