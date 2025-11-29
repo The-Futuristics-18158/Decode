@@ -163,7 +163,7 @@ public class RobotContainer {
         // togglewhenPressed - turns command on and off at each button press
 
         // set limelight to apriltag pipeline
-        limeLight.SetPipelineMode(1);
+        limeLight.SetPipelineMode(0);
 
     }
 
@@ -172,7 +172,7 @@ public class RobotContainer {
 
         // perform any autonomous-specific initialization here
         // set limelight to obelisk pipeline
-        limeLight.SetPipelineMode(0);
+        limeLight.SetPipelineMode(1);
 
         obelisk.StartObeliskScan();
     }
@@ -184,7 +184,7 @@ public class RobotContainer {
         obelisk.RecordPattern();
 
         // set limelight to apriltag pipeline
-        limeLight.SetPipelineMode(1);
+        limeLight.SetPipelineMode(0);
     }
 
 

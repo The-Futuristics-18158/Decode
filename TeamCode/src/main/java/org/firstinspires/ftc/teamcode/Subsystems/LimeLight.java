@@ -18,7 +18,7 @@ import java.util.List;
 public class LimeLight extends SubsystemBase {
 
     //  limelight constants
-    private Limelight3A limeLight;
+    public Limelight3A limeLight;
     private Pose2D pose2D;
 
     // tag id for obelisk tags
@@ -47,7 +47,7 @@ public class LimeLight extends SubsystemBase {
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
         limeLight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
         limeLight.start(); // This tells Limelight to start looking
-        limeLight.pipelineSwitch(1);
+        limeLight.pipelineSwitch(0);
     }
 
     /** Method called periodically by the scheduler
@@ -58,6 +58,7 @@ public class LimeLight extends SubsystemBase {
         double robotYaw = RobotContainer.gyro.getYawAngle();
         limeLight.updateRobotOrientation(robotYaw);
         result = limeLight.getLatestResult();
+        RobotContainer.RCTelemetry.addData("gyro", robotYaw);
 
 //       telemetry.addData("Obelisk ID", getObeliskID());;
         LLResultTypes.FiducialResult kaitlyn = getTargetInfo();
