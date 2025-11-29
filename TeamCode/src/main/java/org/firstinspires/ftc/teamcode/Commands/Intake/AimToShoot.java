@@ -37,7 +37,6 @@ public class AimToShoot extends CommandBase {
         double omega_speed;
 
         List<ColorBlobLocatorProcessor.Blob> blobs;
-        // change this later if for get green blob detections and or get purple blob detections (if we want to look for one specific color)
         blobs = RobotContainer.rampCamera.GetAllBlobDetections();
 
         if (blobs != null && !(blobs.isEmpty())) {

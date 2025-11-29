@@ -136,13 +136,13 @@ public class RobotContainer {
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
         );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootGreen());
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ShootGreen());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShootAllAnyColor());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootPurple());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ShootPurple());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ShootAllObeliskColor());
 
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
 
