@@ -30,9 +30,13 @@ public class RedAuto extends CommandOpMode {
         while (!isStarted() && !isStopRequested())
             RobotContainer.Periodic();
 
-        // if start button has been pressed
-        if (opModeIsActive()) {
-
+        // if start button has not been pressed
+        if (!opModeIsActive())
+            // we were told to stop so interrupt this thread
+            Thread.currentThread().interrupt();
+        else
+            {
+            // start was pressed
             // perform any functions to be run at start of auto
             RobotContainer.Start_Auto();
 
