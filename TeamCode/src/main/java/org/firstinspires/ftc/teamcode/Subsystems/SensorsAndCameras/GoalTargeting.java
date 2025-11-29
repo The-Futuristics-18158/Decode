@@ -69,7 +69,8 @@ public class GoalTargeting extends SubsystemBase {
 
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-        double speed = (207.96*(x*x)) - (480.12*(x)) + 2859.6;
+        //double speed = (207.96*(x*x)) - (480.12*(x)) + 2859.6; kaitlyns
+        double speed = (190.58*(x*x)) - (386.65*(x)) + 2741;
         return speed;
     }
 

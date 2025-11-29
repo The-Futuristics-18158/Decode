@@ -18,7 +18,7 @@ public class HuntModeCommand extends CommandBase {
         haveArtifact = false;
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
-        omegaControl = new PIDController(0.015, 0.0, 0.0);
+        omegaControl = new PIDController(0.02, 0.0, 0.0);
     }
 
     // This method is called once when command is started
