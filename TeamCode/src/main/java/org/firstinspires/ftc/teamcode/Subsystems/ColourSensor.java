@@ -19,11 +19,13 @@ public class ColourSensor extends SubsystemBase {
     // Local objects and variables here
     private ColorSensor leftSensor;
     private ColorSensor rightSensor;
+    private ColorSensor rampSensor;
 
     /** Place code here to initialize subsystem */
     public ColourSensor() {
     leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
     rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
+    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rampColorSensor");
 
     }
 
@@ -41,7 +43,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isLeftArtifactPresent(){
-        if (leftSensor.alpha() > 80.0){
+        if (leftSensor.alpha() > 95.0){
             return true;
         }else{
             return false;
@@ -61,7 +63,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() > 80.0){
+        if (rightSensor.alpha() > 95.0){
             return true;
         }else{
             return false;
@@ -70,6 +72,26 @@ public class ColourSensor extends SubsystemBase {
     public ArtifactColours GetRightColour(){
         if (isRightArtifactPresent() == true){
             if(rightSensor.green()> rightSensor.blue()){
+                return ArtifactColours.Green;
+            }else{
+                return ArtifactColours.Purple;
+            }
+        }else{
+            return ArtifactColours.Nothing;
+        }
+    }
+
+    public boolean isRampArtifactPresent(){
+        if (rampSensor.alpha() > 90.0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public ArtifactColours GetRampColour(){
+        if (isRampArtifactPresent() == true){
+            if(rampSensor.green()> rightSensor.blue()){
                 return ArtifactColours.Green;
             }else{
                 return ArtifactColours.Purple;

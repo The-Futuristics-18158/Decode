@@ -38,7 +38,7 @@ public class IntakeCommand extends CommandBase {
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent())){
+        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRampArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
             return true;
         }else {
             return false;

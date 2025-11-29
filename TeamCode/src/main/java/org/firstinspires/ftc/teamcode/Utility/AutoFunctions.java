@@ -25,9 +25,7 @@ public class AutoFunctions {
      */
     public static Pose2d redVsBlue(Pose2d pose) {
         if (RobotContainer.isRedAlliance)
-            return new Pose2d (-pose.getX(),
-                            -pose.getY(),
-                            new Rotation2d(pose.getHeading()-Math.PI));
+            return new Pose2d (pose.getX(),-pose.getY(),new Rotation2d(-pose.getHeading()));
         else
             return pose;
     }
@@ -43,8 +41,7 @@ public class AutoFunctions {
      */
     public static Translation2d redVsBlue(Translation2d translation) {
         if (RobotContainer.isRedAlliance)
-            return new Translation2d (-translation.getX(),
-                    -translation.getY());
+            return new Translation2d (translation.getX(),-translation.getY());
         else
             return translation;
     }
@@ -60,7 +57,7 @@ public class AutoFunctions {
      */
     public static Rotation2d redVsBlue(Rotation2d rotation) {
         if (RobotContainer.isRedAlliance)
-            return new Rotation2d (rotation.getRadians() - Math.PI);
+            return new Rotation2d (-rotation.getRadians());
         else
             return rotation;
     }
