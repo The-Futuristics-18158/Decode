@@ -1,13 +1,10 @@
-package org.firstinspires.ftc.teamcode.Commands.Intake;
+package org.firstinspires.ftc.teamcode.Commands.Shoot;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
-
-import java.util.List;
 
 public class AimToShoot extends CommandBase {
     private boolean haveTarget;
