@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
@@ -64,6 +65,7 @@ public class RobotContainer {
     public static FlywheelSubsystem shooter;
     public static UptakeSubsystem uptake;
     public static Obelisk obelisk;
+    public static GoalTargeting targeting;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -120,6 +122,7 @@ public class RobotContainer {
         shooter = new FlywheelSubsystem();
         uptake = new UptakeSubsystem();
         obelisk = new Obelisk();
+        targeting = new GoalTargeting();
     }
 
     // Robot initialization for teleop - This runs once at initialization of teleop
@@ -136,18 +139,19 @@ public class RobotContainer {
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
         );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootGreen());
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ShootGreen());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShootAllAnyColor());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootPurple());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ShootPurple());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ShootAllObeliskColor());
 
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
 
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()-> shooter.flywheelSpeed(targeting.CalculateSpeed())));
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 
