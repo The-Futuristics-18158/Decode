@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
+import org.firstinspires.ftc.teamcode.Commands.Intake.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootGreen;
@@ -150,6 +151,8 @@ public class RobotContainer {
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new AimToShoot());
 
         driverOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()-> shooter.flywheelSpeed(targeting.CalculateSpeed())));
         // example sequential command
