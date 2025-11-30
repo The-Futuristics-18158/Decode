@@ -36,8 +36,8 @@ public class FlywheelSpeedControl extends CommandBase {
 
         }
 
-        x = RobotContainer.odometry.getCurrentPos().getX()* 3.281; // m to feet
-        y = RobotContainer.odometry.getCurrentPos().getY()*3.281;
+        x = RobotContainer.odometry.getCurrentPos().getX()* 3.281 + 0.228; // m to feet
+        y = RobotContainer.odometry.getCurrentPos().getY()*3.281 + 0.228;
 
         // not in launch zones
         if (!(x <= -0.5 * Math.abs(y) || x >= (0.5 * Math.abs(y)) + 2)){
