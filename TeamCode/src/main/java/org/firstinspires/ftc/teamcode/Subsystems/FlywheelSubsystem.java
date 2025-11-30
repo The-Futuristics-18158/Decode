@@ -109,4 +109,8 @@ public class FlywheelSubsystem extends SubsystemBase {
         TargetSpeed=RPM;
     }
 
+    public boolean atTargetSpeed(){
+        return (CurrentSpeed / TargetSpeed) >= 0.99 && (CurrentSpeed / TargetSpeed) <= 1.01;
+    }
+
 }
