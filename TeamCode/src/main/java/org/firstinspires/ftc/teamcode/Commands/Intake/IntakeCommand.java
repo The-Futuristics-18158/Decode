@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 public class IntakeCommand extends CommandBase {
 
     private ElapsedTime timer;
+    boolean finished;
     // constructor
     public IntakeCommand() {
 
@@ -25,24 +26,27 @@ public class IntakeCommand extends CommandBase {
     @Override
     public void initialize() {
 
-        RobotContainer.intake.intakeRun();
+        //RobotContainer.intake.intakeRun();
         timer.reset();
+        finished = false;
     }
 
     // This method is called periodically while command is active
     @Override
     public void execute() {
 
+        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+            finished = true;
+            RobotContainer.intake.intakeStop();
+        }else {
+            RobotContainer.intake.intakeRun();
+        }
     }
 
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRampArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
-            return true;
-        }else {
-            return false;
-        }
+        return finished;
     }
 
     // This method is called once when command is finished.

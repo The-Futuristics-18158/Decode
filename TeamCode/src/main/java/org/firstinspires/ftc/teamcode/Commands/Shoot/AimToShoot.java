@@ -65,7 +65,7 @@ public class AimToShoot extends CommandBase {
         x_speed = 0.0;
         y_speed= 0;
 
-        if (haveTarget == true && Math.abs(TargetX)<0.5){
+        if (Math.abs(TargetX)<0.5){
             OnTargetTime += 0.02;
         }else{
             OnTargetTime = 0.0;
@@ -78,7 +78,7 @@ public class AimToShoot extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        return OnTargetTime >= 0.25;
+        return OnTargetTime >= 0.025;
     }
 
     // This method is called once when command is finished.

@@ -10,8 +10,13 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.CommandGroups.BlueNineArtifactAuto;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootGreen;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootPurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.SpinUpAimAndShoot;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.SaftyLowerUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
@@ -136,15 +141,21 @@ public class RobotContainer {
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenHeld(new InstantCommand(()-> odometry.setCurrentPos(
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos(
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
         );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ShootGreen());
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new BlueNineArtifactAuto());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new AutomaticShootGreen());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenReleased(new SaftyLowerUptake());
 
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShootAllAnyColor());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ShootPurple());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new AutomaticShootPurple());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenReleased(new SaftyLowerUptake());
 
         driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ShootAllObeliskColor());
 
@@ -152,9 +163,9 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new AimToShoot());
+        //driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new SpinUpAimAndShoot());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()-> shooter.flywheelSpeed(targeting.CalculateSpeed())));
+
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 

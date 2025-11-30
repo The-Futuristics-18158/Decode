@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
 
 
 // This command shoots a SINGLE artifact of ANY COLOR

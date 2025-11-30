@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
 
 /**
  * Place description of subsystem here
@@ -25,7 +26,7 @@ public class FlywheelSubsystem extends SubsystemBase {
     private final double TICKSPStoRPM = (1/28.0)*60.0;
 
     // target speed
-    public static double TargetSpeed;
+    private double TargetSpeed;
     public static double CurrentSpeed;
     // PIF Controller Gains
     private final double FsGain = 0.0;
@@ -106,7 +107,9 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     public void flywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode
-        TargetSpeed=RPM;
+        //TargetSpeed = RobotContainer.targeting.CalculateSpeed();
+        TargetSpeed = RPM;
+
     }
 
 }
