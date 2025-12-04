@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-
-import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.AdvanceCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShootR1;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.Shoot;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootAnyColor;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -18,6 +15,10 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
 
     // constructor
     public ShootAllAnyColor() {
+
+        // this command directly commands the shooter speed
+        // use to interrupt the default shooter command
+        addRequirements(RobotContainer.shooter);
 
         addCommands (
 
@@ -32,12 +33,12 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 // shoot any color
                 new Shoot(RobotContainer.targeting.ShootAny()),
                 // small pause for uptake to lower
-                new Pause(0.15),
+                new Pause(0.25),
 
                 // ARTIFACT #2
 
-                // intake another artifact
-                new IntakeCommand(),
+                // intake another artifact (advance the intake)
+                new AdvanceCommand(),
                 // line up ready to shoot any colour
                 new AimToShootR1(RobotContainer.targeting.ShootAny()),
                 // wait for shooter to spin up

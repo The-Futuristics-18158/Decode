@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootGreen;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootPurple;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
@@ -30,6 +31,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
+import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
 import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 import java.util.List;
 
@@ -67,6 +69,7 @@ public class RobotContainer {
     public static UptakeSubsystem uptake;
     public static Obelisk obelisk;
     public static GoalTargeting targeting;
+    public static ShotBlockServo shotblockservo;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -124,6 +127,7 @@ public class RobotContainer {
         uptake = new UptakeSubsystem();
         obelisk = new Obelisk();
         targeting = new GoalTargeting();
+        shotblockservo = new ShotBlockServo();
     }
 
     // Robot initialization for teleop - This runs once at initialization of teleop
@@ -131,6 +135,9 @@ public class RobotContainer {
 
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
+
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
 
         // bind commands to buttons
         // bind gyro reset to back button.
@@ -171,6 +178,8 @@ public class RobotContainer {
 
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
+
+        shotblockservo.Unblock();
 
     }
 

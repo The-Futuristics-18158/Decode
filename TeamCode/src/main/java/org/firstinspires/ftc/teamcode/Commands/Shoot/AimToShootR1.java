@@ -27,7 +27,7 @@ public class AimToShootR1 extends CommandBase {
     public AimToShootR1(GoalTargeting.LeftVsRight solution) {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
-        omegaControl = new PIDController(0.15, 0.0008, 0.0);
+        omegaControl = new PIDController(0.15, 0.01, 0.0);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
@@ -71,21 +71,21 @@ public class AimToShootR1 extends CommandBase {
         //omega_speed = omegaControl.calculate(TargetX);
 
         // get limelight targeting results
-        LLResultTypes.FiducialResult target = RobotContainer.limeLight.getTargetInfo();
+        //LLResultTypes.FiducialResult target = RobotContainer.limeLight.getTargetInfo();
 
-        if (target != null) {
-            // we have limelight target - determine rotational speed from pid
-            TargetX = target.getTargetXDegrees() + TargetAngleOffset;
-            omega_speed = omegaControl.calculate(TargetX);
-        }
-        else {
+        //if (target != null) {
+        //    // we have limelight target - determine rotational speed from pid
+        //    TargetX = target.getTargetXDegrees() + TargetAngleOffset;
+        //    omega_speed = omegaControl.calculate(TargetX);
+        //}
+        //else {
             // we don't have limelight target - use odometry
             Pose2d pose = RobotContainer.odometry.getCurrentPos();
             Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.63, -1.63));
             double angle_rad = (new Vector2d(pose.getX() - targetPose.getX(), pose.getY() - targetPose.getY())).angle();
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
             omega_speed = omegaControl.calculate(TargetX);
-        }
+        //}
 
 
         // we are not moving in x or y direction so set both to 0
@@ -95,7 +95,7 @@ public class AimToShootR1 extends CommandBase {
         RobotContainer.drivesystem.RobotDrive(x_speed, y_speed, omega_speed);
 
         // if we don't have target or not within 0.5deg, reset timer back to 0
-        if (Math.abs(TargetX)>0.5)
+        if (Math.abs(TargetX)>3.0)  // was 0.5
             OnTargetTime.reset();
     }
 
@@ -103,7 +103,7 @@ public class AimToShootR1 extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        return OnTargetTime.seconds() >= 0.25;
+        return OnTargetTime.seconds() >= 0.10;  // was 0.25
     }
 
     // This method is called once when command is finished.
