@@ -105,11 +105,21 @@ public class FlywheelSubsystem extends SubsystemBase {
     // Place special subsystem methods here
 
 
-    public void flywheelSpeed(double RPM){
+    public void SetFlywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode
         //TargetSpeed = RobotContainer.targeting.CalculateSpeed();
         TargetSpeed = RPM;
 
+    }
+
+    // returns current flywheel speed in rpm
+    public double GetFlyWheelSpeed() {
+        return CurrentSpeed;
+    }
+
+    // returns target flywheel speed in rpm
+    public double GetFlyWheelTargetSpeed() {
+        return TargetSpeed;
     }
 
 }

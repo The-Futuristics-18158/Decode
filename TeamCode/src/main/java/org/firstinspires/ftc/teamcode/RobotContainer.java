@@ -11,13 +11,14 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.CommandGroups.BlueNineArtifactAuto;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootGreen;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootPurple;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
@@ -135,6 +136,9 @@ public class RobotContainer {
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
 
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
+
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -145,11 +149,11 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new BlueNineArtifactAuto());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new AutomaticShootGreen());
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShootAllAnyColor());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new AutomaticShootPurple());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
 
         driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ShootAllObeliskColor());
 

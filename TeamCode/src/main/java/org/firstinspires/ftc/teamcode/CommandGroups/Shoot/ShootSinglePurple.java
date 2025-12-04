@@ -12,10 +12,10 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 
 // shoot all artifacts regardless of colour
 // typically used in teleop
-public class ShootAllAnyColor extends SequentialCommandGroup {
+public class ShootSinglePurple extends SequentialCommandGroup {
 
     // constructor
-    public ShootAllAnyColor() {
+    public ShootSinglePurple() {
 
         // this command directly commands the shooter speed
         // use to interrupt the default shooter command
@@ -30,50 +30,37 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 // spin up shooter to required speed
                 new InstantCommand(()->RobotContainer.shooter.SetFlywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
 
-                // ARTIFACT #1
+                // ARTIFACT #1 (PURPLE)
 
-                // line up ready to shoot any colour
-                new AimToShoot(RobotContainer.targeting.ShootAny()),
+                // line up ready to shoot purple
+                new AimToShoot(RobotContainer.targeting.ShootPurple()),
                 // wait for shooter to spin up
                 new WaitForSpinup(),
-                // shoot any color
-                new Shoot(RobotContainer.targeting.ShootAny()),
+                // shoot purple
+                new Shoot(RobotContainer.targeting.ShootPurple()),
                 // small pause for uptake to lower
                 new Pause(0.25),
-
-                // ARTIFACT #2
-
                 // intake another artifact (advance the intake)
                 new AdvanceIntake(),
-                // line up ready to shoot any colour
-                new AimToShoot(RobotContainer.targeting.ShootAny()),
-                // wait for shooter to spin up
-                new WaitForSpinup(),
-                // shoot any color
-                new Shoot(RobotContainer.targeting.ShootAny()),
+                // small pause
+                new Pause(0.25)
 
-                // ARTIFACT #3
 
-                // line up ready to shoot any colour
-                new AimToShoot(RobotContainer.targeting.ShootAny()),
-                // wait for shooter to spin up
-                new WaitForSpinup(),
+                //new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
+                // spin up
+                //new InstantCommand(()-> RobotContainer.shooter.SetFlywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
+                // line up
+                //new AimToShoot(),
+                // wait for spin up
+                //new Pause(0.8),
                 // shoot any color
-                new Shoot(RobotContainer.targeting.ShootAny())
-
-                // shoot any color
-                //new ShootAnyColor(),
+                //new ShootPurple(),
                 // pause
                 //new Pause(0.5),
                 // intake another artifact
                 //new IntakeCommand(),
-                //new Pause(0.5),
-                // shoot again
-                //new ShootAnyColor(),
-                // pause
-                //new Pause(0.5),
-                // shoot again
-                //new ShootAnyColor()
+                //new Pause(0.5)
+
         );
     }
 

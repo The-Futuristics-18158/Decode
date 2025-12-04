@@ -7,13 +7,13 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 // command template
-public class IntakeCommand extends CommandBase {
+public class AdvanceIntake extends CommandBase {
 
     private ElapsedTime timer;
     boolean finished;
 
     // constructor
-    public IntakeCommand() {
+    public AdvanceIntake() {
 
         // add subsystem requirements (if any) - for example:
         //addRequirements(RobotContainer.drivesystem);
@@ -34,7 +34,7 @@ public class IntakeCommand extends CommandBase {
     // This method is called periodically while command is active
     @Override
     public void execute() {
-        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+        if (timer.seconds()>2.5 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() )){
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {

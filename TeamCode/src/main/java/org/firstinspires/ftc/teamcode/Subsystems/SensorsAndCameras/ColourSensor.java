@@ -80,7 +80,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRampArtifactPresent(){
-        if (rampSensor.alpha() > 80.0){
+        if (rampSensor.alpha() > 70.0){
             return true;
         }else{
             return false;
