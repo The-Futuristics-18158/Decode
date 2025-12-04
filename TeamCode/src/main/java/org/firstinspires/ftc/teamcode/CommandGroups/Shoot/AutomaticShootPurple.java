@@ -19,6 +19,7 @@ public class AutomaticShootPurple extends SequentialCommandGroup {
 
         addCommands (
 
+                new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // spin up
                 new InstantCommand(()-> RobotContainer.shooter.flywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
                 // line up
@@ -35,6 +36,10 @@ public class AutomaticShootPurple extends SequentialCommandGroup {
                 new Pause(0.5)
 
         );
+    }
+    @Override
+    public void end(boolean interrupted){
+        RobotContainer.shotblock.Block();
     }
 
 }

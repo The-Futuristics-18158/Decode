@@ -18,6 +18,7 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
 
         addCommands (
 
+                new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // spin up
                 new InstantCommand(()-> RobotContainer.shooter.flywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
                 // line up
@@ -39,6 +40,10 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 // shoot again
                 new ShootAnyColor()
         );
+    }
+    @Override
+    public void end(boolean interrupted){
+        RobotContainer.shotblock.Block();
     }
 
 }

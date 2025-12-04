@@ -15,14 +15,9 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.AutomaticShootPurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
-import org.firstinspires.ftc.teamcode.CommandGroups.SpinUpAimAndShoot;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.SaftyLowerUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootGreen;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.ShootPurple;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
@@ -35,6 +30,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
+import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
 import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 import java.util.List;
 
@@ -72,6 +68,7 @@ public class RobotContainer {
     public static UptakeSubsystem uptake;
     public static Obelisk obelisk;
     public static GoalTargeting targeting;
+    public static ShotBlockServo shotblock;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -129,6 +126,7 @@ public class RobotContainer {
         uptake = new UptakeSubsystem();
         obelisk = new Obelisk();
         targeting = new GoalTargeting();
+        shotblock = new ShotBlockServo();
     }
 
     // Robot initialization for teleop - This runs once at initialization of teleop
@@ -149,13 +147,9 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new AutomaticShootGreen());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenReleased(new SaftyLowerUptake());
-
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShootAllAnyColor());
 
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new AutomaticShootPurple());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenReleased(new SaftyLowerUptake());
 
         driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ShootAllObeliskColor());
 

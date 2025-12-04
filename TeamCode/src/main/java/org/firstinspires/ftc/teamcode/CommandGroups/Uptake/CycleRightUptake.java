@@ -27,4 +27,8 @@ public class CycleRightUptake extends SequentialCommandGroup {
         );
     }
 
+    @Override
+    public void end(boolean interrupted){
+        RobotContainer.uptake.LowerRightUptake();
+    }
 }

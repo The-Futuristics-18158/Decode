@@ -17,6 +17,7 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
     public ShootAllObeliskColor() {
 
         addCommands (
+                new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // spin up
                 new InstantCommand(()-> RobotContainer.shooter.flywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
                 // line up
@@ -36,6 +37,10 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 // shoot artifact with color index=2
                 new ShootObeliskColor(2)
         );
+    }
+    @Override
+    public void end(boolean interrupted){
+        RobotContainer.shotblock.Block();
     }
 
 }
