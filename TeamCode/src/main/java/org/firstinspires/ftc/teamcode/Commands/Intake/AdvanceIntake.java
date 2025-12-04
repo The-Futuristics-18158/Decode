@@ -7,13 +7,13 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 // command template
-public class AdvanceCommand extends CommandBase {
+public class AdvanceIntake extends CommandBase {
 
     private ElapsedTime timer;
     boolean finished;
 
     // constructor
-    public AdvanceCommand() {
+    public AdvanceIntake() {
 
         // add subsystem requirements (if any) - for example:
         //addRequirements(RobotContainer.drivesystem);

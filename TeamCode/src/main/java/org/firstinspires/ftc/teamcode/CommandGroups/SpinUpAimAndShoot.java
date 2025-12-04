@@ -2,12 +2,8 @@ package org.firstinspires.ftc.teamcode.CommandGroups;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-
-import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
-import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
+
 
 // Example Sequential Command Group
 // There are also:
@@ -21,8 +17,8 @@ public class SpinUpAimAndShoot extends SequentialCommandGroup {
     public SpinUpAimAndShoot() {
 
         addCommands (
-                new AimToShoot(),
-                new InstantCommand(()-> RobotContainer.shooter.flywheelSpeed(RobotContainer.targeting.CalculateSpeed()))
+                //new AimToShoot(),
+                new InstantCommand(()-> RobotContainer.shooter.SetFlywheelSpeed(RobotContainer.targeting.CalculateSpeed()))
         );
     }
 
