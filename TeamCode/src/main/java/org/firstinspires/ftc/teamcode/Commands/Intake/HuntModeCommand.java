@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Intake;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.Robot;
 import com.arcrobotics.ftclib.controller.PIDController;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -12,6 +13,7 @@ public class HuntModeCommand extends CommandBase {
     private boolean haveArtifact;
     private double blobX;
     PIDController omegaControl;
+    boolean finished;
     
     // constructor
     public HuntModeCommand() {
@@ -25,7 +27,7 @@ public class HuntModeCommand extends CommandBase {
     @Override
     public void initialize() {
         omegaControl.reset();
-        RobotContainer.intake.intakeRun();
+        finished = false;
     }
 
     // This method is called periodically while command is active
@@ -35,6 +37,13 @@ public class HuntModeCommand extends CommandBase {
         double x_speed;
         double y_speed;
         double omega_speed;
+
+        if ((RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+            finished = true;
+            RobotContainer.intake.intakeStop();
+        }else {
+            RobotContainer.intake.intakeRun();
+        }
 
         List<ColorBlobLocatorProcessor.Blob> blobs;
         // change this later if for get green blob detections and or get purple blob detections (if we want to look for one specific color)
@@ -52,7 +61,12 @@ public class HuntModeCommand extends CommandBase {
             omega_speed = 0.0;
         }
 
-        x_speed = 0.9;//was 0.20
+       // if busy intaking robot, stop and wait for it to finish before proceeding
+        if (RobotContainer.colour.isRampArtifactPresent())
+           x_speed = 0.0;
+       else
+            x_speed = 0.5;//was 0.6
+
         y_speed= 0;
 
         RobotContainer.drivesystem.RobotDrive(x_speed, y_speed, omega_speed);
@@ -62,7 +76,7 @@ public class HuntModeCommand extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        return false;
+        return finished;
     }
 
     // This method is called once when command is finished.

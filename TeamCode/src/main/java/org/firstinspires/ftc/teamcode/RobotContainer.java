@@ -135,6 +135,9 @@ public class RobotContainer {
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
 
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
+
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -176,6 +179,8 @@ public class RobotContainer {
 
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
+
+        shotblockservo.Unblock();
 
     }
 
