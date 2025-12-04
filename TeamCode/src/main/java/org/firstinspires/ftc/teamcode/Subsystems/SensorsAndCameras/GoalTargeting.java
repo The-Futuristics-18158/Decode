@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
 
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 import java.util.List;
@@ -49,6 +52,127 @@ public class GoalTargeting extends SubsystemBase {
     public List<Translation2d> GetListOfSHootingPoints() {
         return ShootingCoordinates;
     }
+
+
+    /* ---------- Left/Right Shoot Solutions ---------- */
+
+    public enum ShootSide {
+        LEFT, RIGHT, NONE, BOTH
+    }
+
+    // 2. The Functional Interface (must have one abstract method)
+    @FunctionalInterface
+    public interface LeftVsRight {
+        ShootSide getSide();
+    }
+
+    public LeftVsRight ShootAny()
+    {
+        // this is lamda function
+        return ()-> {
+            // Logic to shoot ball
+            if(RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+    public LeftVsRight ShootGreen()
+    {
+        // this is lamda function
+        return ()-> {
+            // Logic to shoot ball
+            if(RobotContainer.colour.GetLeftColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.GetRightColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+                return ShootSide.RIGHT;
+            else if(RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+    public LeftVsRight ShootPurple() {
+        // this is lamda function
+        return ()-> {
+            if (RobotContainer.colour.GetLeftColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.GetRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+                return ShootSide.RIGHT;
+            else if (RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+    public LeftVsRight ShootObelisk1() {
+        // this is lamda function
+        return ()-> {
+            // get obelisk color for artifact #1
+            Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(0);
+            // Logic to shoot ball
+            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+                return ShootSide.LEFT;
+            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+                return ShootSide.RIGHT;
+            else if(RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+    public LeftVsRight ShootObelisk2() {
+        // this is lamda function
+        return ()-> {
+            // get obelisk color for artifact #1
+            Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(1);
+            // Logic to shoot ball
+            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+                return ShootSide.LEFT;
+            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+                return ShootSide.RIGHT;
+            else if(RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+    public LeftVsRight ShootObelisk3() {
+        // this is lamda function
+        return ()-> {
+            // get obelisk color for artifact #1
+            Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(2);
+            // Logic to shoot ball
+            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+                return ShootSide.LEFT;
+            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+                return ShootSide.RIGHT;
+            else if(RobotContainer.colour.isLeftArtifactPresent())
+                return ShootSide.LEFT;
+            else if (RobotContainer.colour.isRightArtifactPresent())
+                return ShootSide.RIGHT;
+            else
+                return ShootSide.BOTH;
+        };
+    }
+
+
+    /* ---------- Shoot Distance/Speed Calcs ---------- */
 
     public double GetDistanceToGoal (){
         currentPos = RobotContainer.odometry.getCurrentPos();

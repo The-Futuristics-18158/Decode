@@ -154,7 +154,7 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new AimToShoot());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()-> shooter.flywheelSpeed(targeting.CalculateSpeed())));
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()-> shooter.SetFlywheelSpeed(targeting.CalculateSpeed())));
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 
