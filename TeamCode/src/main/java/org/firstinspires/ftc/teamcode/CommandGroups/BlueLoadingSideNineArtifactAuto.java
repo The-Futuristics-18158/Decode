@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.purepursuit.waypoints.PointTurnWaypoint;
 
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
@@ -19,10 +18,10 @@ import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 // ParallelRaceGroup
 // ParallelDeadlineGroup
 
-public class BlueNineArtifactAuto extends SequentialCommandGroup {
+public class BlueLoadingSideNineArtifactAuto extends SequentialCommandGroup {
 
     // constructor
-    public BlueNineArtifactAuto() {
+    public BlueLoadingSideNineArtifactAuto() {
 
         addCommands (
 
@@ -33,7 +32,7 @@ public class BlueNineArtifactAuto extends SequentialCommandGroup {
                         0.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.15, new Rotation2d(Math.toRadians(30.0)))))), // + or - 20 degrees
 
-                //new ShootAllObeliskColor(),
+                new ShootAllObeliskColor(),
 
                 //move to intake point
                 new MoveToPose(
