@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Commands.Intake;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.Robot;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -14,13 +15,21 @@ public class HuntModeCommand extends CommandBase {
     private double blobX;
     PIDController omegaControl;
     boolean finished;
-    
+    private ElapsedTime timer;
+    private double seconds;
+
     // constructor
-    public HuntModeCommand() {
+    public HuntModeCommand(){
+        this(5.0);
+    }
+    public HuntModeCommand(double time) {
         haveArtifact = false;
+
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
         omegaControl = new PIDController(0.02, 0.0, 0.0);
+        timer = new ElapsedTime();
+        seconds = time;
     }
 
     // This method is called once when command is started
@@ -28,6 +37,7 @@ public class HuntModeCommand extends CommandBase {
     public void initialize() {
         omegaControl.reset();
         finished = false;
+        timer.reset();
     }
 
     // This method is called periodically while command is active
@@ -38,7 +48,7 @@ public class HuntModeCommand extends CommandBase {
         double y_speed;
         double omega_speed;
 
-        if ((RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+        if (timer.seconds() >= seconds || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {
