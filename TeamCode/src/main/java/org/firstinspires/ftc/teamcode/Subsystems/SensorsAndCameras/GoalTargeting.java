@@ -198,5 +198,16 @@ public class GoalTargeting extends SubsystemBase {
         return speed;
     }
 
+    public double IdleSpeed(){
+        double shootSpeed = this.CalculateSpeed();
+        double distance = this.GetDistanceToGoal();
+        if (distance <= 2.0){
+            return shootSpeed;
+        }else if(distance >= 3.2 && distance <= 3.7){
+            return (0.7 * shootSpeed);
+        }else {
+            return 800.0;
+        }
+    }
 
 }
