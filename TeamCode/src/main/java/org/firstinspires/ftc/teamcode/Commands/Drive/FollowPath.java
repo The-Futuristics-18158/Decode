@@ -125,7 +125,7 @@ public class FollowPath extends CommandBase {
         // configure PID controllers - set PID gains
         xController = new PIDController(15.0, 2.00, 0.0);
         yController = new PIDController(15.0, 2.00, 0.0);
-        thetaController = new PIDController(12.0, 0.05, 0.0);
+        thetaController = new PIDController(11.0, 0.05, 0.0);
 
         // configure PID controllers integration limiters - prevents excessive windup of integrated error
         xController.setIntegrationBounds(-10.0, 10.0);

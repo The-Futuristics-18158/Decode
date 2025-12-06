@@ -23,8 +23,8 @@ public class ClimbSubsystem extends SubsystemBase {
     public ClimbSubsystem() {
 
         // Creates the motors using the hardware map
-        climbL = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "climb left");
-        climbR = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "climb right");
+        climbL = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "leftLiftMotor");
+        climbR = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "rightLiftMotor");
 
         // Resets the encoders for both motors
         climbL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
