@@ -20,6 +20,7 @@ public class LimeLight extends SubsystemBase {
     //  limelight constants
     public Limelight3A limeLight;
     private Pose2D pose2D;
+    public boolean hasGoal = false;
 
     // tag id for obelisk tags
     public static enum tagId {
@@ -120,13 +121,18 @@ public class LimeLight extends SubsystemBase {
         LLResult detectedtags = limeLight.getLatestResult();
         List<LLResultTypes.FiducialResult> results = detectedtags.getFiducialResults();
         if (results!=null){
+
             if(RobotContainer.isRedAlliance() && results.size()>0 && results.get(0).getFiducialId() == 24){
+                hasGoal = true;
                 return results.get(0);
             } else if (RobotContainer.isRedAlliance() && results.size()>1 && results.get(1).getFiducialId() == 24) {
+                hasGoal = true;
                 return results.get(1);
             }else if (!RobotContainer.isRedAlliance() && results.size()>0 && results.get(0).getFiducialId() == 20){
+                hasGoal = true;
                 return  results.get(0);
             }else if (!RobotContainer.isRedAlliance() && results.size()>1 && results.get(1).getFiducialId() == 20){
+                hasGoal = true;
                 return results.get(1);
             }else{
                 return  null;

@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
+import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
@@ -73,6 +74,7 @@ public class RobotContainer {
     public static GoalTargeting targeting;
     public static ShotBlockServo shotblock;
     public static ClimbSubsystem climb;
+    public static Blinkin blinkin;
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -132,6 +134,7 @@ public class RobotContainer {
         targeting = new GoalTargeting();
         shotblock = new ShotBlockServo();
         climb = new ClimbSubsystem();
+        blinkin = new Blinkin();
     }
 
     // Robot initialization for teleop - This runs once at initialization of teleop
