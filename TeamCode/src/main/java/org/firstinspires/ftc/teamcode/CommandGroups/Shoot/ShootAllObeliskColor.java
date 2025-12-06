@@ -38,6 +38,8 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 new WaitForSpinup(),
                 // shoot obelisk colour #1
                 new Shoot(RobotContainer.targeting.ShootObelisk1()),
+                // block the shooter
+                new InstantCommand(()-> RobotContainer.shotblock.Block()),
                 // small pause for uptake to lower
                 new Pause(0.25),
 
@@ -45,6 +47,8 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
 
                 // intake another artifact (advance the intake)
                 new AdvanceIntake(),
+                // unblock the shooter
+                new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // line up ready to shoot obelisk colour #2
                 new AimToShoot(RobotContainer.targeting.ShootObelisk2()),
                 // wait for shooter to spin up

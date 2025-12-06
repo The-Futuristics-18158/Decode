@@ -38,6 +38,8 @@ public class ShootSinglePurple extends SequentialCommandGroup {
                 new WaitForSpinup(),
                 // shoot purple
                 new Shoot(RobotContainer.targeting.ShootPurple()),
+                // block the shooter
+                new InstantCommand(()-> RobotContainer.shotblock.Block()),
                 // small pause for uptake to lower
                 new Pause(0.25),
                 // intake another artifact (advance the intake)

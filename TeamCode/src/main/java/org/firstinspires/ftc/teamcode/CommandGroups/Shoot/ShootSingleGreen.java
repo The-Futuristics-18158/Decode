@@ -39,6 +39,8 @@ public class ShootSingleGreen extends SequentialCommandGroup {
                 new WaitForSpinup(),
                 // shoot green
                 new Shoot(RobotContainer.targeting.ShootGreen()),
+                // block the shooter
+                new InstantCommand(()-> RobotContainer.shotblock.Block()),
                 // small pause for uptake to lower
                 new Pause(0.25),
                 // intake another artifact (advance the intake)
