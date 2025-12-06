@@ -33,9 +33,9 @@ public class Blinkin extends SubsystemBase {
     public void periodic() {
         if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()){
             ShowBallColours();
-            if (RobotContainer.limeLight.hasGoal){
-                ShowHasGoal();
-            }
+//            if (RobotContainer.limeLight.hasGoal){
+//                ShowHasGoal();
+//            }
         } else{
            ShowAlliance();
        }
