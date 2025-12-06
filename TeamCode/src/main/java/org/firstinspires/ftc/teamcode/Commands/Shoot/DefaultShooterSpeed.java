@@ -24,11 +24,13 @@ public class DefaultShooterSpeed extends CommandBase {
     @Override
     public void execute() {
         // only turn on shooter once we have at least one artifact
-        if (RobotContainer.colour.isLeftArtifactPresent() || RobotContainer.colour.isRightArtifactPresent())
+        if (RobotContainer.colour.isLeftArtifactPresent() || RobotContainer.colour.isRightArtifactPresent()){
             //RobotContainer.shooter.SetFlywheelSpeed(1000);
             RobotContainer.shooter.SetFlywheelSpeed(Math.max(0.0,RobotContainer.targeting.IdleSpeed()));
-        else
+        } else{
             RobotContainer.shooter.SetFlywheelSpeed(0);
+        }
+
     }
 
     // This method to return true only when command is to finish. Otherwise return false
