@@ -74,7 +74,15 @@ public class Blinkin extends SubsystemBase {
                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
            }
            if (timer.seconds() >=1.5){
-               timer.reset();
+               if (RobotContainer.limeLight.hasGoal){
+                   blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+                   if(timer.seconds() >=2){
+                       timer.reset();
+                   }
+               }else{
+                   timer.reset();
+               }
+
            }
        }else if (hasPurple){
            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
