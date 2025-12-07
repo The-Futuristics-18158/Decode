@@ -28,7 +28,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 //move to a shooting position
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees
 
                 new ShootAllObeliskColor(),
@@ -36,7 +36,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 //move to intake point
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
@@ -53,7 +53,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 // move to pickup
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
@@ -61,14 +61,14 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
                 new ShootAllObeliskColor(),
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );
