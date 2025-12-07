@@ -26,7 +26,7 @@ public class AimToShoot extends CommandBase {
     public AimToShoot(GoalTargeting.LeftVsRight solution) {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
-        omegaControl = new PIDController(0.15, 0.01, 0.0);
+        omegaControl = new PIDController(0.075, 0.1, 0.0);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
@@ -85,7 +85,7 @@ public class AimToShoot extends CommandBase {
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
 
             // if angle too large, than reset intergrated error
-            if (Math.abs(TargetX) > 5.0){omegaControl.reset();}
+            if (Math.abs(TargetX) > 10.0){omegaControl.reset();}
 
             omega_speed = omegaControl.calculate(TargetX);
         //}

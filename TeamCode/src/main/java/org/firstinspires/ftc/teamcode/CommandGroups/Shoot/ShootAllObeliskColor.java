@@ -89,10 +89,11 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
         );
     }
 
-    // when command ends, or is interrupted, put block back on
+    // when command ends, or is interrupted, put block back on and ensure intake stopped
     @Override
     public void end(boolean interrupted){
         RobotContainer.shotblock.Block();
+        RobotContainer.intake.intakeStop();
     }
 
 }
