@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.FollowPath;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -21,19 +22,51 @@ import java.util.ArrayList;
 // ParallelRaceGroup
 // ParallelDeadlineGroup
 
-public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
+public class LoadingSideEmptyNineArtifactAuto extends SequentialCommandGroup {
 
     // constructor
-    public LoadingSideNineArtifactAuto() {
+    public LoadingSideEmptyNineArtifactAuto() {
 
         addCommands (
                 // was X = 1.59
                 new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(new Pose2d(1.61, -0.39, new Rotation2d(Math.toRadians(0.0))))),
                 //move to a shooting position
+                new FollowPath(
+                        1.0,
+                        0.8,
+                        0.0,
+                        0.0,
+                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(180.0))),
+                        new ArrayList<Translation2d>(){{AutoFunctions.redVsBlue(new Translation2d(-0.75,0.75));}},
+                        AutoFunctions.redVsBlue(new Pose2d(0.0, -1.2, new Rotation2d(Math.toRadians(-90.0)))),
+                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(0.0)))),
+
+                // add whatever pause we have time for
+                new Pause(1.0),
+
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.15, new Rotation2d(Math.toRadians(0.0)))))), // + or - 20 degrees
+                        AutoFunctions.redVsBlue((new Pose2d(0.0, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
+
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(40.0)))))),
+
+                new ShootAllObeliskColor(),
+
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
+
+                new HuntModeCommand(5.0),
+                //move to intake point
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(40.0)))))),
 
                 new ShootAllObeliskColor(),
 
@@ -43,42 +76,20 @@ public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
                         1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
-                // intaking and moving forwards
                 new HuntModeCommand(5.0),
 
-                new FollowPath(
-                        1.5,
-                        1.0,
-                        0.0,
-                        0.0,
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(90.0))),
-                        new ArrayList<Translation2d>(){{AutoFunctions.redVsBlue(new Translation2d(0.5,-0.95));}},
-                        AutoFunctions.redVsBlue(new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(180)))),
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(40.0)))),
-
-                new ShootAllObeliskColor(),
-
-                // move to pickup
+                //move to shot point
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
-
-                // intaking and moving forwards
-                new HuntModeCommand(5.0),
-
-
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.15, new Rotation2d(Math.toRadians(0.0)))))),
 
                 new ShootAllObeliskColor(),
 
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.67, new Rotation2d(Math.toRadians(-90.0))))))
+                        AutoFunctions.redVsBlue((new Pose2d(1.05, -0.3, new Rotation2d(Math.toRadians(0.0))))))
 
         );
     }

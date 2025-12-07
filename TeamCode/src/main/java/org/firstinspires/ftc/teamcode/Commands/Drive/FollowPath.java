@@ -123,13 +123,13 @@ public class FollowPath extends CommandBase {
         this.endSpeed = endSpeed;
 
         // configure PID controllers - set PID gains
-        xController = new PIDController(15.0, 2.00, 0.0);
-        yController = new PIDController(15.0, 2.00, 0.0);
-        thetaController = new PIDController(11.0, 0.05, 0.0);
+        xController = new PIDController(20.0, 2.00, 10.0);// was p = 15
+        yController = new PIDController(20.0, 2.00, 10.0);// was p = 15
+        thetaController = new PIDController(10.0, 0.005, 0.0);
 
         // configure PID controllers integration limiters - prevents excessive windup of integrated error
-        xController.setIntegrationBounds(-10.0, 10.0);
-        yController.setIntegrationBounds(-10.0, 10.0);
+        xController.setIntegrationBounds(-2.5, 2.5);
+        yController.setIntegrationBounds(-2.5, 2.5);
         thetaController.setIntegrationBounds(-5.0, 5.0);
 
 

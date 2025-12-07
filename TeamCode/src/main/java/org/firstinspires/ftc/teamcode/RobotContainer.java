@@ -11,6 +11,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSideNineArtifactAuto;
+import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSideEmptyNineArtifactAuto;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
@@ -153,7 +154,7 @@ public class RobotContainer {
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
         );
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new GoalSideNineArtifactAuto());
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new LoadingSideEmptyNineArtifactAuto());
 
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 

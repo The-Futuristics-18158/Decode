@@ -83,6 +83,10 @@ public class AimToShoot extends CommandBase {
             Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.63, -1.63));
             double angle_rad = (new Vector2d(pose.getX() - targetPose.getX(), pose.getY() - targetPose.getY())).angle();
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
+
+            // if angle too large, than reset intergrated error
+            if (Math.abs(TargetX) > 5.0){omegaControl.reset();}
+
             omega_speed = omegaControl.calculate(TargetX);
         //}
 
