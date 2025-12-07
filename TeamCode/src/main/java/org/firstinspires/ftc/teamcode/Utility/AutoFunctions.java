@@ -62,4 +62,7 @@ public class AutoFunctions {
             return rotation;
     }
 
+    public static double redVsBlue(double angle){
+        return -angle;
+    }
 }

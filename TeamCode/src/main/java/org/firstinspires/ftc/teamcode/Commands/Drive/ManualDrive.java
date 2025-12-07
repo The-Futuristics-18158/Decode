@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Utility.Utils;
 public class ManualDrive extends CommandBase {
 
     // PID controller used to counteract rotational drift due to misalignment of wheels
-    private PIDController m_headingPID = new PIDController(0.07, 0.0005, 0); // was p0.05
+    private PIDController m_headingPID = new PIDController(0.06, 0.001, 0); // was p0.05 P was 0.07
     //private PIDController m_headingPID = new PIDController(0.0, 0.000, 0); // was p0.05
     private Double m_PIDTarget = null;    // Use Double class so it can be set to null
     private long m_pidDelay = -1;

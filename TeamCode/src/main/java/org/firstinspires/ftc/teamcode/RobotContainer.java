@@ -36,6 +36,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
 import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
+import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
+
 import java.util.List;
 
 
@@ -150,9 +152,8 @@ public class RobotContainer {
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos(
-                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))
-        );
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
+                (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
         driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new LoadingSideEmptyNineArtifactAuto());
 

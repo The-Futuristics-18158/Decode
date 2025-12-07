@@ -41,7 +41,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isLeftArtifactPresent(){
-        if (leftSensor.alpha() > 60.0){
+        if (leftSensor.alpha() > 160.0){// was 60.0
             return true;
         }else{
             return false;
@@ -61,7 +61,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() > 60.0){
+        if (rightSensor.alpha() > 120.0){ // was 60
             return true;
         }else{
             return false;
@@ -80,7 +80,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRampArtifactPresent(){
-        if (rampSensor.alpha() > 70.0){
+        if (rampSensor.alpha() > 70.0){// was 70.0
             return true;
         }else{
             return false;

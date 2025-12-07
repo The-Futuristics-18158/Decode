@@ -27,13 +27,13 @@ public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
     public LoadingSideNineArtifactAuto() {
 
         addCommands (
-                // was X = 1.59
-                new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(new Pose2d(1.61, -0.39, new Rotation2d(Math.toRadians(0.0))))),
+                // was X = 1.59 Y was -0.39
+                new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(1.64, -0.35, new Rotation2d(Math.toRadians(0.0)))))),
                 //move to a shooting position
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.15, new Rotation2d(Math.toRadians(0.0)))))), // + or - 20 degrees
+                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.3, new Rotation2d(Math.toRadians(0.0)))))), // + or - 20 degrees
 
                 new ShootAllObeliskColor(),
 

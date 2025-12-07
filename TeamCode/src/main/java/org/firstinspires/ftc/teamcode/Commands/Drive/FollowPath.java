@@ -123,9 +123,9 @@ public class FollowPath extends CommandBase {
         this.endSpeed = endSpeed;
 
         // configure PID controllers - set PID gains
-        xController = new PIDController(20.0, 2.00, 10.0);// was p = 15
-        yController = new PIDController(20.0, 2.00, 10.0);// was p = 15
-        thetaController = new PIDController(11.0, 0.05, 0.0);
+        xController = new PIDController(15.0, 2.00, 0.0);// was p = 15
+        yController = new PIDController(15.0, 2.00, 0.0);// was p = 15
+        thetaController = new PIDController(10.5, 0.05, 0.0);
         // was 10, 0,005
 
         // configure PID controllers integration limiters - prevents excessive windup of integrated error
