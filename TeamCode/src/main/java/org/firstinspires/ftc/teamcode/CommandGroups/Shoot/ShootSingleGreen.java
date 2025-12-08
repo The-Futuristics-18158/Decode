@@ -71,6 +71,8 @@ public class ShootSingleGreen extends SequentialCommandGroup {
     public void end(boolean interrupted){
         RobotContainer.shotblock.Block();
         RobotContainer.intake.intakeStop();
+        RobotContainer.uptake.LowerLeftUptake();
+        RobotContainer.uptake.LowerRightUptake();
     }
 
 }

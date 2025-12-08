@@ -50,7 +50,7 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 // unblock the shooter
                 new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // line up ready to shoot obelisk colour #2
-                new AimToShoot(RobotContainer.targeting.ShootObelisk2()),
+                //new AimToShoot(RobotContainer.targeting.ShootObelisk2()),
                 // wait for shooter to spin up
                 new WaitForSpinup(),
                 // shoot obelisk colour #2
@@ -59,7 +59,7 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 // ARTIFACT #3
 
                 // line up ready to shoot obelisk colour #3
-                new AimToShoot(RobotContainer.targeting.ShootObelisk3()),
+                //new AimToShoot(RobotContainer.targeting.ShootObelisk3()),
                 // wait for shooter to spin up
                 new WaitForSpinup(),
                 // shoot obelisk colour #3
@@ -94,6 +94,8 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
     public void end(boolean interrupted){
         RobotContainer.shotblock.Block();
         RobotContainer.intake.intakeStop();
+        RobotContainer.uptake.LowerLeftUptake();
+        RobotContainer.uptake.LowerRightUptake();
     }
 
 }

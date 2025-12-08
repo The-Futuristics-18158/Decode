@@ -43,36 +43,36 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,3.0),
 
                 // intaking and moving forwards
-                new HuntModeCommand(8.0)
+                new HuntModeCommand(8.0),
 
-//                // move to shoot
-//                new MoveToPose(
-//                        1.5,
-//                        1.0,
-//                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
-//
-//                new ShootAllObeliskColor(),
-//
-//                // move to pickup
-//                new MoveToPose(
-//                        1.5,
-//                        1.5,
-//                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
-//
-//                // intaking and moving forwards
-//                new HuntModeCommand(8.0),
-//
-//                new MoveToPose(
-//                        1.5,
-//                        1.5,
-//                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
-//
-//                new ShootAllObeliskColor(),
-//
-//                new MoveToPose(
-//                        1.5,
-//                        1.5,
-//                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
+                // move to shoot
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
+
+                new ShootAllObeliskColor(),
+
+                // move to pickup
+                new MoveToPose(
+                        1.5,
+                        1.5,
+                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
+
+                // intaking and moving forwards
+                new HuntModeCommand(8.0),
+
+                new MoveToPose(
+                        1.5,
+                        1.5,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
+
+                new ShootAllObeliskColor(),
+
+                new MoveToPose(
+                        1.5,
+                        1.5,
+                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );
     }

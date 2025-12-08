@@ -148,6 +148,9 @@ public class RobotContainer {
         // set default shooter speed control
         shooter.setDefaultCommand(new DefaultShooterSpeed());
 
+        uptake.LowerRightUptake();
+        uptake.LowerLeftUptake();
+
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -155,7 +158,7 @@ public class RobotContainer {
         driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
                 (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new LoadingSideEmptyNineArtifactAuto());
+        //driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new LoadingSideEmptyNineArtifactAuto());
 
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 

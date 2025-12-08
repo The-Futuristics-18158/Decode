@@ -26,7 +26,8 @@ public class AimToShoot extends CommandBase {
     public AimToShoot(GoalTargeting.LeftVsRight solution) {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
-        omegaControl = new PIDController(0.075, 0.1, 0.0);
+        //omegaControl = new PIDController(0.075, 0.1, 0.0);
+        omegaControl = new PIDController(0.075, 0.55, 0.0);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
@@ -46,9 +47,9 @@ public class AimToShoot extends CommandBase {
 
             // determine target angle offset depending on which side we will shoot from
             if (side == GoalTargeting.ShootSide.LEFT)
-                TargetAngleOffset = -1.5;
+                TargetAngleOffset = 0.0; // was -1.5
             if (side == GoalTargeting.ShootSide.RIGHT)
-                TargetAngleOffset = 1.5;
+                TargetAngleOffset = 0.0; // was 1.5
         }
 
         omegaControl.reset();
@@ -79,8 +80,18 @@ public class AimToShoot extends CommandBase {
         //}
         //else {
             // we don't have limelight target - use odometry
+
             Pose2d pose = RobotContainer.odometry.getCurrentPos();
-            Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.63, -1.63));
+            Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.63, -1.63)); // was -1.63, -1.63
+
+            double Tolerance = 2.0;
+
+
+            if (RobotContainer.odometry.getCurrentPos().getX() > 0.6){
+                targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.53, -1.63));
+                Tolerance = 0.5;
+            }
+
             double angle_rad = (new Vector2d(pose.getX() - targetPose.getX(), pose.getY() - targetPose.getY())).angle();
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
 
@@ -98,7 +109,7 @@ public class AimToShoot extends CommandBase {
         RobotContainer.drivesystem.RobotDrive(x_speed, y_speed, omega_speed);
 
         // if we don't have target or not within 0.5deg, reset timer back to 0
-        if (Math.abs(TargetX)>3.0)  // was 0.5
+        if (Math.abs(TargetX)>Tolerance)  // was 0.5 , was 3.0
             OnTargetTime.reset();
     }
 
