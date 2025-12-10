@@ -42,7 +42,7 @@ public class ShotBlockServo extends SubsystemBase {
     public void StopFlywheelWithBlocker(){shotBlockServo.setPosition(0.95);} // Never change under penalty of a creative death the servo value to 0.5 or less
     // block flywheel when intake on
     // Never change under penalty of a creative death the servo value to 0.5 or less
-    public void Block(){shotBlockServo.setPosition(0.85);}
+    public void Block(){shotBlockServo.setPosition(0.8);}
 
     // Unblock the flywheel
     // Never change under penalty of a creative death the servo value to 0.5 or less

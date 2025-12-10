@@ -28,7 +28,7 @@ public class AimToShoot extends CommandBase {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
         //omegaControl = new PIDController(0.075, 0.1, 0.0);
-        omegaControl = new PIDController(0.075, 0.40, 0.0);
+        omegaControl = new PIDController(0.075, 0.5, 0.0);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
