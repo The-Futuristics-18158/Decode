@@ -21,19 +21,19 @@ import java.util.ArrayList;
 // ParallelRaceGroup
 // ParallelDeadlineGroup
 
-public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
+public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
 
     // constructor
-    public LoadingSideNineArtifactAuto() {
+    public LoadingSideNineArtifactAutoDeluxe() {
 
         addCommands (
                 // was X = 1.59 Y was -0.39
                 new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(1.64, -0.35, new Rotation2d(Math.toRadians(0.0)))))),
                 //move to a shooting position
                 new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.3, new Rotation2d(Math.toRadians(0.0)))))), // + or - 20 degrees
+                        1.75,
+                       1.5,
+                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(40.0)))))), // + or - 20 degrees
 
                 new ShootAllObeliskColor(),
 

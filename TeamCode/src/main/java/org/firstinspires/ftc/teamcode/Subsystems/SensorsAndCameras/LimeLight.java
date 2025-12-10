@@ -46,7 +46,7 @@ public class LimeLight extends SubsystemBase {
     /** Place code here to initialize subsystem */
     public LimeLight() { // initialize limelight in
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
-        limeLight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
+        limeLight.setPollRateHz(50); // This sets how often we ask Limelight for data (100 times per second)
         limeLight.start(); // This tells Limelight to start looking
         limeLight.pipelineSwitch(0);
     }

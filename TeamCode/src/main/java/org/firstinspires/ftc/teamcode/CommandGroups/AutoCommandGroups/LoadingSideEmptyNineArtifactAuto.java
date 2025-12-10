@@ -61,7 +61,7 @@ public class LoadingSideEmptyNineArtifactAuto extends SequentialCommandGroup {
                         1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
-                new HuntModeCommand(5.0),
+                new HuntModeCommand(4.0),
                 //move to intake point
                 new MoveToPose(
                         1.5,
@@ -76,7 +76,7 @@ public class LoadingSideEmptyNineArtifactAuto extends SequentialCommandGroup {
                         1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
-                new HuntModeCommand(5.0),
+                new HuntModeCommand(4.0),
 
                 //move to shot point
                 new MoveToPose(

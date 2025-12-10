@@ -43,7 +43,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,3.0),
 
                 // intaking and moving forwards
-                new HuntModeCommand(8.0),
+                new HuntModeCommand(4.0),
 
                 // move to shoot
                 new MoveToPose(
@@ -60,7 +60,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
-                new HuntModeCommand(8.0),
+                new HuntModeCommand(4.0),
 
                 new MoveToPose(
                         1.5,
