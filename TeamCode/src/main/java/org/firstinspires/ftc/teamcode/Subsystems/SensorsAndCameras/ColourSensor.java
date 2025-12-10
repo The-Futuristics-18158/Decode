@@ -61,7 +61,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() > 120.0){ // was 60
+        if (rightSensor.alpha() >115.0){ // was 60
             return true;
         }else{
             return false;

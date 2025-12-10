@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Odometry;
 
+import com.arcrobotics.ftclib.command.Robot;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
@@ -8,6 +9,7 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
@@ -45,9 +47,11 @@ public class PinpointOdometry extends SubsystemBase {
         // set x and y offset from centre
         pinpointDriver.setOffsets(-152.0,-70.0, DistanceUnit.MM);
 
-
         // Reset pinpoint driver
         pinpointDriver.resetPosAndIMU();
+
+        // wait for pinpoint to finish resetting before continuing with initialization
+        RobotContainer.ActiveOpMode.sleep(300);
 
     }
 

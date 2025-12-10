@@ -50,7 +50,7 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 // unblock the shooter
                 new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // line up ready to shoot any colour
-                new AimToShoot(RobotContainer.targeting.ShootAny()),
+                //new AimToShoot(RobotContainer.targeting.ShootAny()),
                 // wait for shooter to spin up
                 new WaitForSpinup(),
                 // shoot any color
@@ -59,7 +59,7 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 // ARTIFACT #3
 
                 // line up ready to shoot any colour
-                new AimToShoot(RobotContainer.targeting.ShootAny()),
+                //new AimToShoot(RobotContainer.targeting.ShootAny()),
                 // wait for shooter to spin up
                 new WaitForSpinup(),
                 // shoot any color

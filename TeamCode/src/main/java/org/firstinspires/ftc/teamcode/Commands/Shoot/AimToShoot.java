@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.geometry.Vector2d;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
@@ -27,7 +28,7 @@ public class AimToShoot extends CommandBase {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
         //omegaControl = new PIDController(0.075, 0.1, 0.0);
-        omegaControl = new PIDController(0.075, 0.55, 0.0);
+        omegaControl = new PIDController(0.075, 0.40, 0.0);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
@@ -71,35 +72,50 @@ public class AimToShoot extends CommandBase {
         //omega_speed = omegaControl.calculate(TargetX);
 
         // get limelight targeting results
-        //LLResultTypes.FiducialResult target = RobotContainer.limeLight.getTargetInfo();
+        LLResultTypes.FiducialResult target = RobotContainer.limeLight.getTargetInfo();
 
-        //if (target != null) {
-        //    // we have limelight target - determine rotational speed from pid
-        //    TargetX = target.getTargetXDegrees() + TargetAngleOffset;
-        //    omega_speed = omegaControl.calculate(TargetX);
-        //}
-        //else {
+
+        double DistanceToTarget = RobotContainer.targeting.GetDistanceToGoal();
+        //double Tolerance = 2.0 - 0.5*DistanceToTarget;
+        DistanceToTarget = Math.min(0.3, DistanceToTarget);
+        DistanceToTarget = Math.max(3.0, DistanceToTarget);
+        double Tolerance = Math.toDegrees(Math.atan(0.02662/DistanceToTarget));
+
+
+        //double Tolerance = 1.0;
+        //if (RobotContainer.odometry.getCurrentPos().getX() > 0.6)
+        //    Tolerance = 0.5;
+
+
+        if (target != null) {
+            // we have limelight target - determine rotational speed from pid
+            TargetX = target.getTargetXDegrees() + TargetAngleOffset;
+
+            // if angle too large, than reset integrated error
+            if (Math.abs(TargetX) > 10.0){omegaControl.reset();}
+
+            omega_speed = omegaControl.calculate(TargetX);
+        }
+        else {
             // we don't have limelight target - use odometry
 
             Pose2d pose = RobotContainer.odometry.getCurrentPos();
-            Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.63, -1.63)); // was -1.63, -1.63
+            Translation2d targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.73, -1.73)); // was -1.63, -1.63
 
-            double Tolerance = 2.0;
-
-
-            if (RobotContainer.odometry.getCurrentPos().getX() > 0.6){
-                targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.53, -1.63));
-                Tolerance = 0.5;
-            }
+            //if (RobotContainer.odometry.getCurrentPos().getX() > 0.6){
+            //    targetPose = AutoFunctions.redVsBlue(new Translation2d(-1.53, -1.63));
+            //    //Tolerance = 0.5;
+            //}
 
             double angle_rad = (new Vector2d(pose.getX() - targetPose.getX(), pose.getY() - targetPose.getY())).angle();
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
 
-            // if angle too large, than reset intergrated error
+            // if angle too large, than reset integrated error
             if (Math.abs(TargetX) > 10.0){omegaControl.reset();}
 
             omega_speed = omegaControl.calculate(TargetX);
-        //}
+        }
+
 
 
         // we are not moving in x or y direction so set both to 0
