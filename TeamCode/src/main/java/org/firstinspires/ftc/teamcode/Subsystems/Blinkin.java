@@ -33,9 +33,9 @@ public class Blinkin extends SubsystemBase {
     public void periodic() {
         if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()){
             ShowBallColours();
-            if (RobotContainer.limeLight.hasGoal){
-                ShowHasGoal();
-            }
+            //if (RobotContainer.limeLight.hasGoal){
+            //    ShowHasGoal();
+            //}
         } else{
            ShowAlliance();
        }
@@ -61,29 +61,32 @@ public class Blinkin extends SubsystemBase {
                RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Green) ){
            hasGreen = true;
        }
+       else
+           hasGreen = false;
+
        if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Purple)||
                 RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Purple) ){
             hasPurple = true;
        }
+       else
+           hasPurple = false;
 
        if (hasPurple && hasGreen){
            if (timer.seconds() <=0.5){
                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
            }
-           if (timer.seconds() <=1){
+           else if (timer.seconds() <=1){
                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
            }
-           if (timer.seconds() >=1.5){
-               if (RobotContainer.limeLight.hasGoal){
+           else if (timer.seconds() <=1.5) {
+               if (RobotContainer.limeLight.hasGoal) {
                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
-                   if(timer.seconds() >=2){
-                       timer.reset();
-                   }
-               }else{
-                   timer.reset();
                }
-
            }
+           else{
+               timer.reset();
+           }
+
        }else if (hasPurple){
            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
        }else if (hasGreen){

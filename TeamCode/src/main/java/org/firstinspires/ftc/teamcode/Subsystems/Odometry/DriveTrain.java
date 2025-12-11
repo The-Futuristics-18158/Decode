@@ -282,7 +282,7 @@ public class DriveTrain extends SubsystemBase {
         // note: battery voltage can somewhat impact the optimal value selected for F-gain
         private double Pgain = 1.5 * 0.00016667; // 0.8 is optimal for no-load operation
         private double Igain = 6.0 * 0.00016667; // note at >250rpm error, igain drops to 0.15*6 = ~0.90
-        private double Fgain = 1.3 * 0.00016667; // 0.9 to 1.0 is optimal for no-load operation depending on battery voltage
+        private double Fgain = 1.4 * 0.00016667; // 0.9 to 1.0 is optimal for no-load operation depending on battery voltage
 
 
         // Integrated Error

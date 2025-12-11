@@ -135,11 +135,14 @@ public class LimeLight extends SubsystemBase {
                 hasGoal = true;
                 return results.get(1);
             }else{
+                hasGoal = false;
                 return  null;
             }
 
         }else{
+            hasGoal = false;
             return null;
+
         }
 
 

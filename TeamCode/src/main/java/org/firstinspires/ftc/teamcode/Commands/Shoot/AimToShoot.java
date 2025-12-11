@@ -28,7 +28,7 @@ public class AimToShoot extends CommandBase {
         this.leftvsright = solution;
         addRequirements(RobotContainer.drivesystem);
         //omegaControl = new PIDController(0.075, 0.1, 0.0);
-        omegaControl = new PIDController(0.075, 0.5, 0.0);
+        omegaControl = new PIDController(0.075, 0.60, 0.02);
         OnTargetTime = new ElapsedTime();
         TargetAngleOffset=0.0;
     }
@@ -77,9 +77,10 @@ public class AimToShoot extends CommandBase {
 
         double DistanceToTarget = RobotContainer.targeting.GetDistanceToGoal();
         //double Tolerance = 2.0 - 0.5*DistanceToTarget;
-        DistanceToTarget = Math.min(0.3, DistanceToTarget);
-        DistanceToTarget = Math.max(3.0, DistanceToTarget);
+        DistanceToTarget = Math.max(0.3, DistanceToTarget);
+        DistanceToTarget = Math.min(3.0, DistanceToTarget);
         double Tolerance = Math.toDegrees(Math.atan(0.02662/DistanceToTarget));
+
 
 
         //double Tolerance = 1.0;
@@ -92,7 +93,7 @@ public class AimToShoot extends CommandBase {
             TargetX = target.getTargetXDegrees() + TargetAngleOffset;
 
             // if angle too large, than reset integrated error
-            if (Math.abs(TargetX) > 10.0){omegaControl.reset();}
+            if (Math.abs(TargetX) > 4.0){omegaControl.reset();}
 
             omega_speed = omegaControl.calculate(TargetX);
         }
@@ -111,7 +112,7 @@ public class AimToShoot extends CommandBase {
             TargetX = -Utils.AngleDifference(pose.getRotation().getDegrees(), Math.toDegrees(angle_rad)+ TargetAngleOffset);
 
             // if angle too large, than reset integrated error
-            if (Math.abs(TargetX) > 10.0){omegaControl.reset();}
+            if (Math.abs(TargetX) > 4.0){omegaControl.reset();}
 
             omega_speed = omegaControl.calculate(TargetX);
         }
@@ -127,6 +128,12 @@ public class AimToShoot extends CommandBase {
         // if we don't have target or not within 0.5deg, reset timer back to 0
         if (Math.abs(TargetX)>Tolerance)  // was 0.5 , was 3.0
             OnTargetTime.reset();
+        //else
+            //omegaControl.reset();
+
+        double ilimit = 0.35*Math.abs(TargetX);
+        ilimit = Math.max(ilimit, 0.35);
+        omegaControl.setIntegrationBounds(-ilimit, ilimit);
     }
 
     // This method to return true only when command is to finish. Otherwise return false
