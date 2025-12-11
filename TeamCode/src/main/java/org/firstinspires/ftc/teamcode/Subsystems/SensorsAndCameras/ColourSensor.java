@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
@@ -17,13 +19,16 @@ public class ColourSensor extends SubsystemBase {
     // Local objects and variables here
     private ColorSensor leftSensor;
     private ColorSensor rightSensor;
-    private ColorSensor rampSensor;
+    //private ColorSensor rampSensor;
+    private Rev2mDistanceSensor rampSensor;
 
     /** Place code here to initialize subsystem */
     public ColourSensor() {
     leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
     rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
-    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rampColorSensor");
+    //rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rampColorSensor");
+    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "rampDistance");
+    rampSensor.initialize();
 
     }
 
@@ -41,7 +46,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isLeftArtifactPresent(){
-        if (leftSensor.alpha() > 160.0){// was 60.0
+        if (leftSensor.alpha() > 60.0){// was 60.0
             return true;
         }else{
             return false;
@@ -61,7 +66,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() >115.0){ // was 60
+        if (rightSensor.alpha() >60.0){ // was 60
             return true;
         }else{
             return false;
@@ -80,24 +85,24 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRampArtifactPresent(){
-        if (rampSensor.alpha() > 70.0){// was 70.0
-            return true;
-        }else{
-            return false;
-        }
+
+        double distance = rampSensor.getDistance(DistanceUnit.MM);
+
+        // we have artifact (return true) if distance between
+        return  (distance >=90.0 && distance <= 230.0);
     }
 
-    public ArtifactColours GetRampColour(){
-        if (isRampArtifactPresent() == true){
-            if(rampSensor.green()> rightSensor.blue()){
-                return ArtifactColours.Green;
-            }else{
-                return ArtifactColours.Purple;
-            }
-        }else{
-            return ArtifactColours.Nothing;
-        }
-    }
+    //public ArtifactColours GetRampColour(){
+    //    if (isRampArtifactPresent() == true){
+    //        if(rampSensor.green()> rightSensor.blue()){
+    //            return ArtifactColours.Green;
+    //        }else{
+    //            return ArtifactColours.Purple;
+    //        }
+    //    }else{
+    //        return ArtifactColours.Nothing;
+    //    }
+    //}
     // what will appear on the driverstation
     // Left Alphaness: 93
     // left redness: 74

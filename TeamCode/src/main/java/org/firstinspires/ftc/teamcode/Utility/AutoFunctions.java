@@ -63,6 +63,9 @@ public class AutoFunctions {
     }
 
     public static double redVsBlue(double angle){
-        return -angle;
+        if (RobotContainer.isRedAlliance)
+            return -angle;
+        else
+            return angle;
     }
 }
