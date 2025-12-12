@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -18,9 +19,11 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
+import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
@@ -173,8 +176,9 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
-
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))).andThen(new Pause(1).andThen(new ClimbCommand())));//blue 0.935, 0.81
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))));
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new ClimbCommand());
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 
