@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Climb;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -16,6 +17,19 @@ public class ClimbSubsystem extends SubsystemBase {
     private final DcMotorEx climbL;
     private final DcMotorEx climbR;
 
+    // Controller PIDF gains
+    private double PGain = 0.007;    // was 0.005
+    private double FsGain = 0.50;    // was 0.5
+
+    // limit for both motors
+    private double MaxPower = 0.70;
+
+    // PID controllers for each motor
+    private double LTarget;
+    private double RTarget;
+
+    // motor OFF boolean
+    private boolean MotorOff;
 
     /**
      * Place code here to initialize subsystem
@@ -26,28 +40,28 @@ public class ClimbSubsystem extends SubsystemBase {
         climbL = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "leftLiftMotor");
         climbR = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "rightLiftMotor");
 
-        // Resets the encoders for both motors
-        climbL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        climbR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
         // Turn the left motor in reverse to move the slide upwards
         climbL.setDirection(DcMotorSimple.Direction.REVERSE);
         climbR.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        // Sets the motors PIDF values
-        climbL.setVelocityPIDFCoefficients(20.0, 0.2, 0.001, 10.0);
-        climbR.setVelocityPIDFCoefficients(20.0, 0.2, 0.001, 10.0);
+        // Resets the encoders for both motors
+        climbL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        climbR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // motor in open-loop mode (power mode)
+        climbL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        climbR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Setting target to zero upon initialization
-        climbL.setTargetPosition(0);
-        climbR.setTargetPosition(0);
+        // apply zero power to motors
+        climbL.setPower(0.0);
+        climbR.setPower(0.0);
 
-        // Puts the motors into position control mode
-        climbL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        climbR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // set targets to default
+        LTarget = 0.0;
+        RTarget = 0.0;
 
+        // motor off by default
+        MotorOff = true;
     }
 
     /**
@@ -57,9 +71,29 @@ public class ClimbSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
 
-        //RobotContainer.DBTelemetry.addData("ClimbPose ", climb.getCurrentPosition());
-        //RobotContainer.DBTelemetry.update();
+        // Left Controller
+        double LError = LTarget - climbL.getCurrentPosition();
+        double LPower = FsGain + PGain*LError;
+        LPower = Math.max(0.0, LPower);
+        LPower = Math.min(MaxPower, LPower);
+        if (LError < 0.0)
+            LPower = 0.0;
 
+        // Right Controller
+        double RError = RTarget - climbR.getCurrentPosition();
+        double RPower = FsGain + PGain*RError;
+        RPower = Math.max(0.0, RPower);
+        RPower = Math.min(MaxPower, RPower);
+        if (RError < 0.0)
+            RPower = 0.0;
+
+        // set motor powers
+        if (MotorOff)
+            { LPower = 0.0; RPower = 0.0; }
+        RobotContainer.RCTelemetry.addData("lpower", LPower);
+        RobotContainer.RCTelemetry.addData("rpower", RPower);
+        climbL.setPower(LPower);
+        climbR.setPower(RPower);
     }
 
     // only move as fast as slowest motor
@@ -68,22 +102,19 @@ public class ClimbSubsystem extends SubsystemBase {
         // Sets both motors to the target position
         int lowestTics = Math.min(climbL.getCurrentPosition(), climbR.getCurrentPosition());
         int targetPos = lowestTics + 50;
-        if (targetPos > 500){
-            targetPos = 500;// 2090
+        if (targetPos > 2090){
+            targetPos = 2090;// 2090
         }
-        climbL.setTargetPosition(targetPos);
-        climbR.setTargetPosition(targetPos);
-
-        // Sets the power VERY IMPORTANT
-        climbL.setPower(1.0);
-        climbR.setPower(1.0);
-
+        LTarget = targetPos;
+        RTarget = targetPos;
+        MotorOff = false;
     }
 
     public void climbStop(){
-        climbL.setPower(0);
-        climbR.setPower(0);
-
+        // set targets to current position to stop motors
+        LTarget = climbL.getCurrentPosition();
+        RTarget = climbR.getCurrentPosition();
+        MotorOff = true;
     }
 
 
