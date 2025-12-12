@@ -86,6 +86,9 @@ public class RobotContainer {
     // List of robot control and expansion hubs - used for caching of I/O
     static List<LynxModule> allHubs;
 
+    // Robot Modes
+    public enum Modes { Off, AutoInit, Auto, TeleOp}
+    private static Modes CurrentRobotMode;
 
     // robot initialization - common to both auto and teleop
     // mode - current opmode that is being run
@@ -97,6 +100,9 @@ public class RobotContainer {
 
         // set alliance colour
         isRedAlliance = RedAlliance;
+
+        // set robot mode - robot is off until we have initialized
+        CurrentRobotMode = Modes.Off;
 
         // create list of robot control and expansion hubs
         // set each for manual caching - cache updated in periodic()
@@ -142,6 +148,9 @@ public class RobotContainer {
 
     // Robot initialization for teleop - This runs once at initialization of teleop
     public static void Init_TeleOp() {
+
+        // robot is in teleop mode
+        CurrentRobotMode = Modes.TeleOp;
 
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
@@ -201,11 +210,17 @@ public class RobotContainer {
         // set limelight to obelisk pipeline
         limeLight.SetPipelineMode(1);
 
+        // robot is in auto init mode
+        CurrentRobotMode = Modes.AutoInit;
+
         obelisk.StartObeliskScan();
     }
 
     // Robot starting code for auto - This runs once at start of auto
     public static void Start_Auto() {
+
+        // robot is in auto mode
+        CurrentRobotMode = Modes.Auto;
 
         // perform any autonomous-specific start functions here
         obelisk.RecordPattern();
@@ -254,6 +269,9 @@ public class RobotContainer {
     public static boolean isRedAlliance() {
         return isRedAlliance;
     }
+
+    // Returns the current robot mode
+    public static Modes GetCurrentMode() { return CurrentRobotMode; }
 
     public static double getBlueStartAngle() {
         return BlueStartAngle;

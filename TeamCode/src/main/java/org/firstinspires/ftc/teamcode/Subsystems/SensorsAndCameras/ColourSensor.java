@@ -26,7 +26,6 @@ public class ColourSensor extends SubsystemBase {
     public ColourSensor() {
     leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
     rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
-    //rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rampColorSensor");
     rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "rampDistance");
     rampSensor.initialize();
 
@@ -45,13 +44,26 @@ public class ColourSensor extends SubsystemBase {
         Nothing
     }
 
-    public boolean isLeftArtifactPresent(){
-        if (leftSensor.alpha() > 70.0){// was 60.0
-            return true;
-        }else{
+    public boolean isLeftArtifactPresent() {
+        try {
+            return (leftSensor.alpha() > 70.0);
+
+        } catch (Exception e) {
+            // Log the error (if you can), and handle recovery
+            RobotContainer.RCTelemetry.addData("Left Sensor Error", e.getMessage());
+            RobotContainer.RCTelemetry.update();
+            try {
+                leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
+            } catch (Exception ex) {
+                // failed to recover
+                RobotContainer.RCTelemetry.addData("Left Sensor recovery failed", ex.getMessage());
+                RobotContainer.RCTelemetry.update();
+            }
+
             return false;
         }
     }
+
 
     public ArtifactColours GetLeftColour(){
        if (isLeftArtifactPresent() == true){
@@ -66,11 +78,25 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() >70.0){ // was 60
-            return true;
-        }else{
+
+        try {
+            return (rightSensor.alpha() >70.0);
+
+        } catch (Exception e) {
+            // Log the error (if you can), and handle recovery
+            RobotContainer.RCTelemetry.addData("Right Sensor Error", e.getMessage());
+            RobotContainer.RCTelemetry.update();
+            try {
+                rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
+            } catch (Exception ex) {
+                // failed to recover
+                RobotContainer.RCTelemetry.addData("Right Sensor recovery failed", ex.getMessage());
+                RobotContainer.RCTelemetry.update();
+            }
+
             return false;
         }
+
     }
     public ArtifactColours GetRightColour(){
         if (isRightArtifactPresent() == true){
@@ -84,34 +110,34 @@ public class ColourSensor extends SubsystemBase {
         }
     }
 
+    private boolean isRampSensorInitialized = true;
+
     public boolean isRampArtifactPresent(){
-
-        double distance = rampSensor.getDistance(DistanceUnit.MM);
-
-        // we have artifact (return true) if distance between
-        return  (distance >=55.0 && distance <= 130.0);
+        try {
+            double distance = rampSensor.getDistance(DistanceUnit.MM);
+            return (distance >= 55.0 && distance <= 130.0);
+        } catch (Exception e) {
+            // Log the error (if you can), and handle recovery
+            RobotContainer.RCTelemetry.addData("rampDistance Sensor Error", e.getMessage());
+            RobotContainer.RCTelemetry.update();
+            // Try to recover the sensor
+            if (isRampSensorInitialized) {
+                // First error: attempt to re-initialize
+                isRampSensorInitialized = false;
+                try {
+                    // Re-fetch and re-initialize sensor
+                    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "rampDistance");
+                    rampSensor.initialize();
+                    isRampSensorInitialized = true;
+                } catch (Exception ex) {
+                    // failed to recover
+                    RobotContainer.RCTelemetry.addData("rampDistance Sensor recovery failed", ex.getMessage());
+                    RobotContainer.RCTelemetry.update();
+                }
+            }
+            return false; // Can't determine presence, assume no artifact
+        }
     }
 
-    //public ArtifactColours GetRampColour(){
-    //    if (isRampArtifactPresent() == true){
-    //        if(rampSensor.green()> rightSensor.blue()){
-    //            return ArtifactColours.Green;
-    //        }else{
-    //            return ArtifactColours.Purple;
-    //        }
-    //    }else{
-    //        return ArtifactColours.Nothing;
-    //    }
-    //}
-    // what will appear on the driverstation
-    // Left Alphaness: 93
-    // left redness: 74
-    // Left Greeness: 91
-    //Left Blueness: 120
-
-    // Right Alphaness: 95
-    //Right Redness: 49
-    //Right Greeness : 135
-    // Right Bluesness: 106
 
 }
