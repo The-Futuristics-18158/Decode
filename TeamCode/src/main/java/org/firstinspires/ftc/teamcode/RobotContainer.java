@@ -171,8 +171,6 @@ public class RobotContainer {
         driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
                 (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
-        //driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new LoadingSideEmptyNineArtifactAuto());
-
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
@@ -185,9 +183,10 @@ public class RobotContainer {
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))).andThen(new Pause(1).andThen(new ClimbCommand())));//blue 0.935, 0.81
+        //driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))).andThen(new Pause(1).andThen(new ClimbCommand())));//blue 0.935, 0.81
         driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))));
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new ClimbCommand());
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
+
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
 

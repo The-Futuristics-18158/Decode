@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Utility.Utils;
 public class ClimbCommand extends CommandBase {
 
     Pose2d boxPos = AutoFunctions.redVsBlue( new Pose2d(new Translation2d( 0.935, 0.81), new Rotation2d(0)));
-    double error = 0.20;//only works within 20 cm
+    double error = 0.20; // only works within 20 cm
 
     // constructor
     public ClimbCommand() {
@@ -32,10 +32,15 @@ public class ClimbCommand extends CommandBase {
     // This method is called periodically while command is active
     @Override
     public void execute() {
-        if (RobotContainer.odometry.getCurrentPos().getX()>boxPos.getX()-error && RobotContainer.odometry.getCurrentPos().getX()>boxPos.getX()+error &&RobotContainer.odometry.getCurrentPos().getY()>boxPos.getY()-error &&RobotContainer.odometry.getCurrentPos().getY()>boxPos.getY()+error) {
+//        if (RobotContainer.odometry.getCurrentPos().getX() > (boxPos.getX() - error) &&
+//                RobotContainer.odometry.getCurrentPos().getX() < (boxPos.getX() + error) &&
+//                RobotContainer.odometry.getCurrentPos().getY() > (boxPos.getY() - error) &&
+//                RobotContainer.odometry.getCurrentPos().getY() < (boxPos.getY() + error)) {
+
             RobotContainer.drivesystem.RobotDrive(0.0, 0.0, 0.0);
             RobotContainer.climb.moveClimb();
-        }
+
+      //  }
 
     }
 
@@ -44,7 +49,6 @@ public class ClimbCommand extends CommandBase {
     public boolean isFinished() {
 
         return false;
-
     }
 
     // This method is called once when command is finished.
