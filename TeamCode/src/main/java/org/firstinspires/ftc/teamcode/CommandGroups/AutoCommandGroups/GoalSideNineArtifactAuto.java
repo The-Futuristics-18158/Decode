@@ -29,7 +29,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 //move to a shooting position
                 new MoveToPose(
                         1.5,
-                        1.5,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
                 new ShootAllObeliskColor(),

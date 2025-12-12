@@ -31,11 +31,14 @@ public class Blinkin extends SubsystemBase {
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()){
+        if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()) {
             ShowBallColours();
             //if (RobotContainer.limeLight.hasGoal){
             //    ShowHasGoal();
             //}
+//        }else if(RobotContainer.climb.climbStop()){
+//            ShowHasClimbed();
+
         } else{
            ShowAlliance();
        }
@@ -55,6 +58,10 @@ public class Blinkin extends SubsystemBase {
     public void ShowHasGoal(){
             blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
     }
+
+//    public void ShowHasClimbed(){
+//        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_PARTY_PALETTE);
+//    }
 
     public void ShowBallColours(){
        if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Green)||
