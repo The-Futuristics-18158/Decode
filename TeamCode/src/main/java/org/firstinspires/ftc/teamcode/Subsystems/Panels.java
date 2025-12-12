@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+/*
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -20,11 +21,7 @@ import com.bylazar.telemetry.TelemetryManager;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
-/**
- * Place description of subsystem here
- *
- * @author Kw126
- */
+
 public class Panels extends SubsystemBase {
 
     // Local objects and variables here
@@ -38,7 +35,6 @@ public class Panels extends SubsystemBase {
     // field update counter
     private int FieldUpdateCounter;
 
-    /** Place code here to initialize subsystem */
     public Panels() {
 
         // get pointers to various parts of Panels
@@ -52,8 +48,6 @@ public class Panels extends SubsystemBase {
         FieldUpdateCounter=0;
     }
 
-    /** Method called periodically by the scheduler
-     * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
 
@@ -69,9 +63,6 @@ public class Panels extends SubsystemBase {
         //            if (!RobotContainer.ActiveOpMode.isStopRequested() && updateDashboardCounter >= 15)
     }
 
-    /**
-     * function to update field with robot position and trajectory (if one exists)
-     */
     private void UpdateField() {
 
         // set field offset to FTC default
@@ -132,10 +123,6 @@ public class Panels extends SubsystemBase {
     private double[] currentTrajectoryXpoints;
     private double[] currentTrajectoryYpoints;
 
-    /**
-     * Display provided trajectory on the dashboard field widget.
-     * Set trajectory to null turn off trajectory
-     */
     public void DisplayTrajectory (Trajectory trajectory) {
 
         if (trajectory!=null)
@@ -157,9 +144,7 @@ public class Panels extends SubsystemBase {
         }
     }
 
-    /**
-     * panels game pad functionality  <work in progress>
-     */
+
     private void gamepadTelemetry(){
 
         // Get current gamepads from the active FTC hardware instance
@@ -174,32 +159,31 @@ public class Panels extends SubsystemBase {
 
         Telemetry.debug("==== Buttons ====");
         Telemetry.debug("A: " + g1.getCircle());
-        /*Telemetry.debug("B: " + g1.b);
-        Telemetry.debug("X: " + g1.x);
-        Telemetry.debug("Y: " + g1.y);
-        Telemetry.debug("DPad Up: " + g1.dpad_up);
-        Telemetry.debug("DPad Down: " + g1.dpad_down);
-        Telemetry.debug("DPad Left: " + g1.dpad_left);
-        Telemetry.debug("DPad Right: " + g1.dpad_right);
-        Telemetry.debug("Left Bumper: " + g1.left_bumper);
-        Telemetry.debug("Right Bumper: " + g1.right_bumper);
-        Telemetry.debug("Left Trigger: " + g1.left_trigger);
-        Telemetry.debug("Right Trigger: " + g1.right_trigger);
-        Telemetry.debug("Start / Options: " + g1.options);
-        Telemetry.debug("Back / Share: " + g1.back);
-        Telemetry.debug("Guide / PS: " + g1.guide);
-        Telemetry.debug("Touchpad: " + g1.touchpad);
-        Telemetry.debug("Left Stick Button: " + g1.left_stick_button);
-        Telemetry.debug("Right Stick Button: " + g1.right_stick_button);
+        //Telemetry.debug("B: " + g1.b);
+        //Telemetry.debug("X: " + g1.x);
+        //Telemetry.debug("Y: " + g1.y);
+        //Telemetry.debug("DPad Up: " + g1.dpad_up);
+        //Telemetry.debug("DPad Down: " + g1.dpad_down);
+        //Telemetry.debug("DPad Left: " + g1.dpad_left);
+        //Telemetry.debug("DPad Right: " + g1.dpad_right);
+        //Telemetry.debug("Left Bumper: " + g1.left_bumper);
+        //Telemetry.debug("Right Bumper: " + g1.right_bumper);
+        //Telemetry.debug("Left Trigger: " + g1.left_trigger);
+        //Telemetry.debug("Right Trigger: " + g1.right_trigger);
+        //Telemetry.debug("Start / Options: " + g1.options);
+        //Telemetry.debug("Back / Share: " + g1.back);
+        //Telemetry.debug("Guide / PS: " + g1.guide);
+        //Telemetry.debug("Touchpad: " + g1.touchpad);
+        //Telemetry.debug("Left Stick Button: " + g1.left_stick_button);
+        //Telemetry.debug("Right Stick Button: " + g1.right_stick_button);
 
-        Telemetry.debug("==== Sticks ====");
-        Telemetry.debug("Left Stick X: " + g1.left_stick_x);
-        Telemetry.debug("Left Stick Y: " + g1.left_stick_y);
-        Telemetry.debug("Right Stick X: " + g1.right_stick_x);
-        Telemetry.debug("Right Stick Y: " + g1.right_stick_y);
-        */
-        Telemetry.update();
+        //Telemetry.debug("==== Sticks ====");
+        //Telemetry.debug("Left Stick X: " + g1.left_stick_x);
+        //Telemetry.debug("Left Stick Y: " + g1.left_stick_y);
+        //Telemetry.debug("Right Stick X: " + g1.right_stick_x);
+        //Telemetry.debug("Right Stick Y: " + g1.right_stick_y);
+        //Telemetry.update();
     }
 
-
 }
+*/
