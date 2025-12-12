@@ -38,9 +38,11 @@ public class Odometry extends SubsystemBase {
         // get limelight MT2 odometry
         LLResult result = RobotContainer.limeLight.limeLight.getLatestResult();
 
+        // new addition: only use apriltag when in teleop mode
         // if we have valid result and it is not stale (>100ms)
         // and we have at least one apriltag detection
-        if (result!=null && result.isValid() && result.getStaleness() < 100 &&
+        if (RobotContainer.GetCurrentMode()== RobotContainer.Modes.TeleOp &&
+                result!=null && result.isValid() && result.getStaleness() < 100 &&
             result.getFiducialResults()!=null && !result.getFiducialResults().isEmpty())
         {
             // we have a valid LL result and at least one tag detection
