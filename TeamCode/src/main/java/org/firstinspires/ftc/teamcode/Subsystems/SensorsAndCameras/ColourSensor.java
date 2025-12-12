@@ -46,7 +46,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isLeftArtifactPresent(){
-        if (leftSensor.alpha() > 60.0){// was 60.0
+        if (leftSensor.alpha() > 70.0){// was 60.0
             return true;
         }else{
             return false;
@@ -66,7 +66,7 @@ public class ColourSensor extends SubsystemBase {
     }
 
     public boolean isRightArtifactPresent(){
-        if (rightSensor.alpha() >60.0){ // was 60
+        if (rightSensor.alpha() >70.0){ // was 60
             return true;
         }else{
             return false;
@@ -89,7 +89,7 @@ public class ColourSensor extends SubsystemBase {
         double distance = rampSensor.getDistance(DistanceUnit.MM);
 
         // we have artifact (return true) if distance between
-        return  (distance >=90.0 && distance <= 230.0);
+        return  (distance >=55.0 && distance <= 130.0);
     }
 
     //public ArtifactColours GetRampColour(){

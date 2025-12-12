@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
+import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
@@ -171,6 +172,8 @@ public class RobotContainer {
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
 
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
 
         // example sequential command
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());

@@ -36,8 +36,8 @@ public class ClimbSubsystem extends SubsystemBase {
         climbR.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Sets the motors PIDF values
-        climbL.setVelocityPIDFCoefficients(10.0, 0.2, 0.001, 10.0);
-        climbR.setVelocityPIDFCoefficients(10.0, 0.2, 0.001, 10.0);
+        climbL.setVelocityPIDFCoefficients(20.0, 0.2, 0.001, 10.0);
+        climbR.setVelocityPIDFCoefficients(20.0, 0.2, 0.001, 10.0);
 
 
         // Setting target to zero upon initialization
@@ -62,19 +62,30 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    // Using the var ticks sets the motor encoder ticks to a set position
-    public void moveClimb(int ticks) {
+    // only move as fast as slowest motor
+    public void moveClimb() {
 
-        // Sets both motors to the ticks target position
-        climbL.setTargetPosition(ticks);
-        climbR.setTargetPosition(ticks);
+        // Sets both motors to the target position
+        int lowestTics = Math.min(climbL.getCurrentPosition(), climbR.getCurrentPosition());
+        int targetPos = lowestTics + 50;
+        if (targetPos > 500){
+            targetPos = 500;// 2090
+        }
+        climbL.setTargetPosition(targetPos);
+        climbR.setTargetPosition(targetPos);
 
         // Sets the power VERY IMPORTANT
-        climbL.setPower(1);
-        climbR.setPower(1);
+        climbL.setPower(1.0);
+        climbR.setPower(1.0);
 
     }
 
-    public void moveTo(ClimbTargetHeight target) {moveClimb(target.getValue());}
+    public void climbStop(){
+        climbL.setPower(0);
+        climbR.setPower(0);
+
+    }
+
+
 
 }
