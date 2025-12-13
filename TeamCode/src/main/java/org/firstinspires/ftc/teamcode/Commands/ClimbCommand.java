@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Utility.Utils;
 public class ClimbCommand extends CommandBase {
 
     Pose2d boxPos = AutoFunctions.redVsBlue( new Pose2d(new Translation2d( 0.935, 0.81), new Rotation2d(0)));
-    double error = 0.20; // only works within 20 cm
+    double error = 0.40; // only works within 40 cm
 
     // constructor
     public ClimbCommand() {
@@ -21,12 +21,14 @@ public class ClimbCommand extends CommandBase {
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.climb);
         addRequirements(RobotContainer.drivesystem);
+        addRequirements(RobotContainer.shooter);
     }
 
     // This method is called once when command is started
     @Override
     public void initialize() {
 
+        RobotContainer.shooter.SetFlywheelSpeed(0.0);
     }
 
     // This method is called periodically while command is active

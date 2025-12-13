@@ -209,14 +209,18 @@ public class RobotContainer {
     // Robot initialization for auto - This runs once at initialization of auto
     public static void Init_Auto() {
 
-        // perform any autonomous-specific initialization here
-        // set limelight to obelisk pipeline
-        limeLight.SetPipelineMode(1);
-
         // robot is in auto init mode
         CurrentRobotMode = Modes.AutoInit;
 
-        obelisk.StartObeliskScan();
+        // perform any autonomous-specific initialization here
+        // set limelight to obelisk pipeline
+        if (RobotContainer.isRedAlliance == false){
+            limeLight.SetPipelineMode(1);
+        }else{
+            limeLight.SetPipelineMode(2);
+        }
+
+        //obelisk.StartObeliskScan();
     }
 
     // Robot starting code for auto - This runs once at start of auto

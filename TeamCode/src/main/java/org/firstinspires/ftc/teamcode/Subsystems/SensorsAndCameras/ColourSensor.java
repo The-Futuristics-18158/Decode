@@ -67,7 +67,7 @@ public class ColourSensor extends SubsystemBase {
 
     public ArtifactColours GetLeftColour(){
        if (isLeftArtifactPresent() == true){
-           if(leftSensor.green()> leftSensor.blue()){
+           if(leftSensor.green() > leftSensor.blue()){
                return ArtifactColours.Green;
            }else{
                return ArtifactColours.Purple;
@@ -80,7 +80,7 @@ public class ColourSensor extends SubsystemBase {
     public boolean isRightArtifactPresent(){
 
         try {
-            return (rightSensor.alpha() >70.0);
+            return (rightSensor.alpha() > 70.0);
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery

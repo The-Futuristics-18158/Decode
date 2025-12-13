@@ -33,11 +33,14 @@ public class GoalTargeting extends SubsystemBase {
 
     Pose2d currentPos = new Pose2d();
 
-
+    Pose2d boxPos;
+    double error;
 
     /** Place code here to initialize subsystem */
     public GoalTargeting() {
 
+        boxPos = AutoFunctions.redVsBlue( new Pose2d(new Translation2d( 0.935, 0.81), new Rotation2d(0)));
+        error = 0.40;
     }
 
     /** Method called periodically by the scheduler
@@ -155,7 +158,7 @@ public class GoalTargeting extends SubsystemBase {
     public LeftVsRight ShootObelisk3() {
         // this is lamda function
         return ()-> {
-            // get obelisk color for artifact #1
+            // get obelisk color for artifact #2
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(2);
             // Logic to shoot ball
             if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
@@ -201,13 +204,24 @@ public class GoalTargeting extends SubsystemBase {
     public double IdleSpeed(){
         double shootSpeed = this.CalculateSpeed();
         double distance = this.GetDistanceToGoal();
-        if (distance <= 2.0){
-            return shootSpeed;
-        }else if(distance >= 3.2 && distance <= 3.7){
+        if (RobotContainer.odometry.getCurrentPos().getX() > (boxPos.getX() - error) &&
+            RobotContainer.odometry.getCurrentPos().getX() < (boxPos.getX() + error) &&
+            RobotContainer.odometry.getCurrentPos().getY() > (boxPos.getY() - error) &&
+            RobotContainer.odometry.getCurrentPos().getY() < (boxPos.getY() + error)) {
+            return 0.0;
+        } else if(distance >= 3.2 && distance <= 3.7) {
             return (0.7 * shootSpeed);
         }else {
-            return 800.0;
+            return 0.0;
         }
+
+        //if (distance <= 2.0){
+        //    return shootSpeed;
+        //}else if(distance >= 3.2 && distance <= 3.7){
+        //    return (0.7 * shootSpeed);
+        //}else {
+        //    return 800.0;
+        //}
     }
 
 }

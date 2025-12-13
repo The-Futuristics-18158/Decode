@@ -32,15 +32,15 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                 //move to a shooting position
                 new MoveToPose(
                         1.75,
-                       1.5,
-                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(40.0)))))), // + or - 20 degrees
+                       1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))), // + or - 20 degrees
 
                 new ShootAllObeliskColor(),
 
                 //move to intake point
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
@@ -53,8 +53,8 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                         0.0,
                         AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(90.0))),
                         new ArrayList<Translation2d>(){{AutoFunctions.redVsBlue(new Translation2d(0.5,-0.95));}},
-                        AutoFunctions.redVsBlue(new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(180)))),
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(40.0)))),
+                        AutoFunctions.redVsBlue(new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(180)))),
+                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45.0)))),
 
                 new ShootAllObeliskColor(),
 
@@ -77,7 +77,7 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.67, new Rotation2d(Math.toRadians(-90.0))))))
 
         );
