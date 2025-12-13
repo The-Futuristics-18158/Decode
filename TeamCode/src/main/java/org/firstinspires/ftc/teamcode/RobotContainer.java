@@ -35,7 +35,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
-import org.firstinspires.ftc.teamcode.Subsystems.Panels;
+//import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
@@ -54,7 +54,7 @@ public class RobotContainer {
     public static boolean isRedAlliance;
 
     // FTC dashboard and telemetries
-    public static Panels Panels;
+    //public static Panels Panels;
     public static Telemetry RCTelemetry;
 
     // timer used to determine how often to run scheduler periodic
@@ -121,7 +121,7 @@ public class RobotContainer {
         timer.reset();
 
         // set up dashboard and various telemetries
-        Panels = new Panels();
+        //Panels = new Panels();
         RCTelemetry = ActiveOpMode.telemetry;
 
         // cancel any commands previously running by scheduler
@@ -209,14 +209,18 @@ public class RobotContainer {
     // Robot initialization for auto - This runs once at initialization of auto
     public static void Init_Auto() {
 
-        // perform any autonomous-specific initialization here
-        // set limelight to obelisk pipeline
-        limeLight.SetPipelineMode(1);
-
         // robot is in auto init mode
         CurrentRobotMode = Modes.AutoInit;
 
-        obelisk.StartObeliskScan();
+        // perform any autonomous-specific initialization here
+        // set limelight to obelisk pipeline
+        if (RobotContainer.isRedAlliance == false){
+            limeLight.SetPipelineMode(1);
+        }else{
+            limeLight.SetPipelineMode(2);
+        }
+
+        //obelisk.StartObeliskScan();
     }
 
     // Robot starting code for auto - This runs once at start of auto
@@ -265,6 +269,20 @@ public class RobotContainer {
             // report time interval on robot controller
             RCTelemetry.addData("interval time(ms)", intervaltime);
             RCTelemetry.addData("execute time(ms)", exectimer.milliseconds());
+
+            // show obelisk status - only if in auto-init mode
+            if (GetCurrentMode()==Modes.AutoInit) {
+                if (limeLight.getObeliskID()== LimeLight.tagId.TAG_GPP)
+                     RCTelemetry.addLine("See GPP Tag");
+                 else if (limeLight.getObeliskID()== LimeLight.tagId.TAG_PGP)
+                     RCTelemetry.addLine("See PGP Tag");
+                 else if (limeLight.getObeliskID()== LimeLight.tagId.TAG_PPG)
+                     RCTelemetry.addLine("See PPG Tag");
+                 else
+                     RCTelemetry.addLine("No Obelisk Tag");
+            }
+
+
             RCTelemetry.update();
         }
     }

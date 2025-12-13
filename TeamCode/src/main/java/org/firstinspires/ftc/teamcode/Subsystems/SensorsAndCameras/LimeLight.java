@@ -93,7 +93,7 @@ public class LimeLight extends SubsystemBase {
 
     // switch between detecting obelisk id and position tags
     public void SetPipelineMode(int pipelineMode){
-        if (pipelineMode == 0 || pipelineMode == 1){
+        if (pipelineMode == 0 || pipelineMode == 1 || pipelineMode == 2){
             limeLight.pipelineSwitch(pipelineMode);
         }
     }
@@ -144,8 +144,6 @@ public class LimeLight extends SubsystemBase {
             return null;
 
         }
-
-
 
     }
 

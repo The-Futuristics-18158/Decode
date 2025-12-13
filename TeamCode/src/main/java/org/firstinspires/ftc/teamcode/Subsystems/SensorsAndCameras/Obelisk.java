@@ -76,7 +76,11 @@ public class Obelisk extends SubsystemBase {
      * Switches camera to obelisk mode
      */
     public void StartObeliskScan() {
-        RobotContainer.limeLight.SetPipelineMode(1);
+
+        if (RobotContainer.isRedAlliance == false)
+            RobotContainer.limeLight.SetPipelineMode(1);
+        else
+            RobotContainer.limeLight.SetPipelineMode(2);
     }
 
     /**
@@ -95,7 +99,7 @@ public class Obelisk extends SubsystemBase {
     {
         if ((pattern==ObeliskPattern.GPP && index==0) ||
                 (pattern==ObeliskPattern.PGP && index==1) ||
-                (pattern==ObeliskPattern.PGP && index==2))
+                (pattern==ObeliskPattern.PPG && index==2))
             return ArtifactColor.Green;
         else
             return ArtifactColor.Purple;

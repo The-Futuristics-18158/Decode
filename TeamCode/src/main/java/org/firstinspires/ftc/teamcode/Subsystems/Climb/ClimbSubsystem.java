@@ -90,8 +90,8 @@ public class ClimbSubsystem extends SubsystemBase {
         // set motor powers
         if (MotorOff)
             { LPower = 0.0; RPower = 0.0; }
-        RobotContainer.RCTelemetry.addData("lpower", LPower);
-        RobotContainer.RCTelemetry.addData("rpower", RPower);
+        //RobotContainer.RCTelemetry.addData("lpower", LPower);
+        //RobotContainer.RCTelemetry.addData("rpower", RPower);
         climbL.setPower(LPower);
         climbR.setPower(RPower);
     }

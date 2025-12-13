@@ -55,6 +55,8 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 new WaitForSpinup(),
                 // shoot obelisk colour #2
                 new Shoot(RobotContainer.targeting.ShootObelisk2()),
+                // small pause for uptake to lower
+                new Pause(0.25),
 
                 // ARTIFACT #3
 

@@ -53,8 +53,8 @@ public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
                         0.0,
                         AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(90.0))),
                         new ArrayList<Translation2d>(){{AutoFunctions.redVsBlue(new Translation2d(0.5,-0.95));}},
-                        AutoFunctions.redVsBlue(new Pose2d(0.0, -0.15, new Rotation2d(Math.toRadians(180)))),
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(40.0)))),
+                        AutoFunctions.redVsBlue(new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(180)))),
+                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45.0)))),
 
                 new ShootAllObeliskColor(),
 
