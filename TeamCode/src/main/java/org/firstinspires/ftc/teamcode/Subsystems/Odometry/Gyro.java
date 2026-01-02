@@ -12,9 +12,11 @@ public class Gyro extends SubsystemBase {
     private IMU gyro;
 
     private double YawAngle;
+    private double RollAngle;
 
     // gyro offset
     private double YawAngleOffset;
+    private double RollAngleOffset;
 
     /** Place code here to initialize subsystem */
     public Gyro() {
@@ -23,6 +25,7 @@ public class Gyro extends SubsystemBase {
         gyro = RobotContainer.ActiveOpMode.hardwareMap.get(IMU.class, "imu");
         gyro.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)));
         gyro.resetYaw();
+        RollAngleOffset = - gyro.getRobotYawPitchRollAngles().getRoll(AngleUnit.DEGREES);
     }
 
     /** Method called periodically by the scheduler
@@ -30,6 +33,7 @@ public class Gyro extends SubsystemBase {
     @Override
     public void periodic() {
         YawAngle = gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES)+YawAngleOffset;
+        RollAngle = gyro.getRobotYawPitchRollAngles().getRoll(AngleUnit.DEGREES) + RollAngleOffset;
     }
 
     /**
@@ -41,6 +45,9 @@ public class Gyro extends SubsystemBase {
         return YawAngle;
     }
 
+    public double getRollAngle() {
+        return RollAngle;
+    }
     /**
      * Resets gyro and offset value
      */
