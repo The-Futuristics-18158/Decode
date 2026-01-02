@@ -12,6 +12,7 @@ public class Gyro extends SubsystemBase {
     private IMU gyro;
 
     private double YawAngle;
+    private double RollAngle;
 
     // gyro offset
     private double YawAngleOffset;
@@ -30,6 +31,7 @@ public class Gyro extends SubsystemBase {
     @Override
     public void periodic() {
         YawAngle = gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES)+YawAngleOffset;
+        RollAngle = gyro.getRobotYawPitchRollAngles().getRoll(AngleUnit.DEGREES);
     }
 
     /**
@@ -41,6 +43,9 @@ public class Gyro extends SubsystemBase {
         return YawAngle;
     }
 
+    public double getRollAngle() {
+        return RollAngle;
+    }
     /**
      * Resets gyro and offset value
      */

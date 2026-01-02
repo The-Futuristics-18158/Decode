@@ -66,18 +66,23 @@ public class ClimbSubsystem extends SubsystemBase {
     public void moveClimb() {
 
         // Sets both motors to the target position
-        int lowestTics = Math.min(climbL.getCurrentPosition(), climbR.getCurrentPosition());
-        int targetPos = lowestTics + 50;
-        if (targetPos > 500){
-            targetPos = 500;// 2090
+        double rollAngle = RobotContainer.gyro.getRollAngle();
+        double leftTics = climbL.getCurrentPosition();
+        double rightTics = climbR.getCurrentPosition();
+        double motorDifference = Math.abs(leftTics - rightTics);
+        // ~1500 tics to top
+
+
+        if (leftTics > rightTics){
+            //reduce power of left motor
+            climbL.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+        }else if (rightTics > leftTics) {
+            //reduce power of right motor
+            climbR.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+        }else{
+            climbL.setPower(1.0);
+            climbR.setPower(1.0);
         }
-        climbL.setTargetPosition(targetPos);
-        climbR.setTargetPosition(targetPos);
-
-        // Sets the power VERY IMPORTANT
-        climbL.setPower(1.0);
-        climbR.setPower(1.0);
-
     }
 
     public void climbStop(){
