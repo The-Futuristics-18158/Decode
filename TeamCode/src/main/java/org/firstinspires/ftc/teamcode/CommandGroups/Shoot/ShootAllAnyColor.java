@@ -55,6 +55,8 @@ public class ShootAllAnyColor extends SequentialCommandGroup {
                 new WaitForSpinup(),
                 // shoot any color
                 new Shoot(RobotContainer.targeting.ShootAny()),
+                // small pause for uptake to lower
+                new Pause(0.25),
 
                 // ARTIFACT #3
 
