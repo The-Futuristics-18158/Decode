@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Climb;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
@@ -15,13 +18,15 @@ public class ClimbSubsystem extends SubsystemBase {
     // Initialize both motors
     private final DcMotorEx climbL;
     private final DcMotorEx climbR;
-
+    private  final Rev2mDistanceSensor climbSensor;
 
     /**
      * Place code here to initialize subsystem
      */
     public ClimbSubsystem() {
 
+        climbSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "climbDistance");
+        climbSensor.initialize();
         // Creates the motors using the hardware map
         climbL = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "leftLiftMotor");
         climbR = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "rightLiftMotor");
@@ -45,8 +50,8 @@ public class ClimbSubsystem extends SubsystemBase {
         climbR.setTargetPosition(0);
 
         // Puts the motors into position control mode
-        climbL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        climbR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        climbL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        climbR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -74,20 +79,22 @@ public class ClimbSubsystem extends SubsystemBase {
         double rightTics = climbR.getCurrentPosition();
         double motorDifference = Math.abs(leftTics - rightTics);
         // ~1500 tics to top
+        if(climbSensor.getDistance(DistanceUnit.INCH) >= 18){
 
-
-        climbR.setTargetPosition(1500);
-        climbL.setTargetPosition(1500);
-        if (leftTics > rightTics){
-            //reduce power of left motor
-            climbL.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
-        }else if (rightTics > leftTics) {
-            //reduce power of right motor
-            climbR.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+            if (leftTics > rightTics){
+                //reduce power of left motor
+                climbL.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+            }else if (rightTics > leftTics) {
+                //reduce power of right motor
+                climbR.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+            }else{
+                climbL.setPower(1.0);
+                climbR.setPower(1.0);
+            }
         }else{
-            climbL.setPower(1.0);
-            climbR.setPower(1.0);
+            climbStop();
         }
+
     }
 
     public void climbStop(){
