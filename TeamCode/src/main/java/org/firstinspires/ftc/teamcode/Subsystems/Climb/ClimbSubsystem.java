@@ -48,6 +48,8 @@ public class ClimbSubsystem extends SubsystemBase {
         climbL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         climbR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+
+
     }
 
     /**
@@ -56,7 +58,8 @@ public class ClimbSubsystem extends SubsystemBase {
      */
     @Override
     public void periodic() {
-
+        double rollAngle = RobotContainer.gyro.getRollAngle();
+        RobotContainer.RCTelemetry.addData("Roll", rollAngle);
         //RobotContainer.DBTelemetry.addData("ClimbPose ", climb.getCurrentPosition());
         //RobotContainer.DBTelemetry.update();
 
@@ -73,6 +76,8 @@ public class ClimbSubsystem extends SubsystemBase {
         // ~1500 tics to top
 
 
+        climbR.setTargetPosition(1500);
+        climbL.setTargetPosition(1500);
         if (leftTics > rightTics){
             //reduce power of left motor
             climbL.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
