@@ -11,8 +11,6 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSideNineArtifactAuto;
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSideEmptyNineArtifactAuto;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
@@ -23,7 +21,6 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
-import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
@@ -35,7 +32,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
-//import org.firstinspires.ftc.teamcode.Subsystems.Panels;
+import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
@@ -54,7 +51,7 @@ public class RobotContainer {
     public static boolean isRedAlliance;
 
     // FTC dashboard and telemetries
-    //public static Panels Panels;
+    public static Panels Panels;
     public static Telemetry RCTelemetry;
 
     // timer used to determine how often to run scheduler periodic
@@ -121,7 +118,7 @@ public class RobotContainer {
         timer.reset();
 
         // set up dashboard and various telemetries
-        //Panels = new Panels();
+        Panels = new Panels();
         RCTelemetry = ActiveOpMode.telemetry;
 
         // cancel any commands previously running by scheduler
