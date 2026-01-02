@@ -63,8 +63,10 @@ public class ClimbSubsystem extends SubsystemBase {
      */
     @Override
     public void periodic() {
+        double climbDistance = climbSensor.getDistance(DistanceUnit.INCH);
+        RobotContainer.RCTelemetry.addData("Climb distance", climbDistance);
         double rollAngle = RobotContainer.gyro.getRollAngle();
-        RobotContainer.RCTelemetry.addData("Roll", rollAngle);
+        RobotContainer.RCTelemetry.addData("roll", rollAngle);
         //RobotContainer.DBTelemetry.addData("ClimbPose ", climb.getCurrentPosition());
         //RobotContainer.DBTelemetry.update();
 
@@ -75,18 +77,20 @@ public class ClimbSubsystem extends SubsystemBase {
 
         // Sets both motors to the target position
         double rollAngle = RobotContainer.gyro.getRollAngle();
-        double leftTics = climbL.getCurrentPosition();
-        double rightTics = climbR.getCurrentPosition();
-        double motorDifference = Math.abs(leftTics - rightTics);
+        double climbDistance = climbSensor.getDistance(DistanceUnit.INCH);
+        double angleDifference = (Math.abs(rollAngle) - 0.5) / 1.5;
         // ~1500 tics to top
-        if(climbSensor.getDistance(DistanceUnit.INCH) >= 18){
+        // when right side is low, roll is positive. left side low = roll negative
+        if(climbDistance < 20.0){
 
-            if (leftTics > rightTics){
+            if (rollAngle <= - 0.5){
                 //reduce power of left motor
-                climbL.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
-            }else if (rightTics > leftTics) {
+                climbR.setPower(Math.max(1.0 - (angleDifference), 0.0));
+                climbL.setPower(1.0);
+            }else if (rollAngle >= 0.5) {
                 //reduce power of right motor
-                climbR.setPower(Math.max(1.0 - (motorDifference * 0.01), 0.0));
+                climbL.setPower(Math.max(1.0 - (angleDifference), 0.0));
+                climbR.setPower(1.0);
             }else{
                 climbL.setPower(1.0);
                 climbR.setPower(1.0);
