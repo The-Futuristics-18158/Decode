@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-//import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
 
@@ -15,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting
  *
  * @author Zoe
  */
-//@Configurable
+@Configurable
 public class FlywheelSubsystem extends SubsystemBase {
 
     // Local objects and variables here
@@ -97,9 +96,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         else
             flywheelMotor.setPower(0.0);
 
-        //RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
-        //RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
-        //RobotContainer.Panels.FTCTelemetry.update();
+        RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
+        RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here
