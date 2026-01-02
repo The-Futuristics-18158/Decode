@@ -46,7 +46,7 @@ public class ColourSensor extends SubsystemBase {
 
     public boolean isLeftArtifactPresent() {
         try {
-            return (leftSensor.alpha() > 70.0);
+            return (leftSensor.alpha() > 80.0);
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
@@ -80,7 +80,7 @@ public class ColourSensor extends SubsystemBase {
     public boolean isRightArtifactPresent(){
 
         try {
-            return (rightSensor.alpha() > 70.0);
+            return (rightSensor.alpha() > 80.0);
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
@@ -115,7 +115,7 @@ public class ColourSensor extends SubsystemBase {
     public boolean isRampArtifactPresent(){
         try {
             double distance = rampSensor.getDistance(DistanceUnit.MM);
-            return (distance >= 55.0 && distance <= 130.0);
+            return (distance >= 50.0 && distance <= 105.0);
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
             RobotContainer.RCTelemetry.addData("rampDistance Sensor Error", e.getMessage());
