@@ -532,4 +532,27 @@ public class ArtifactCamera extends SubsystemBase {
         }
     }
 
+    public boolean IsLeftPresent(){
+        if(getLeftColour() != ArtifactColours.Nothing){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean IsRightPresent(){
+        if(getRightColour() != ArtifactColours.Nothing){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean IsBottomPresent(){
+        if(getBottomColour() != ArtifactColours.Nothing){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
