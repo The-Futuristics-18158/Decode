@@ -142,7 +142,7 @@ public class ArtifactCamera extends SubsystemBase {
 
         // available filtering functions
         TRpurpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 400, 76800));
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 300, 76800));
         //TLpurpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //purpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
@@ -174,7 +174,7 @@ public class ArtifactCamera extends SubsystemBase {
 
         // available filtering functions
         TRgreenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 400, 76800));
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 300, 76800));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
