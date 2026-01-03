@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
@@ -164,31 +165,47 @@ public class RobotContainer {
         uptake.LowerRightUptake();
         uptake.LowerLeftUptake();
 
+        // Controller bindings
+
+        // Reset odometry
+        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
+                (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
+
+        // Shoot Green
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
+
+        // Shoot All
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+
+        // Shoot Purple
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
+
+        // Shoot According to the obelisk reading
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+
+        // Hunt Mode
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+
+        // Manual Intake
+        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
+
+        // Climb Positioning
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))));
+
+        // Climb in three seconds
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
+
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
         // instead of creating a full command, just to run one line of java code.
-        driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
-                (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
-
-        //driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))).andThen(new Pause(1).andThen(new ClimbCommand())));//blue 0.935, 0.81
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))));
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
+        // example turn to command
+        // driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld((new TurnTo(AutoFunctions.redVsBlue(0.0), true, 3.0)));
 
         // example sequential command
-        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
+        // driverOp.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new ExampleCommandGroup());
+
 
         // example of binding more complex command to a button. This would be in a separate command file
         // driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new ExampleCommand());
