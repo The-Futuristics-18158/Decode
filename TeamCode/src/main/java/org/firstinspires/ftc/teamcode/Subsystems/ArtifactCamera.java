@@ -91,10 +91,10 @@ public class ArtifactCamera extends SubsystemBase {
 
 
         TLgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.RGB,
-                //                    new Scalar(0, 40, 0),
-                //                    new Scalar(80, 255.0, 80)))
+               // .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                                   new Scalar(0, 40, 0),
+                                   new Scalar(332, 27, 54)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 0.5, -0.6, 0.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -123,10 +123,10 @@ public class ArtifactCamera extends SubsystemBase {
 
 
         TRpurpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.RGB,
-                //        new Scalar(50.0, 0, 50.0),
-                //        new Scalar(255.0, 175.0, 255.0)))
+                //.setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                        new Scalar(50.0, 0, 50.0),
+                        new Scalar(296.0, 59.0, 84.0)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(0.75, 1, 1.0, 0.5))
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -155,10 +155,10 @@ public class ArtifactCamera extends SubsystemBase {
 
 
         TRgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.RGB,
-                //        new Scalar(0, 40, 0),
-                //        new Scalar(80, 255.0, 80)))
+               // .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                       new Scalar(0, 40, 0),
+                        new Scalar(143, 77, 62)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(0.75, 1, 1.0, 0.5))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -221,10 +221,10 @@ public class ArtifactCamera extends SubsystemBase {
 
 
         BottomgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.RGB,
-                //        new Scalar(0, 40, 0),
-                //        new Scalar(80, 255.0, 80)))
+                //.setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.RGB,
+                        new Scalar(0, 40, 0),
+                        new Scalar(134, 23.0, 49)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-0.50, -0.5, 1.0, -1.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
