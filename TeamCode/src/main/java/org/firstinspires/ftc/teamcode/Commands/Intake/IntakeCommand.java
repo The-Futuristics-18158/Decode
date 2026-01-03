@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
 
 
 // command template
@@ -36,7 +37,16 @@ public class IntakeCommand extends CommandBase {
     // This method is called periodically while command is active
     @Override
     public void execute() {
-        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+//        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+//            finished = true;
+//            RobotContainer.intake.intakeStop();
+//        }else {
+//            RobotContainer.intake.intakeRun();
+//        }
+
+        if (timer.seconds()>5.0 || ((RobotContainer.artifactCamera.IsLeftPresent()) &&
+                (RobotContainer.artifactCamera.IsRightPresent()) &&
+                (RobotContainer.artifactCamera.IsBottomPresent()))){
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {
