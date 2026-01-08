@@ -31,7 +31,7 @@ public class Blinkin extends SubsystemBase {
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()) {
+        if(RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent()) {
             ShowBallColours();
             //if (RobotContainer.limeLight.hasGoal){
             //    ShowHasGoal();
@@ -64,15 +64,15 @@ public class Blinkin extends SubsystemBase {
 //    }
 
     public void ShowBallColours(){
-       if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Green)||
-               RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Green) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green )){
            hasGreen = true;
        }
        else
            hasGreen = false;
 
-       if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Purple)||
-                RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Purple) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple ) ){
             hasPurple = true;
        }
        else

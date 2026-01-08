@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
@@ -20,6 +21,8 @@ public class IntakeSubsystem extends SubsystemBase {
     // Local objects and variables here
     private final DcMotorEx intakeMotor;
 
+
+
     /** Place code here to initialize subsystem */
     public IntakeSubsystem() {
         // Creates the motor using the hardware map
@@ -30,6 +33,8 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         // Setting power to zero upon initialization
         intakeMotor.setPower(0);
+
+
     }
 
     /** Method called periodically by the scheduler
@@ -48,4 +53,10 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intakeStop(){
         intakeMotor.setPower(0.0);
     }
+
+//    public void intakeBackup(){
+//        intakeMotor.setPower(-1.0);
+//
+//
+//    }
 }
