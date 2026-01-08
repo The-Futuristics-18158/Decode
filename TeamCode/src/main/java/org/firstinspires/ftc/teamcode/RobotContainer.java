@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.OperatorControlsSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
@@ -65,6 +66,7 @@ public class RobotContainer {
     public static GamepadEx toolOp;
 
     // create pointers to robot subsystems
+    public static OperatorControlsSubsystem operatorControls;
     public static Gyro gyro;
     public static PinpointOdometry odometryPod;
     public static DriveTrain drivesystem;
@@ -92,6 +94,8 @@ public class RobotContainer {
     // Robot Modes
     public enum Modes { Off, AutoInit, Auto, TeleOp}
     private static Modes CurrentRobotMode;
+
+    public static int artifactsInRamp = 0;
 
     // robot initialization - common to both auto and teleop
     // mode - current opmode that is being run
@@ -132,6 +136,7 @@ public class RobotContainer {
         toolOp = new GamepadEx(ActiveOpMode.gamepad2);
 
         // create systems
+        operatorControls = new OperatorControlsSubsystem();
         gyro = new Gyro();
         odometryPod = new PinpointOdometry();
         odometry = new Odometry();
@@ -195,6 +200,10 @@ public class RobotContainer {
         // Climb in three seconds
         driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
 
+        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
+        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
+        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
+
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -221,6 +230,7 @@ public class RobotContainer {
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
 
+        artifactsInRamp = 0;
     }
 
     // Robot initialization for auto - This runs once at initialization of auto
