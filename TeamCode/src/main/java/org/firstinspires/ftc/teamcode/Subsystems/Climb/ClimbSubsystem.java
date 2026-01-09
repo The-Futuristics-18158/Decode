@@ -64,12 +64,16 @@ public class ClimbSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         double climbDistance = climbSensor.getDistance(DistanceUnit.INCH);
-        RobotContainer.RCTelemetry.addData("Climb distance", climbDistance);
+        //RobotContainer.RCTelemetry.addData("Climb distance", climbDistance);
         double rollAngle = RobotContainer.gyro.getRollAngle();
-        RobotContainer.RCTelemetry.addData("roll", rollAngle);
+        //RobotContainer.RCTelemetry.addData("roll", rollAngle);
         //RobotContainer.DBTelemetry.addData("ClimbPose ", climb.getCurrentPosition());
         //RobotContainer.DBTelemetry.update();
 
+    }
+
+    public double getClimbDistance(){
+        return climbSensor.getDistance(DistanceUnit.INCH);
     }
 
     // only move as fast as slowest motor

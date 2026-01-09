@@ -50,14 +50,14 @@ public class ColourSensor extends SubsystemBase {
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.RCTelemetry.addData("Left Sensor Error", e.getMessage());
-            RobotContainer.RCTelemetry.update();
+            RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.update();
             try {
                 leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
             } catch (Exception ex) {
                 // failed to recover
-                RobotContainer.RCTelemetry.addData("Left Sensor recovery failed", ex.getMessage());
-                RobotContainer.RCTelemetry.update();
+                RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.update();
             }
 
             return false;
@@ -84,14 +84,14 @@ public class ColourSensor extends SubsystemBase {
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.RCTelemetry.addData("Right Sensor Error", e.getMessage());
-            RobotContainer.RCTelemetry.update();
+            RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.update();
             try {
                 rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
             } catch (Exception ex) {
                 // failed to recover
-                RobotContainer.RCTelemetry.addData("Right Sensor recovery failed", ex.getMessage());
-                RobotContainer.RCTelemetry.update();
+                RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.update();
             }
 
             return false;
@@ -118,8 +118,8 @@ public class ColourSensor extends SubsystemBase {
             return (distance >= 50.0 && distance <= 105.0);
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.RCTelemetry.addData("rampDistance Sensor Error", e.getMessage());
-            RobotContainer.RCTelemetry.update();
+            RobotContainer.telemetrySubsystem.addData("rampDistance Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.update();
             // Try to recover the sensor
             if (isRampSensorInitialized) {
                 // First error: attempt to re-initialize
@@ -131,8 +131,8 @@ public class ColourSensor extends SubsystemBase {
                     isRampSensorInitialized = true;
                 } catch (Exception ex) {
                     // failed to recover
-                    RobotContainer.RCTelemetry.addData("rampDistance Sensor recovery failed", ex.getMessage());
-                    RobotContainer.RCTelemetry.update();
+                    RobotContainer.telemetrySubsystem.addData("rampDistance Sensor recovery failed", ex.getMessage(), true);
+                    RobotContainer.telemetrySubsystem.update();
                 }
             }
             return false; // Can't determine presence, assume no artifact
