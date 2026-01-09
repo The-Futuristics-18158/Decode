@@ -23,111 +23,102 @@ public class OperatorControlsSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         if (RobotContainer.artifactsInRamp == 0){
-            RobotContainer.RCTelemetry.addLine("◢■■■■◣");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■◣□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("  ◥■■■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◥■■■■◤□");}
         else if (RobotContainer.artifactsInRamp == 1){
-            RobotContainer.RCTelemetry.addLine("  ◢■■■");
-            RobotContainer.RCTelemetry.addLine(" ◢■■■■");
-            RobotContainer.RCTelemetry.addLine("      ■■■");
-            RobotContainer.RCTelemetry.addLine("      ■■■");
-            RobotContainer.RCTelemetry.addLine("      ■■■");
-            RobotContainer.RCTelemetry.addLine(" ■■■■■■■");
-            RobotContainer.RCTelemetry.addLine(" ■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◢■■■□□");
+            RobotContainer.RCTelemetry.addLine("◢■■■■□□");
+            RobotContainer.RCTelemetry.addLine("□□■■■□□");
+            RobotContainer.RCTelemetry.addLine("□□■■■□□");
+            RobotContainer.RCTelemetry.addLine("□□■■■□□");
+            RobotContainer.RCTelemetry.addLine("□□■■■□□");
+            RobotContainer.RCTelemetry.addLine("■■■■■■■");
+            RobotContainer.RCTelemetry.addLine("■■■■■■■");}
         else if (RobotContainer.artifactsInRamp == 2){
-            RobotContainer.RCTelemetry.addLine("  ◢■■■■◣");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■◣□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■◤    ◥■■");
-            RobotContainer.RCTelemetry.addLine("         ◢■◤");
-            RobotContainer.RCTelemetry.addLine("      ◢■◤");
-            RobotContainer.RCTelemetry.addLine("     ◢■◤");
-            RobotContainer.RCTelemetry.addLine("   ◢■◤");
+            RobotContainer.RCTelemetry.addLine("■■◤□□◥■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□◢■◤");
+            RobotContainer.RCTelemetry.addLine("□□□□◢■◤□");
+            RobotContainer.RCTelemetry.addLine("□□□◢■◤□□");
+            RobotContainer.RCTelemetry.addLine("□□◢■◤□□□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("■■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("■■■■■■■■");}
         else if (RobotContainer.artifactsInRamp == 3){
-            RobotContainer.RCTelemetry.addLine("  ◢■■■■◣");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■◣□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■◤    ◥■■");
-            RobotContainer.RCTelemetry.addLine("         ◢■◤");
-            RobotContainer.RCTelemetry.addLine("      ■■■");
-            RobotContainer.RCTelemetry.addLine("         ◥■◣");
-            RobotContainer.RCTelemetry.addLine("■■◣    ◥■■");
+            RobotContainer.RCTelemetry.addLine("■■◤□□◥■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□◢■◤");
+            RobotContainer.RCTelemetry.addLine("□□□□■■■□");
+            RobotContainer.RCTelemetry.addLine("□□□□□◥■◣");
+            RobotContainer.RCTelemetry.addLine("■■◣□□◢■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("  ◥■■■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◥■■■■◤□");}
         else if (RobotContainer.artifactsInRamp == 4){
-            RobotContainer.RCTelemetry.addLine("■■■     ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■     ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■     ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■□");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■□");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■□");
             RobotContainer.RCTelemetry.addLine("■■■■■■■■■");
             RobotContainer.RCTelemetry.addLine("■■■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■□");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■□");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■□");}
         else if (RobotContainer.artifactsInRamp == 5){
             RobotContainer.RCTelemetry.addLine("■■■■■■■■");
             RobotContainer.RCTelemetry.addLine("■■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("■■■");
-            RobotContainer.RCTelemetry.addLine("■■■■■■◣");
+            RobotContainer.RCTelemetry.addLine("■■■□□□□□");
+            RobotContainer.RCTelemetry.addLine("■■■■■■◣□");
             RobotContainer.RCTelemetry.addLine("■■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
             RobotContainer.RCTelemetry.addLine("■■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("■■■■■■◤□");}
         else if (RobotContainer.artifactsInRamp == 6){
-            RobotContainer.RCTelemetry.addLine("    ◢■■■■■■");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■■■");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("■■■");
-            RobotContainer.RCTelemetry.addLine("■■■■■■◣");
+            RobotContainer.RCTelemetry.addLine("■■■□□□□□");
+            RobotContainer.RCTelemetry.addLine("■■■■■■◣□");
             RobotContainer.RCTelemetry.addLine("■■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("  ◥■■■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◥■■■■◤□");}
         else if (RobotContainer.artifactsInRamp == 7){
-            RobotContainer.RCTelemetry.addLine("■■■■■■■■ ");
             RobotContainer.RCTelemetry.addLine("■■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("        ■■■");
-            RobotContainer.RCTelemetry.addLine("       ◢■■◤");
-            RobotContainer.RCTelemetry.addLine("    ◢■■◤");
-            RobotContainer.RCTelemetry.addLine("   ◢■■◤");
-            RobotContainer.RCTelemetry.addLine(" ◢■■◤");
-            RobotContainer.RCTelemetry.addLine("■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("■■■■■■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□◢■■◤");
+            RobotContainer.RCTelemetry.addLine("□□□◢■■◤□");
+            RobotContainer.RCTelemetry.addLine("□□◢■■◤□□");
+            RobotContainer.RCTelemetry.addLine("□◢■■◤□□□");
+            RobotContainer.RCTelemetry.addLine("◢■■◤□□□□");}
         else if (RobotContainer.artifactsInRamp == 8){
-            RobotContainer.RCTelemetry.addLine("  ◢■■■■◣");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■◣□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■◤");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■◤");
-            RobotContainer.RCTelemetry.addLine("  ◥■■■■◤");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◥■■■■◤□");}
         else if (RobotContainer.artifactsInRamp == 9){
-            RobotContainer.RCTelemetry.addLine("  ◢■■■■◣");
+            RobotContainer.RCTelemetry.addLine("□◢■■■■◣□");
             RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");
-            RobotContainer.RCTelemetry.addLine("■■■    ■■■");
+            RobotContainer.RCTelemetry.addLine("■■■□□■■■");
             RobotContainer.RCTelemetry.addLine("◥■■■■■■■");
-            RobotContainer.RCTelemetry.addLine("   ◥■■■■■■");
-            RobotContainer.RCTelemetry.addLine("         ■■■");
-            RobotContainer.RCTelemetry.addLine("         ■■■");
-            RobotContainer.RCTelemetry.addLine("         ■■■");
-            RobotContainer.RCTelemetry.addLine("         ■■■");
-            RobotContainer.RCTelemetry.addLine("");}
+            RobotContainer.RCTelemetry.addLine("□◥■■■■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");
+            RobotContainer.RCTelemetry.addLine("□□□□□■■■");}
         RobotContainer.RCTelemetry.update();
     }
 
