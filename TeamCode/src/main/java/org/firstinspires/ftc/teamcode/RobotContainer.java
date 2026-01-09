@@ -56,7 +56,6 @@ public class RobotContainer {
 
     // FTC dashboard and telemetries
     public static Panels Panels;
-    //public static Telemetry RCTelemetry;
     public static TelemetrySubsystem telemetrySubsystem;
 
     // timer used to determine how often to run scheduler periodic
@@ -131,7 +130,6 @@ public class RobotContainer {
         // set up dashboard and various telemetries
         Panels = new Panels();
         telemetrySubsystem = new TelemetrySubsystem();
-        //RCTelemetry = ActiveOpMode.telemetry;
 
         // cancel any commands previously running by scheduler
         CommandScheduler.getInstance().cancelAll();

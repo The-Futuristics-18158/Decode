@@ -59,14 +59,14 @@ public class LimeLight extends SubsystemBase {
         double robotYaw = RobotContainer.gyro.getYawAngle();
         limeLight.updateRobotOrientation(robotYaw);
         result = limeLight.getLatestResult();
-        RobotContainer.telemetrySubsystem.addData("gyro", robotYaw, true);
+        RobotContainer.telemetrySubsystem.addData("gyro", robotYaw);
 
 //       telemetry.addData("Obelisk ID", getObeliskID());;
         LLResultTypes.FiducialResult kaitlyn = getTargetInfo();
         if (kaitlyn != null){
-            RobotContainer.telemetrySubsystem.addData("target angle", kaitlyn.getTargetXDegrees(), true);
+            RobotContainer.telemetrySubsystem.addData("target angle", kaitlyn.getTargetXDegrees());
         }else{
-            RobotContainer.telemetrySubsystem.addData("no target", 0, true);
+            RobotContainer.telemetrySubsystem.addData("no target", 0);
         }
 
         if (result != null && result.isValid()) {
