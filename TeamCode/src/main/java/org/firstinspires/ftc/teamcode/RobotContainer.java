@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
@@ -179,14 +181,19 @@ public class RobotContainer {
         // Shoot Green
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 
-        // Shoot All
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+//        // Shoot All
+//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new CycleRightUptake());
 
         // Shoot Purple
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
 
-        // Shoot According to the obelisk reading
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+//        // Shoot According to the obelisk reading
+//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+
+
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
 
         // Hunt Mode
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
@@ -200,9 +207,9 @@ public class RobotContainer {
         // Climb in three seconds
         driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
 
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
+//        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
+//        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
+//        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
 
         // bind commands to buttons
         // bind gyro reset to back button.
