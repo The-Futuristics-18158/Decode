@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.HoodTiltSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.OperatorControlsSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
@@ -79,6 +80,7 @@ public class RobotContainer {
     public static IntakeSubsystem intake;
     public static FlywheelSubsystem shooter;
     public static UptakeSubsystem uptake;
+    public static HoodTiltSubsystem hoodtilt;
     public static Obelisk obelisk;
     public static GoalTargeting targeting;
     public static ShotBlockServo shotblock;
@@ -149,6 +151,7 @@ public class RobotContainer {
         intake = new IntakeSubsystem();
         shooter = new FlywheelSubsystem();
         uptake = new UptakeSubsystem();
+        hoodtilt = new HoodTiltSubsystem();
         obelisk = new Obelisk();
         targeting = new GoalTargeting();
         shotblock = new ShotBlockServo();

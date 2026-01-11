@@ -48,7 +48,7 @@ public class GoalTargeting extends SubsystemBase {
     @Override
     public void periodic() {
         double distance = GetDistanceToGoal();
-        RobotContainer.telemetrySubsystem.addData("distance", distance);
+        //RobotContainer.telemetrySubsystem.addData("distance", distance);
     }
 
     // returns list of available shooting locations
@@ -200,6 +200,25 @@ public class GoalTargeting extends SubsystemBase {
         double speed = (190.58*(x*x)) - (386.65*(x)) + 2741;
         return speed;
     }
+
+    public double CalculateHoodAngle(boolean isLeft){
+       double maxAngle;
+       double minAnle;
+
+        if (isLeft){
+           maxAngle = RobotContainer.hoodtilt.MaxLeftAngle;
+            minAnle = RobotContainer.hoodtilt.MinLeftAngle;
+        }else{
+           maxAngle = RobotContainer.hoodtilt.MaxRightAngle;
+           minAnle = RobotContainer.hoodtilt.MinRightAngle;
+        }
+
+        double range = maxAngle - minAnle;
+        double distance = this.GetDistanceToGoal();
+        double angle = (distance/3.4* range) + minAnle;
+        return angle;
+    }
+
 
     public double IdleSpeed(){
         double shootSpeed = this.CalculateSpeed();
