@@ -31,7 +31,7 @@ public class Blinkin extends SubsystemBase {
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        if(RobotContainer.colour.isLeftArtifactPresent()|| RobotContainer.colour.isRightArtifactPresent()) {
+        if(RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent()) {
             ShowBallColours();
             //if (RobotContainer.limeLight.hasGoal){
             //    ShowHasGoal();
@@ -54,25 +54,25 @@ public class Blinkin extends SubsystemBase {
         }
     }
 
-
-    public void ShowHasGoal(){
-            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
-    }
+//
+//    public void ShowHasGoal(){
+//            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+//    }
 
 //    public void ShowHasClimbed(){
 //        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_PARTY_PALETTE);
 //    }
 
     public void ShowBallColours(){
-       if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Green)||
-               RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Green) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ColourSensor.ArtifactColours.Green)||
+               RobotContainer.artifactCamera.getRightColour().equals(ColourSensor.ArtifactColours.Green) ){
            hasGreen = true;
        }
        else
            hasGreen = false;
 
-       if(RobotContainer.colour.GetLeftColour().equals(ColourSensor.ArtifactColours.Purple)||
-                RobotContainer.colour.GetRightColour().equals(ColourSensor.ArtifactColours.Purple) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ColourSensor.ArtifactColours.Purple)||
+                RobotContainer.artifactCamera.getRightColour().equals(ColourSensor.ArtifactColours.Purple) ){
             hasPurple = true;
        }
        else

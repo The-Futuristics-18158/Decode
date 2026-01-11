@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
@@ -25,6 +27,7 @@ import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.HoodTiltSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
@@ -75,6 +78,7 @@ public class RobotContainer {
     public static IntakeSubsystem intake;
     public static FlywheelSubsystem shooter;
     public static UptakeSubsystem uptake;
+    public static HoodTiltSubsystem hoodtilt;
     public static Obelisk obelisk;
     public static GoalTargeting targeting;
     public static ShotBlockServo shotblock;
@@ -142,6 +146,7 @@ public class RobotContainer {
         intake = new IntakeSubsystem();
         shooter = new FlywheelSubsystem();
         uptake = new UptakeSubsystem();
+        hoodtilt = new HoodTiltSubsystem();
         obelisk = new Obelisk();
         targeting = new GoalTargeting();
         shotblock = new ShotBlockServo();
@@ -174,14 +179,19 @@ public class RobotContainer {
         // Shoot Green
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
 
-        // Shoot All
+//        // Shoot All
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+
+        //driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new CycleRightUptake());
 
         // Shoot Purple
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
 
-        // Shoot According to the obelisk reading
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+//        // Shoot According to the obelisk reading
+//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
+
+
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
 
         // Hunt Mode
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());

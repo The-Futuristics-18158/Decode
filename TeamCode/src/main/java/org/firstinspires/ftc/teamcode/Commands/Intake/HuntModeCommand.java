@@ -48,7 +48,7 @@ public class HuntModeCommand extends CommandBase {
         double y_speed;
         double omega_speed;
 
-        if (timer.seconds() >= seconds || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
+        if (timer.seconds() >= seconds || (RobotContainer.artifactCamera.IsLeftPresent() && RobotContainer.artifactCamera.IsRightPresent() && RobotContainer.artifactCamera.IsBottomPresent())){
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {
@@ -76,7 +76,7 @@ public class HuntModeCommand extends CommandBase {
         }
 
        // if busy intaking robot, stop and wait for it to finish before proceeding
-        if (RobotContainer.colour.isRampArtifactPresent())
+        if (RobotContainer.artifactCamera.IsBottomPresent())
            x_speed = 0.0;
        //else
        //     x_speed = 0.5;//was 0.6 // was 0.5
