@@ -40,7 +40,7 @@ public class LimeLight extends SubsystemBase {
         POSITION_MODE;
     }
 
-    private Telemetry telemetry = RobotContainer.RCTelemetry;
+    //private Telemetry telemetry = RobotContainer.RCTelemetry;
 
     private LLResult result;
     /** Place code here to initialize subsystem */
@@ -59,14 +59,14 @@ public class LimeLight extends SubsystemBase {
         double robotYaw = RobotContainer.gyro.getYawAngle();
         limeLight.updateRobotOrientation(robotYaw);
         result = limeLight.getLatestResult();
-        RobotContainer.RCTelemetry.addData("gyro", robotYaw);
+        RobotContainer.telemetrySubsystem.addData("gyro", robotYaw);
 
 //       telemetry.addData("Obelisk ID", getObeliskID());;
         LLResultTypes.FiducialResult kaitlyn = getTargetInfo();
         if (kaitlyn != null){
-            telemetry.addData("target angle", kaitlyn.getTargetXDegrees());
+            RobotContainer.telemetrySubsystem.addData("target angle", kaitlyn.getTargetXDegrees());
         }else{
-            telemetry.addData("no target", 0);
+            RobotContainer.telemetrySubsystem.addData("no target", 0);
         }
 
         if (result != null && result.isValid()) {
