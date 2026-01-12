@@ -25,8 +25,8 @@ public class FlywheelSubsystem extends SubsystemBase {
     private final double TICKSPStoRPM = (1/28.0)*60.0;
 
     // target speed
-    private double TargetSpeed;
-    public static double CurrentSpeed;
+    public static double TargetSpeed;  // When disabling dashboard/panels turn back to privet.
+    public static double CurrentSpeed; // When disabling dashboard/panels turn back to privet.
     // PIF Controller Gains
     private final double FsGain = 0.0;
     private final double FvGain = 0.00021; // was 0.0002 // unit=power/rpm   initial value=1.0/6000rpm=0.00016667
