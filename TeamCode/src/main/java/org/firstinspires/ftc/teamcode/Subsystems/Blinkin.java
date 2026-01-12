@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author kaitlyn
  */
 public class Blinkin extends SubsystemBase {
     private RevBlinkinLedDriver blinkin;

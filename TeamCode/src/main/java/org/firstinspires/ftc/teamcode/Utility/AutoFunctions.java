@@ -62,6 +62,14 @@ public class AutoFunctions {
             return rotation;
     }
 
+    /**
+     * Mirror provided angle from the blue side to the red side.
+     * Requires a public boolean variable in RobotContainer called isRedAlliance that is true when
+     * we're on the red alliance and false when on blue alliance.
+     *
+     * @param angle the angle in degrees to be mirrored
+     * @return an angle in degrees for the correct alliance side
+     */
     public static double redVsBlue(double angle){
         if (RobotContainer.isRedAlliance)
             return -angle;

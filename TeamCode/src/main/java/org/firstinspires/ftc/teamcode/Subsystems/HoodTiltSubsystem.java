@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author superzokabear
  */
 @Configurable
 public class HoodTiltSubsystem extends SubsystemBase {

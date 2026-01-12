@@ -5,7 +5,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author YourGithubName
  */
 public class TemplateSubsystem extends SubsystemBase {
 

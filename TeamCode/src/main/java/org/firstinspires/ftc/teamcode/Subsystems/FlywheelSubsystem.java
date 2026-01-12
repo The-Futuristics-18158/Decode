@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting
 /**
  * Place description of subsystem here
  *
- * @author Zoe
+ * @author superzokabear
  */
 @Configurable
 public class FlywheelSubsystem extends SubsystemBase {

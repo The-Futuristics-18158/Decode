@@ -64,11 +64,21 @@ public class GoalTargeting extends SubsystemBase {
     }
 
     // 2. The Functional Interface (must have one abstract method)
+    /** add description here
+     *
+     * @author kaitlyn
+     */
     @FunctionalInterface
     public interface LeftVsRight {
         ShootSide getSide();
     }
 
+    /**Finds any artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the uptake the artifact to shoot is on
+     */
     public LeftVsRight ShootAny()
     {
         // this is lamda function
@@ -83,6 +93,12 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**Finds a green artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the uptake the artifact to shoot is on
+     */
     public LeftVsRight ShootGreen()
     {
         // this is lamda function
@@ -101,6 +117,12 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**Finds a purple artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the robot the artifact to shoot is on
+     */
     public LeftVsRight ShootPurple() {
         // this is lamda function
         return ()-> {
@@ -117,6 +139,12 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk1() {
         // this is lamda function
         return ()-> {
@@ -136,6 +164,12 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk2() {
         // this is lamda function
         return ()-> {
@@ -155,6 +189,12 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk3() {
         // this is lamda function
         return ()-> {
@@ -177,6 +217,12 @@ public class GoalTargeting extends SubsystemBase {
 
     /* ---------- Shoot Distance/Speed Calcs ---------- */
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public double GetDistanceToGoal (){
         currentPos = RobotContainer.odometry.getCurrentPos();
         Pose2d goalPose = new Pose2d();
@@ -194,6 +240,13 @@ public class GoalTargeting extends SubsystemBase {
 
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     * @author superzokabear
+     *
+     * @return what does this return?
+     */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
         //double speed = (207.96*(x*x)) - (480.12*(x)) + 2859.6; kaitlyns
@@ -201,6 +254,14 @@ public class GoalTargeting extends SubsystemBase {
         return speed;
     }
 
+    /**add description here
+     *
+     * @author superzokabear
+     *
+     * @param isLeft what is this parameter?
+     *
+     * @return what does this return?
+     */
     public double CalculateHoodAngle(boolean isLeft){
        double maxAngle;
        double minAnle;
@@ -220,6 +281,12 @@ public class GoalTargeting extends SubsystemBase {
     }
 
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public double IdleSpeed(){
         double shootSpeed = this.CalculateSpeed();
         double distance = this.GetDistanceToGoal();
