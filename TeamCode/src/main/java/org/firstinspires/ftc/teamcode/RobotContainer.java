@@ -42,6 +42,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.ShotBlockServo;
+import org.firstinspires.ftc.teamcode.Subsystems.TelemetrySubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -58,11 +59,12 @@ public class RobotContainer {
 
     // FTC dashboard and telemetries
     public static Panels Panels;
-    public static Telemetry RCTelemetry;
+    //public static Telemetry RCTelemetry;
+    public static TelemetrySubsystem telemetrySubsystem;
 
     // timer used to determine how often to run scheduler periodic
     private static ElapsedTime timer;
-    private static ElapsedTime exectimer;
+    public static ElapsedTime exectimer;
 
     // create robot GamePads
     public static GamepadEx driverOp;
@@ -99,6 +101,8 @@ public class RobotContainer {
     public enum Modes { Off, AutoInit, Auto, TeleOp}
     private static Modes CurrentRobotMode;
 
+    public static double intervaltime;
+
     public static int artifactsInRamp = 0;
 
     // robot initialization - common to both auto and teleop
@@ -130,7 +134,8 @@ public class RobotContainer {
 
         // set up dashboard and various telemetries
         Panels = new Panels();
-        RCTelemetry = ActiveOpMode.telemetry;
+        telemetrySubsystem = new TelemetrySubsystem();
+        //RCTelemetry = ActiveOpMode.telemetry;
 
         // cancel any commands previously running by scheduler
         CommandScheduler.getInstance().cancelAll();
@@ -213,7 +218,7 @@ public class RobotContainer {
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
-
+        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(()-> telemetrySubsystem.telemetryModeToggle()));
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -283,7 +288,8 @@ public class RobotContainer {
         }
 
         // actual interval time
-        double intervaltime = timer.milliseconds();
+
+        intervaltime = timer.milliseconds();
 
         // execute robot periodic function 50 times per second (=50Hz)
         if (intervaltime>=20.0) {
@@ -298,29 +304,15 @@ public class RobotContainer {
             CommandScheduler.getInstance().run();
 
             // report robot odometry on robot controller
-            Pose2d position = odometry.getCurrentPos();
-            RCTelemetry.addData("fieldX", position.getX());
-            RCTelemetry.addData("fieldY", position.getY());
-            RCTelemetry.addData("Yaw", position.getRotation().getDegrees());
+            telemetrySubsystem.odometryTelemetry();
 
             // report time interval on robot controller
-            RCTelemetry.addData("interval time(ms)", intervaltime);
-            RCTelemetry.addData("execute time(ms)", exectimer.milliseconds());
+            telemetrySubsystem.timerOdometry();
 
             // show obelisk status - only if in auto-init mode
-            if (GetCurrentMode()==Modes.AutoInit) {
-                if (limeLight.getObeliskID()== LimeLight.tagId.TAG_GPP)
-                     RCTelemetry.addLine("See GPP Tag");
-                 else if (limeLight.getObeliskID()== LimeLight.tagId.TAG_PGP)
-                     RCTelemetry.addLine("See PGP Tag");
-                 else if (limeLight.getObeliskID()== LimeLight.tagId.TAG_PPG)
-                     RCTelemetry.addLine("See PPG Tag");
-                 else
-                     RCTelemetry.addLine("No Obelisk Tag");
-            }
+            telemetrySubsystem.currentObeliskId();
 
-
-            RCTelemetry.update();
+            telemetrySubsystem.update();
         }
     }
 
