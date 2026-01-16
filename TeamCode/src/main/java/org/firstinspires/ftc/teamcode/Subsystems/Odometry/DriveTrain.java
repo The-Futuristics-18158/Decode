@@ -137,23 +137,6 @@ public class DriveTrain extends SubsystemBase {
         rightFrontDrive.setPower(rightFrontControl.calculate(RefRightFrontRPM,CurrentRightFrontRPM));
         leftBackDrive.setPower(leftBackControl.calculate(RefLeftBackRPM,CurrentLeftBackRPM));
         rightBackDrive.setPower(rightBackControl.calculate(RefRightBackRPM, CurrentRightBackRPM));
-
-        // update telemetry to requested velocities
-        //RobotContainer.DBTelemetry.addData("Vx Speed: ", "%.2f", Vx * powerFactor);
-        //RobotContainer.DBTelemetry.addData("Vy Speed: ", "%.2f", Vy * powerFactor);
-        //RobotContainer.DBTelemetry.addData("Omega: ", "%.2f", Omega);
-
-        // robot requested vs actual speeds - used for tuning of motor controls
-        // Jeff:  uncomment these to view requested vs actual to confirm tracking performance
-        //RobotContainer.DBTelemetry.addData("Requested Left Front Velocity: ", "%.2f", RefLeftFrontRPM);
-        //RobotContainer.DBTelemetry.addData("Requested Right Front Velocity: ", "%.2f", RefRightFrontRPM);
-        //RobotContainer.DBTelemetry.addData("Requested Left Back Velocity: ", "%.2f", RefLeftBackRPM);
-        //RobotContainer.DBTelemetry.addData("Requested Right Back Velocity: ", "%.2f", RefRightBackRPM);
-        //RobotContainer.DBTelemetry.addData("Robot Left Front Speed: ", "%.2f", CurrentLeftFrontRPM);
-        //RobotContainer.DBTelemetry.addData("Robot Right Front Speed: ", "%.2f", CurrentRightFrontRPM);
-        //RobotContainer.DBTelemetry.addData("Robot Left Back Speed: ", "%.2f", CurrentLeftBackRPM);
-        //RobotContainer.DBTelemetry.addData("Robot Right Back Speed: ", "%.2f", CurrentRightBackRPM);
-        //RobotContainer.DBTelemetry.update();
     }
 
 

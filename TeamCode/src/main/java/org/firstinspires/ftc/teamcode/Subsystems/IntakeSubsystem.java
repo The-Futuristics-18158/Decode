@@ -9,12 +9,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
- * Place description of subsystem here
- * Setting up the intake subsystem.
+ * Setting up the intake subsystem.<p>
  * This makes the robot know that the intake motor exists.
  * This motor should run continuously not to a specific position.
  * Therefor this subsystem only has start and stop functions.
- * @author Zoe
+ * @author superzokabear
  */
 public class IntakeSubsystem extends SubsystemBase {
 

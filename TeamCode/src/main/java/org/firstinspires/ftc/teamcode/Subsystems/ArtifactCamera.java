@@ -63,7 +63,7 @@ public class ArtifactCamera extends SubsystemBase {
                 //.setTargetColorRange(new ColorRange(ColorSpace.RGB,
                 //                    new Scalar(50.0, 0, 50.0),
                 //                    new Scalar(255.0, 175.0, 255.0)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1.0, -0.4, -0.0))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1.0, -0.4, 0.0))
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -95,7 +95,7 @@ public class ArtifactCamera extends SubsystemBase {
 //                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
 //                                   new Scalar(0, 40, 0),
 //                                   new Scalar(332, 27, 54)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1.0, -0.4, -0.0))// entire screen / screen size
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1.0, -0.4, 0.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -127,7 +127,7 @@ public class ArtifactCamera extends SubsystemBase {
 //                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
 //                        new Scalar(50.0, 0, 50.0),
 //                        new Scalar(296.0, 59.0, 84.0)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1, 1.0, -0.0))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1.0, 1.0, 0.0))
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -159,7 +159,7 @@ public class ArtifactCamera extends SubsystemBase {
 //                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
 //                       new Scalar(0, 40, 0),
 //                        new Scalar(143, 77, 62)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1, 1.0, -0.0))// entire screen / screen size
+                .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1.0, 1.0, 0.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview

@@ -37,7 +37,7 @@ public class Gyro extends SubsystemBase {
     }
 
     /**
-     * Get gyro angle
+     * Get Yaw angle from gyro
      *
      * @return angle in deg between -180 and 180
      */
@@ -45,9 +45,15 @@ public class Gyro extends SubsystemBase {
         return YawAngle;
     }
 
+    /**
+     * Get Roll angle from gyro
+     *
+     * @return angle in deg between -180 and 180
+     */
     public double getRollAngle() {
         return RollAngle;
     }
+
     /**
      * Resets gyro and offset value
      */

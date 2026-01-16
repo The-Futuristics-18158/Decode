@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author superzokabear
  */
 public class UptakeSubsystem extends SubsystemBase {
 
