@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ColourSensor;
 /**
  * Place description of subsystem here
  *
- * @author kaitlyn
+ * @author Kw126
  */
 public class Blinkin extends SubsystemBase {
     private RevBlinkinLedDriver blinkin;
@@ -54,25 +54,25 @@ public class Blinkin extends SubsystemBase {
         }
     }
 
-//
-//    public void ShowHasGoal(){
-//            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
-//    }
+
+    public void ShowHasGoal(){
+            blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+    }
 
 //    public void ShowHasClimbed(){
 //        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_PARTY_PALETTE);
 //    }
 
     public void ShowBallColours(){
-       if(RobotContainer.artifactCamera.getLeftColour().equals(ColourSensor.ArtifactColours.Green)||
-               RobotContainer.artifactCamera.getRightColour().equals(ColourSensor.ArtifactColours.Green) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green )){
            hasGreen = true;
        }
        else
            hasGreen = false;
 
-       if(RobotContainer.artifactCamera.getLeftColour().equals(ColourSensor.ArtifactColours.Purple)||
-                RobotContainer.artifactCamera.getRightColour().equals(ColourSensor.ArtifactColours.Purple) ){
+       if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple ) ){
             hasPurple = true;
        }
        else

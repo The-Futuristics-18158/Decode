@@ -266,7 +266,7 @@ public class ArtifactCamera extends SubsystemBase {
         setVisionProcessingMode(VisionProcessorMode.ARTIFACT);
 
         // show camera stream on panels dashboard
-        enableDashBoardView(true);
+        enableDashBoardView(false);
     }
 
     /**

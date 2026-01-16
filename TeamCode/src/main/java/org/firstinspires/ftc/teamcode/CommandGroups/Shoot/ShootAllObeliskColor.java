@@ -28,8 +28,7 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
                 // unblock the shooter
                 new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
                 // spin up shooter to required speed
-                new InstantCommand(()->RobotContainer.shooter.SetFlywheelSpeed(RobotContainer.targeting.CalculateSpeed())),
-
+                new InstantCommand(()->RobotContainer.targeting.SetHoodAngleAndSpeed()),
                 // ARTIFACT #1
 
                 // line up ready to shoot obelisk colour #1
@@ -98,6 +97,8 @@ public class ShootAllObeliskColor extends SequentialCommandGroup {
         RobotContainer.intake.intakeStop();
         RobotContainer.uptake.LowerLeftUptake();
         RobotContainer.uptake.LowerRightUptake();
+        RobotContainer.hoodtilt.SetHoodPosition(0.0);
+        RobotContainer.shooter.SetFlywheelSpeed(0.0);
     }
 
 }

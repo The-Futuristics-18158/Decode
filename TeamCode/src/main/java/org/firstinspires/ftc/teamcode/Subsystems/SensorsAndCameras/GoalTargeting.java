@@ -240,17 +240,16 @@ public class GoalTargeting extends SubsystemBase {
 
     }
 
+
     /**add description here
      *
      * @author kaitlyn
-     * @author superzokabear
      *
-     * @return what does this return?
+     * @return Returns the speed of the flywheel
      */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-        //double speed = (207.96*(x*x)) - (480.12*(x)) + 2859.6; kaitlyns
-        double speed = (190.58*(x*x)) - (386.65*(x)) + 2741;
+        double speed = (49.688*(x*x)) + (111.58*(x)) + 2497.3;
         return speed;
     }
 
@@ -258,26 +257,18 @@ public class GoalTargeting extends SubsystemBase {
      *
      * @author superzokabear
      *
-     * @param isLeft what is this parameter?
-     *
      * @return what does this return?
      */
-    public double CalculateHoodAngle(boolean isLeft){
-       double maxAngle;
-       double minAnle;
+    public double CalculateHoodAngle(){
 
-        if (isLeft){
-           maxAngle = RobotContainer.hoodtilt.MaxLeftAngle;
-            minAnle = RobotContainer.hoodtilt.MinLeftAngle;
-        }else{
-           maxAngle = RobotContainer.hoodtilt.MaxRightAngle;
-           minAnle = RobotContainer.hoodtilt.MinRightAngle;
-        }
-
-        double range = maxAngle - minAnle;
         double distance = this.GetDistanceToGoal();
-        double angle = (distance/3.4* range) + minAnle;
-        return angle;
+        double hoodPos = (-0.1606*(distance*distance)) + (0.9442*(distance)) - 0.7733;
+        return hoodPos;
+    }
+
+    public void SetHoodAngleAndSpeed(){
+        RobotContainer.hoodtilt.SetHoodPosition(CalculateHoodAngle());
+        RobotContainer.shooter.SetFlywheelSpeed(CalculateSpeed());
     }
 
 
