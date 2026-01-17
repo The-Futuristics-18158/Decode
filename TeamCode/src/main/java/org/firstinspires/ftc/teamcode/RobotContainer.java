@@ -10,21 +10,18 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
-import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
 import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.HoodTiltSubsystem;
@@ -161,6 +158,14 @@ public class RobotContainer {
         climb = new ClimbSubsystem();
         blinkin = new Blinkin();
         artifactCamera = new ArtifactCamera("CookieCam");
+
+        // depending on red or blue team, set which camera gets displayed
+        // on driver's station in preview mode
+        if (isRedAlliance())
+            rampCamera.enableCameraStream();
+        else
+            artifactCamera.enableCameraStream();
+
     }
 
     // Robot initialization for teleop - This runs once at initialization of teleop

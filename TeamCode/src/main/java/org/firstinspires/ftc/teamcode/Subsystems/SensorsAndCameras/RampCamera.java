@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
 import android.graphics.Color;
 import android.util.Size;
 import androidx.annotation.NonNull;
-//import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.SortOrder;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamServer;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -270,6 +270,12 @@ public class RampCamera extends SubsystemBase {
             FtcDashboard.getInstance().stopCameraStream();
     }
 
+    // displays camera view in driver station
+    public void enableCameraStream() {
+        CameraStreamServer.getInstance().setSource(visionPortal);
+    }
+
+    // enables live view for this camera
     public void enableLiveView(boolean enable) {
         if (enable)
             visionPortal.resumeLiveView();

@@ -4,7 +4,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.ArtifactCamera;
 
 
 // command template
