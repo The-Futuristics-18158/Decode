@@ -104,13 +104,13 @@ public class GoalTargeting extends SubsystemBase {
         // this is lamda function
         return ()-> {
             // Logic to shoot ball
-            if(RobotContainer.artifactCamera.getLeftColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+            if(RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.colour.isLeftArtifactPresent())
+            else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -126,9 +126,9 @@ public class GoalTargeting extends SubsystemBase {
     public LeftVsRight ShootPurple() {
         // this is lamda function
         return ()-> {
-            if (RobotContainer.artifactCamera.getLeftColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+            if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
                 return ShootSide.RIGHT;
             else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;

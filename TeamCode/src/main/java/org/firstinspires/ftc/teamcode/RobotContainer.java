@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
@@ -18,6 +19,8 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
@@ -204,7 +207,10 @@ public class RobotContainer {
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
 
 
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
+        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootAll());
+
 
         // Hunt Mode
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
