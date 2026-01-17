@@ -33,41 +33,76 @@ public class TelemetrySubsystem extends SubsystemBase {
 
     // place special subsystem methods here
 
-    /**
+    /** what is displayed as part of this telemetry?
      *
      * runs when testing telemetry
      */
     public void testingTelemetryEmpty(){
         if (testingTelemetry){
-
+            //telemetry goes here
         }
     }
 
-    /**
+    /** what is displayed as part of this telemetry?
      *
      * runs when not testing telemetry
      */
     public void operatorTelemetryEmpty(){
         if (!testingTelemetry) {
-
+            //telemetry goes here
         }
     }
 
+    /**
+     *Adds an item to the end if the telemetry being built for driver station display. The value shown will be the result of calling toString() on the provided value object. The caption and value are shown on the driver station separated by the #getCaptionValueSeparator() caption value separator. The item is removed if clear() or clearAll() is called.
+     * @param caption the caption to use
+     * @param value the value to display
+     */
+    public void addData(String caption, Object value){
+        if (testingTelemetry) {
+            RCTelemetry.addData(caption, value);
+        }
+    }
+
+    /**
+     *Adds an item to the end if the telemetry being built for driver station display. The value shown will be the result of calling toString() on the provided value object. The caption and value are shown on the driver station separated by the #getCaptionValueSeparator() caption value separator. The item is removed if clear() or clearAll() is called.
+     * @param caption the caption to use
+     * @param value the value to display
+     * @param telemetryForTesting If true the data will be shown with the testing data, if false the data will be shown with the operator data
+     */
     public void addData(String caption, Object value, boolean telemetryForTesting){
         if (testingTelemetry == telemetryForTesting) {
             RCTelemetry.addData(caption, value);
         }
     }
 
+    /**
+     *Creates and returns a new line in the receiver Telemetry.
+     *
+     *  @param caption the caption for the line
+     */
+    public void addLine(String caption){
+        if (testingTelemetry) {
+            RCTelemetry.addLine(caption);
+        }
+    }
+
+    /**
+     *Creates and returns a new line in the receiver Telemetry.
+     *
+     *  @param caption the caption for the line
+     *  @param telemetryForTesting If true the data will be shown with the testing data, if false the data will be shown with the operator data
+     */
     public void addLine(String caption, boolean telemetryForTesting){
         if (testingTelemetry == telemetryForTesting) {
             RCTelemetry.addLine(caption);
         }
     }
 
-    /**displays robot fieldX, fieldY, and Yaw
+    /**
+     * displays robot fieldX, fieldY, and Yaw.
      *
-     * runs when testing telemetry
+     * Runs when testing telemetry.
      */
     public void odometryTelemetry(){
         if (testingTelemetry) {
@@ -119,7 +154,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 0*
+    /**displays ascii art of the number 0
      * runs when not testing telemetry
      */
     public void ascii_0(){
@@ -137,7 +172,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 1*
+    /**displays ascii art of the number 1
      * runs when not testing telemetry
      */
     public void ascii_1(){
@@ -154,7 +189,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 2*
+    /**displays ascii art of the number 2
      * runs when not testing telemetry
      */
     public void ascii_2(){
@@ -172,7 +207,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 3*
+    /**displays ascii art of the number 3
      * runs when not testing telemetry
      */
     public void ascii_3(){
@@ -190,7 +225,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 4*
+    /**displays ascii art of the number 4
      * runs when not testing telemetry
      */
     public void ascii_4(){
@@ -207,7 +242,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 5*
+    /**displays ascii art of the number 5
      * runs when not testing telemetry
      */
     public void ascii_5(){
@@ -225,7 +260,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 6*
+    /**displays ascii art of the number 6
      * runs when not testing telemetry
      */
     public void ascii_6(){
@@ -243,12 +278,12 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 7*
+    /**displays ascii art of the number 7
      * runs when not testing telemetry
      */
     public void ascii_7(){
         if (!testingTelemetry) {
-            RCTelemetry.addLine("■■■■■■■■ ");
+            RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("□□□□□■■■");
             RCTelemetry.addLine("□□□□◢■■◤");
@@ -260,7 +295,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 8*
+    /**displays ascii art of the number 8
      * runs when not testing telemetry
      */
     public void ascii_8(){
@@ -278,7 +313,7 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
-    /**displays ascii art of the number 9*
+    /**displays ascii art of the number 9
      * runs when not testing telemetry
      */
     public void ascii_9(){
@@ -296,6 +331,13 @@ public class TelemetrySubsystem extends SubsystemBase {
         }
     }
 
+
+    /**
+     * Sends the receiver {@link Telemetry} to the driver station if more than the {@link #getMsTransmissionInterval()
+     * transmission interval} has elapsed since the last transmission, or schedules the transmission
+     * of the receiver should no subsequent {@link Telemetry} state be scheduled for transmission before
+     * the {@link #getMsTransmissionInterval() transmission interval} expires.
+     */
     public void update(){
         RCTelemetry.update();
     }

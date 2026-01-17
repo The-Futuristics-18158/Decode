@@ -118,7 +118,7 @@ public class ColourSensor extends SubsystemBase {
             return (distance >= 50.0 && distance <= 105.0);
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.telemetrySubsystem.addData("rampDistance Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.addData("rampDistance Sensor Error", e.getMessage());
             RobotContainer.telemetrySubsystem.update();
             // Try to recover the sensor
             if (isRampSensorInitialized) {
@@ -131,7 +131,7 @@ public class ColourSensor extends SubsystemBase {
                     isRampSensorInitialized = true;
                 } catch (Exception ex) {
                     // failed to recover
-                    RobotContainer.telemetrySubsystem.addData("rampDistance Sensor recovery failed", ex.getMessage(), true);
+                    RobotContainer.telemetrySubsystem.addData("rampDistance Sensor recovery failed", ex.getMessage());
                     RobotContainer.telemetrySubsystem.update();
                 }
             }

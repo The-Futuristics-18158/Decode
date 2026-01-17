@@ -53,11 +53,11 @@ public class Obelisk extends SubsystemBase {
         if (pattern!=null)
         {
             if (pattern==ObeliskPattern.GPP)
-                RobotContainer.telemetrySubsystem.addLine("Pattern GPP", true);
+                RobotContainer.telemetrySubsystem.addLine("Pattern GPP");
             if (pattern==ObeliskPattern.PGP)
-                RobotContainer.telemetrySubsystem.addLine("Pattern PGP", true);
+                RobotContainer.telemetrySubsystem.addLine("Pattern PGP");
             if (pattern==ObeliskPattern.PPG)
-                RobotContainer.telemetrySubsystem.addLine("Pattern PPG", true);
+                RobotContainer.telemetrySubsystem.addLine("Pattern PPG");
         }
     }
 
