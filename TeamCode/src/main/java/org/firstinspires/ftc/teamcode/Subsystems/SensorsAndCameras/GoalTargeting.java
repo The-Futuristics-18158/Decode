@@ -106,7 +106,7 @@ public class GoalTargeting extends SubsystemBase {
             // Logic to shoot ball
             if(RobotContainer.artifactCamera.getLeftColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
                 return ShootSide.RIGHT;
             else if(RobotContainer.colour.isLeftArtifactPresent())
                 return ShootSide.LEFT;
