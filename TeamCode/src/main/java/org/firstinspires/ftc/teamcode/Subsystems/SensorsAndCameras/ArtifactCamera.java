@@ -1,30 +1,23 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
 
 import android.graphics.Color;
 import android.util.Size;
-
 import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.SortOrder;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamServer;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorRange;
-import org.firstinspires.ftc.vision.opencv.ColorSpace;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -92,9 +85,9 @@ public class ArtifactCamera extends SubsystemBase {
 
         TLgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-//                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
-//                                   new Scalar(0, 40, 0),
-//                                   new Scalar(332, 27, 54)))
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                      new Scalar(0, 40, 0),
+                //                      new Scalar(332, 27, 54)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-1, 1.0, -0.4, 0.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -124,9 +117,9 @@ public class ArtifactCamera extends SubsystemBase {
 
         TRpurpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
-//                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
-//                        new Scalar(50.0, 0, 50.0),
-//                        new Scalar(296.0, 59.0, 84.0)))
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                     new Scalar(50.0, 0, 50.0),
+                //                     new Scalar(296.0, 59.0, 84.0)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1.0, 1.0, 0.0))
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -156,9 +149,9 @@ public class ArtifactCamera extends SubsystemBase {
 
         TRgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-//                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
-//                       new Scalar(0, 40, 0),
-//                        new Scalar(143, 77, 62)))
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                       new Scalar(0, 40, 0),
+                //                       new Scalar(143, 77, 62)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(0.6, 1.0, 1.0, 0.0))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -186,7 +179,7 @@ public class ArtifactCamera extends SubsystemBase {
         TRgreenBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
 
 
-// BOttom
+        // Bottom
 
         BottompurpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
@@ -222,9 +215,9 @@ public class ArtifactCamera extends SubsystemBase {
 
         BottomgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-//                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
-//                        new Scalar(0, 40, 0),
-//                        new Scalar(134, 23.0, 49)))
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                     new Scalar(0, 40, 0),
+                //                     new Scalar(134, 23.0, 49)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-1.0, -0.6, 1.0, -0.8))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -362,52 +355,6 @@ public class ArtifactCamera extends SubsystemBase {
             blobs = Collections.singletonList(blobs.get(0));
         }
         return blobs;
-    }
-
-    // gets all purple blobs
-    public List<ColorBlobLocatorProcessor.Blob> GetPurpleBlobDetections() {
-        List<ColorBlobLocatorProcessor.Blob> blobs;
-
-        switch(currentMode){
-            case ARTIFACT:
-                blobs = TLpurpleBlobProcessor.getBlobs();
-                break;
-            default:
-                blobs = new ArrayList<>();
-        }
-
-        // available sorting functions
-        ColorBlobLocatorProcessor.Util.sortByCriteria(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING, blobs);
-
-        // use if we only want to return the top item (if any) and disregard rest
-        if (blobs!= null && !blobs.isEmpty()){
-            blobs = Collections.singletonList(blobs.get(0));
-        }
-
-        return blobs;
-    }
-
-    // gets all green blobs
-    public List<ColorBlobLocatorProcessor.Blob> GetGreenBlobDetections() {
-        List<ColorBlobLocatorProcessor.Blob> blobs;
-
-        switch(currentMode){
-            case ARTIFACT:
-                blobs =  TLgreenBlobProcessor.getBlobs();
-                break;
-            default:
-                blobs = new ArrayList<>();
-        }
-
-        // available sorting functions
-        ColorBlobLocatorProcessor.Util.sortByCriteria(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING, blobs);
-
-        // use if we only want to return the top item (if any) and disregard rest
-        if (blobs!= null && !blobs.isEmpty()){
-            blobs = Collections.singletonList(blobs.get(0));
-        }
-
-        return blobs;
     }*/
 
 
@@ -429,6 +376,12 @@ public class ArtifactCamera extends SubsystemBase {
             FtcDashboard.getInstance().stopCameraStream();
     }
 
+    // displays camera view in driver station
+    public void enableCameraStream() {
+        CameraStreamServer.getInstance().setSource(visionPortal);
+    }
+
+    // enables live view for this camera
     public void enableLiveView(boolean enable) {
         if (enable)
             visionPortal.resumeLiveView();
