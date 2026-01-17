@@ -48,7 +48,7 @@ public class GoalTargeting extends SubsystemBase {
     @Override
     public void periodic() {
         double distance = GetDistanceToGoal();
-        //RobotContainer.telemetrySubsystem.addData("distance", distance);
+        RobotContainer.telemetrySubsystem.addData("distance", distance, true);
     }
 
     // returns list of available shooting locations
@@ -64,33 +64,49 @@ public class GoalTargeting extends SubsystemBase {
     }
 
     // 2. The Functional Interface (must have one abstract method)
+    /** add description here
+     *
+     * @author kaitlyn
+     */
     @FunctionalInterface
     public interface LeftVsRight {
         ShootSide getSide();
     }
 
+    /**Finds any artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the uptake the artifact to shoot is on
+     */
     public LeftVsRight ShootAny()
     {
         // this is lamda function
         return ()-> {
             // Logic to shoot ball
-            if(RobotContainer.colour.isLeftArtifactPresent())
+            if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
         };
     }
 
+    /**Finds a green artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the uptake the artifact to shoot is on
+     */
     public LeftVsRight ShootGreen()
     {
         // this is lamda function
         return ()-> {
             // Logic to shoot ball
-            if(RobotContainer.colour.GetLeftColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+            if(RobotContainer.artifactCamera.getLeftColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.GetRightColour().name().equals(ColourSensor.ArtifactColours.Green.name()))
+            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
                 return ShootSide.RIGHT;
             else if(RobotContainer.colour.isLeftArtifactPresent())
                 return ShootSide.LEFT;
@@ -101,73 +117,97 @@ public class GoalTargeting extends SubsystemBase {
         };
     }
 
+    /**Finds a purple artifact in the robot to shoot
+     *
+     * @author kaitlyn
+     *
+     * @return The side of the robot the artifact to shoot is on
+     */
     public LeftVsRight ShootPurple() {
         // this is lamda function
         return ()-> {
-            if (RobotContainer.colour.GetLeftColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+            if (RobotContainer.artifactCamera.getLeftColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.GetRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
+            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ColourSensor.ArtifactColours.Purple.name()))
                 return ShootSide.RIGHT;
-            else if (RobotContainer.colour.isLeftArtifactPresent())
+            else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk1() {
         // this is lamda function
         return ()-> {
             // get obelisk color for artifact #1
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(0);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.colour.isLeftArtifactPresent())
+            else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk2() {
         // this is lamda function
         return ()-> {
             // get obelisk color for artifact #1
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(1);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.colour.isLeftArtifactPresent())
+            else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
         };
     }
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public LeftVsRight ShootObelisk3() {
         // this is lamda function
         return ()-> {
             // get obelisk color for artifact #2
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(2);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.colour.GetLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.colour.GetRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.colour.isLeftArtifactPresent())
+            else if(RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.colour.isRightArtifactPresent())
+            else if (RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -177,6 +217,12 @@ public class GoalTargeting extends SubsystemBase {
 
     /* ---------- Shoot Distance/Speed Calcs ---------- */
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public double GetDistanceToGoal (){
         currentPos = RobotContainer.odometry.getCurrentPos();
         Pose2d goalPose = new Pose2d();
@@ -194,32 +240,44 @@ public class GoalTargeting extends SubsystemBase {
 
     }
 
+
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return Returns the speed of the flywheel
+     */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-        //double speed = (207.96*(x*x)) - (480.12*(x)) + 2859.6; kaitlyns
-        double speed = (190.58*(x*x)) - (386.65*(x)) + 2741;
+        double speed = (49.688*(x*x)) + (111.58*(x)) + 2497.3;
         return speed;
     }
 
-    public double CalculateHoodAngle(boolean isLeft){
-       double maxAngle;
-       double minAnle;
+    /**add description here
+     *
+     * @author superzokabear
+     *
+     * @return what does this return?
+     */
+    public double CalculateHoodAngle(){
 
-        if (isLeft){
-           maxAngle = RobotContainer.hoodtilt.MaxLeftAngle;
-            minAnle = RobotContainer.hoodtilt.MinLeftAngle;
-        }else{
-           maxAngle = RobotContainer.hoodtilt.MaxRightAngle;
-           minAnle = RobotContainer.hoodtilt.MinRightAngle;
-        }
-
-        double range = maxAngle - minAnle;
         double distance = this.GetDistanceToGoal();
-        double angle = (distance/3.4* range) + minAnle;
-        return angle;
+        double hoodPos = (-0.1606*(distance*distance)) + (0.9442*(distance)) - 0.7733;
+        return hoodPos;
+    }
+
+    public void SetHoodAngleAndSpeed(){
+        RobotContainer.hoodtilt.SetHoodPosition(CalculateHoodAngle());
+        RobotContainer.shooter.SetFlywheelSpeed(CalculateSpeed());
     }
 
 
+    /**add description here
+     *
+     * @author kaitlyn
+     *
+     * @return what does this return?
+     */
     public double IdleSpeed(){
         double shootSpeed = this.CalculateSpeed();
         double distance = this.GetDistanceToGoal();

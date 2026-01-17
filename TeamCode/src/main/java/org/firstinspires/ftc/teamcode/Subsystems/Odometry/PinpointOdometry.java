@@ -62,17 +62,20 @@ public class PinpointOdometry extends SubsystemBase {
     @Override
     public void periodic() {
         pinpointDriver.update(); // the fast one
-        //Pose2D myPose2d = pinpointDriver.getPosition();
-        //RobotContainer.Panels.FTCTelemetry.addData("PosX",myPose2d.getX(DistanceUnit.METER));
-        //RobotContainer.Panels.FTCTelemetry.addData("PosY", myPose2d.getY(DistanceUnit.METER));
-        //RobotContainer.Panels.FTCTelemetry.addData("Angle", myPose2d.getHeading(AngleUnit.DEGREES));
-        //RobotContainer.Panels.FTCTelemetry.update();
     }
 
+    /**
+     * Resets the odometry position and IMU heading to zero.
+     */
     public void reset(){
         pinpointDriver.resetPosAndIMU();
     }
 
+    /**
+     * Sets the robot's pose to the specified Pose2d.
+     *
+     * @param pose the desired Pose2d to set the robot's position and heading
+     */
     public void SetPose(Pose2d pose){
         Pose2D newPose = new Pose2D(DistanceUnit.METER, pose.getX(), pose.getY(), AngleUnit.RADIANS, pose.getHeading());
 
@@ -82,7 +85,11 @@ public class PinpointOdometry extends SubsystemBase {
     }
 
 
-
+    /**
+     * gets the current pose of the robot
+     *
+     * @return A pose2d with the X & Y position in meters and the heading in radians
+     */
     public Pose2d GetPose(){
         Pose2d pose = new Pose2d(pinpointDriver.getPosX(DistanceUnit.METER),
                 pinpointDriver.getPosY(DistanceUnit.METER),

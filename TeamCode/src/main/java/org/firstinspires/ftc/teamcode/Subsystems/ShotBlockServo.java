@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author superzokabear
  */
 public class ShotBlockServo extends SubsystemBase {
 
@@ -34,14 +34,20 @@ public class ShotBlockServo extends SubsystemBase {
     public void periodic() {
 
     }
+
     // place special subsystem methods here
 
-    // block flywheel when intake on
-    // Never change under penalty of a creative death the servo value to 0.25 or greater
+    /**
+     * block flywheel when intake on
+     * <p>
+     * Never change under penalty of a creative death, the servo value to 0.25 or greater
+     */
     public void Block(){shotBlockServo.setPosition(0.17);}
 
-    // Unblock the flywheel
-    // Never change under penalty of a creative death the servo value to 0.25 or greater
+    /**Unblock the flywheel
+     * <p>
+     * Never change under penalty of a creative death, the servo value to 0.25 or greater
+     */
     public void Unblock(){shotBlockServo.setPosition(0.0);}
 
 }

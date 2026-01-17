@@ -5,7 +5,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
- * methods to manage operator controls (gamepads, etc)
+ * methods to manage operator controls
  *
  * @author Kw126
  */
@@ -135,7 +135,7 @@ public class OperatorControlsSubsystem extends SubsystemBase {
 
 
     /**
-     * if the ramp total is less than 9, increase the ramp total by 1
+     * if the ramp total in RobotContainer is less than 9, increases the ramp total by 1
      */
     public void increaseRampTotal(){
         if (RobotContainer.artifactsInRamp < 9)
@@ -143,7 +143,7 @@ public class OperatorControlsSubsystem extends SubsystemBase {
     }
 
     /**
-     * if the ramp total is greater than 0, decrease the ramp total by 1
+     * if the ramp total in RobotContainer is greater than 0, decreases the ramp total by 1
      */
     public void decreaseRampTotal(){
         if (RobotContainer.artifactsInRamp > 0)
@@ -151,7 +151,7 @@ public class OperatorControlsSubsystem extends SubsystemBase {
     }
 
     /**
-     * reset the ramp total to 0
+     * resets the ramp total in RobotContainer to 0
      */
     public void resetRampTotal(){
         RobotContainer.artifactsInRamp = 0;

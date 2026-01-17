@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting
 /**
  * Place description of subsystem here
  *
- * @author Zoe
+ * @author superzokabear
  */
 @Configurable
 public class FlywheelSubsystem extends SubsystemBase {
@@ -102,7 +102,6 @@ public class FlywheelSubsystem extends SubsystemBase {
     }
 
     // Place special subsystem methods here
-
 
     public void SetFlywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode

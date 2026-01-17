@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author superzokabear
  */
 @Configurable
 public class HoodTiltSubsystem extends SubsystemBase {
@@ -32,8 +32,8 @@ public class HoodTiltSubsystem extends SubsystemBase {
 
         hoodPosition = MinLeftAngle;
 
-        LowerLeftTilt();
-        LowerRightTilt();
+//        LowerLeftTilt();
+//        LowerRightTilt();
 
     }
 
@@ -41,7 +41,7 @@ public class HoodTiltSubsystem extends SubsystemBase {
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        SetHoodPosition(hoodPosition);
+        //SetHoodPosition(hoodPosition);
     }
 
     // place special subsystem methods here
@@ -51,16 +51,16 @@ public class HoodTiltSubsystem extends SubsystemBase {
     public double MinLeftAngle = 0.0;
     public double MinRightAngle = 1.0;
 
-    public void MaxRaiseLeftTilt(){leftTilt.setPosition(MaxLeftAngle);}
-    public void MaxRaiseRightTIlt(){
-        rightTilt.setPosition(MaxRightAngle);
-    }
-
-    // Lower Left or right hood servo
-    public void LowerLeftTilt(){leftTilt.setPosition(MinLeftAngle);}// No negative values possible
-    public void LowerRightTilt(){
-        rightTilt.setPosition(MinRightAngle);
-    }
+//    public void MaxRaiseLeftTilt(){leftTilt.setPosition(MaxLeftAngle);}
+//    public void MaxRaiseRightTIlt(){
+//        rightTilt.setPosition(MaxRightAngle);
+//    }
+//
+//    // Lower Left or right hood servo
+//    public void LowerLeftTilt(){leftTilt.setPosition(MinLeftAngle);}// No negative values possible
+//    public void LowerRightTilt(){
+//        rightTilt.setPosition(MinRightAngle);
+//    }
 
 
     public void SetHoodPosition(double position){
@@ -70,9 +70,9 @@ public class HoodTiltSubsystem extends SubsystemBase {
         leftTilt.setPosition(pos);
         rightTilt.setPosition(1.0 - pos);
     }
-    public void MaxRaiseHood(){
-        MaxRaiseLeftTilt();
-        MaxRaiseRightTIlt();
-    }
+//    public void MaxRaiseHood(){
+//        MaxRaiseLeftTilt();
+//        MaxRaiseRightTIlt();
+//    }
 
 }

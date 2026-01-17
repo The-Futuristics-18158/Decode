@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
  * Place description of subsystem here
- * leftFrontDrive = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "leftFrontDrive");
+ *
  * @author Blackthrush
  */
 public class ColourSensor extends SubsystemBase {
