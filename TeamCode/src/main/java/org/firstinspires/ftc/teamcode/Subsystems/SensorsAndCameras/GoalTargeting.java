@@ -84,9 +84,9 @@ public class GoalTargeting extends SubsystemBase {
         // this is lamda function
         return ()-> {
             // Logic to shoot ball
-            if(RobotContainer.artifactCamera.IsLeftPresent())
+            if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -104,13 +104,13 @@ public class GoalTargeting extends SubsystemBase {
         // this is lamda function
         return ()-> {
             // Logic to shoot ball
-            if(RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
+            if(RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
+            else if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Green.name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.artifactCamera.IsLeftPresent())
+            else if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -126,13 +126,13 @@ public class GoalTargeting extends SubsystemBase {
     public LeftVsRight ShootPurple() {
         // this is lamda function
         return ()-> {
-            if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            if (RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            else if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.artifactCamera.IsLeftPresent())
+            else if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -151,13 +151,13 @@ public class GoalTargeting extends SubsystemBase {
             // get obelisk color for artifact #1
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(0);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getRightColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getLeftColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.artifactCamera.IsLeftPresent())
+            else if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -176,13 +176,13 @@ public class GoalTargeting extends SubsystemBase {
             // get obelisk color for artifact #1
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(1);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getRightColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getLeftColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.artifactCamera.IsLeftPresent())
+            else if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
@@ -201,13 +201,13 @@ public class GoalTargeting extends SubsystemBase {
             // get obelisk color for artifact #2
             Obelisk.ArtifactColor color = RobotContainer.obelisk.GetColorAtIndex(2);
             // Logic to shoot ball
-            if((color.name().equals(RobotContainer.artifactCamera.getLeftColour().name())))
+            if((color.name().equals(RobotContainer.artifactCamera.getRightColour().name())))
                 return ShootSide.LEFT;
-            else if (color.name().equals(RobotContainer.artifactCamera.getRightColour().name()))
+            else if (color.name().equals(RobotContainer.artifactCamera.getLeftColour().name()))
                 return ShootSide.RIGHT;
-            else if(RobotContainer.artifactCamera.IsLeftPresent())
+            else if(RobotContainer.artifactCamera.IsRightPresent())
                 return ShootSide.LEFT;
-            else if (RobotContainer.artifactCamera.IsRightPresent())
+            else if (RobotContainer.artifactCamera.IsLeftPresent())
                 return ShootSide.RIGHT;
             else
                 return ShootSide.BOTH;
