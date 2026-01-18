@@ -45,7 +45,7 @@ public class IntakeCommand extends CommandBase {
 
         if (timer.seconds()>5.0 || ((RobotContainer.artifactCamera.IsLeftPresent()) &&
                 (RobotContainer.artifactCamera.IsRightPresent()) &&
-                (RobotContainer.artifactCamera.IsBottomPresent()))){
+                (RobotContainer.distance.isRampArtifactPresent()))){
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {

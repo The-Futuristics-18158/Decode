@@ -12,6 +12,9 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAllObeliskColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootGreen;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootPurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
@@ -34,6 +37,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
 import org.firstinspires.ftc.teamcode.Subsystems.FlywheelSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.DistanceSensor;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.Obelisk;
@@ -78,6 +82,7 @@ public class RobotContainer {
     public static RampCamera rampCamera;
     public static Odometry odometry;
     public static ColourSensor colour;
+    public static DistanceSensor distance;
     public static IntakeSubsystem intake;
     public static FlywheelSubsystem shooter;
     public static UptakeSubsystem uptake;
@@ -151,6 +156,7 @@ public class RobotContainer {
         limeLight = new LimeLight();
         rampCamera = new RampCamera("RampCam");
         colour = new ColourSensor();
+        distance = new DistanceSensor();
         intake = new IntakeSubsystem();
         shooter = new FlywheelSubsystem();
         uptake = new UptakeSubsystem();
@@ -193,15 +199,15 @@ public class RobotContainer {
                 (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
         // Shoot Green
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new ShootSingleGreen());
+        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new FastShootGreen());
 
         // Shoot All
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new ShootAllAnyColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new FastShootAll());
 
         //driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new CycleRightUptake());
 
         // Shoot Purple
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new ShootSinglePurple());
+        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurple());
 
         //Shoot According to the obelisk reading
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
@@ -209,7 +215,7 @@ public class RobotContainer {
 
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
 
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootAll());
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootAllObeliskColor());
 
 
         // Hunt Mode

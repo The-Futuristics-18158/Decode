@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
+
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
@@ -13,19 +11,20 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 // command template
-public class FastShootAll extends CommandBase {
+public class FastShootPurple extends CommandBase {
 
     // the sequential command that we are creating and running
     SequentialCommandGroup cmd;
 
 
     // constructor
-    public FastShootAll() {
+    public FastShootPurple() {
 
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
         addRequirements(RobotContainer.shooter);
         addRequirements(RobotContainer.hoodtilt);
+        addRequirements(RobotContainer.targeting);
     }
 
     // This method is called once when command is started
@@ -48,33 +47,8 @@ public class FastShootAll extends CommandBase {
         ));
 
         // Artifact #1
-        cmd.addCommands(new CycleLeftUptake());
-        cmd.addCommands(new Pause(0.2));
-
-        // Artifact #2
-        cmd.addCommands(new CycleRightUptake());
-
-        // ARTIFACT #3
-        // unblock
-        cmd.addCommands(new InstantCommand(()-> RobotContainer.shotblock.Block()));
-
-        // start intake
-        cmd.addCommands(new InstantCommand(()->RobotContainer.intake.intakeRun()));
-        cmd.addCommands(new Pause(0.15));
-
-        // stop intake / unblock
-        cmd.addCommands(new ParallelCommandGroup(
-                new InstantCommand(()->RobotContainer.intake.intakeStop()),
-                new InstantCommand(()-> RobotContainer.shotblock.Unblock())
-        ));
-        //cmd.addCommands(new Pause(0.05));
-
-        // cycle both sides
-        cmd.addCommands(new ParallelCommandGroup(
-                new CycleRightUptake(),
-                new CycleLeftUptake()
-        ));
-
+        RobotContainer.targeting.ShootGreen();
+        cmd.addCommands(new Pause(0.05));
 
         // initialize the sequence command
         cmd.initialize();
