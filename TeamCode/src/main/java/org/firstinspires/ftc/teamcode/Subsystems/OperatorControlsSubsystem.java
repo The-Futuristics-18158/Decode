@@ -22,6 +22,29 @@ public class OperatorControlsSubsystem extends SubsystemBase {
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
+
+        if (RobotContainer.artifactsInRamp == 0)
+            RobotContainer.telemetrySubsystem.ascii_0();
+        else if (RobotContainer.artifactsInRamp == 1)
+            RobotContainer.telemetrySubsystem.ascii_1();
+        else if (RobotContainer.artifactsInRamp == 2)
+            RobotContainer.telemetrySubsystem.ascii_2();
+        else if (RobotContainer.artifactsInRamp == 3)
+            RobotContainer.telemetrySubsystem.ascii_3();
+        else if (RobotContainer.artifactsInRamp == 4)
+            RobotContainer.telemetrySubsystem.ascii_4();
+        else if (RobotContainer.artifactsInRamp == 5)
+            RobotContainer.telemetrySubsystem.ascii_5();
+        else if (RobotContainer.artifactsInRamp == 6)
+            RobotContainer.telemetrySubsystem.ascii_6();
+        else if (RobotContainer.artifactsInRamp == 7)
+            RobotContainer.telemetrySubsystem.ascii_7();
+        else if (RobotContainer.artifactsInRamp == 8)
+            RobotContainer.telemetrySubsystem.ascii_8();
+        else if (RobotContainer.artifactsInRamp == 9)
+            RobotContainer.telemetrySubsystem.ascii_9();
+
+
 //        if (RobotContainer.artifactsInRamp == 0){
 //            RobotContainer.RCTelemetry.addLine("◢■■■■◣");
 //            RobotContainer.RCTelemetry.addLine("◢■■■■■■◣");

@@ -29,8 +29,9 @@ public class Obelisk extends SubsystemBase {
     /** Place code here to initialize subsystem */
     public Obelisk() {
 
-        // we don't have pattern by default
-        pattern_temp = null;
+        // assume GPP by default
+        pattern_temp = ObeliskPattern.PGP;
+        pattern = ObeliskPattern.PGP;
 
     }
 
@@ -97,9 +98,11 @@ public class Obelisk extends SubsystemBase {
      */
     public ArtifactColor GetColorAtIndex(int index)
     {
-        if ((pattern==ObeliskPattern.GPP && index==0) ||
-                (pattern==ObeliskPattern.PGP && index==1) ||
-                (pattern==ObeliskPattern.PPG && index==2))
+        int i = index + (RobotContainer.artifactsInRamp%3);
+
+        if ((pattern==ObeliskPattern.GPP && i==0) ||
+                (pattern==ObeliskPattern.PGP && i==1) ||
+                (pattern==ObeliskPattern.PPG && i==2))
             return ArtifactColor.Green;
         else
             return ArtifactColor.Purple;

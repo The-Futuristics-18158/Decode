@@ -14,7 +14,8 @@ public class HuntModeCommand extends CommandBase {
     private boolean haveArtifact;
     private double blobX;
     PIDController omegaControl;
-    boolean finished;
+    //boolean finished;
+    int finishedCounter;
     private ElapsedTime timer;
     private double seconds;
 
@@ -36,7 +37,8 @@ public class HuntModeCommand extends CommandBase {
     @Override
     public void initialize() {
         omegaControl.reset();
-        finished = false;
+        //finished = false;
+        finishedCounter=0;
         timer.reset();
     }
 
@@ -51,9 +53,13 @@ public class HuntModeCommand extends CommandBase {
         if (timer.seconds() >= seconds || (RobotContainer.artifactCamera.IsLeftPresent() &&
                 RobotContainer.artifactCamera.IsRightPresent()
                 && RobotContainer.distance.isRampArtifactPresent())){
-            finished = true;
+
             RobotContainer.intake.intakeStop();
+            finishedCounter++;
+            //finished = true;
+
         }else {
+            finishedCounter=0;
             RobotContainer.intake.intakeRun();
         }
 
@@ -78,7 +84,8 @@ public class HuntModeCommand extends CommandBase {
         }
 
        // if busy intaking robot, stop and wait for it to finish before proceeding
-        if (RobotContainer.artifactCamera.IsBottomPresent())
+        if (RobotContainer.distance.isRampArtifactPresent())
+        //if (RobotContainer.artifactCamera.IsBottomPresent())
            x_speed = 0.0;
        //else
        //     x_speed = 0.5;//was 0.6 // was 0.5
@@ -92,7 +99,9 @@ public class HuntModeCommand extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        return finished;
+        return (finishedCounter>=3);
+
+        //return finished;
     }
 
     // This method is called once when command is finished.
