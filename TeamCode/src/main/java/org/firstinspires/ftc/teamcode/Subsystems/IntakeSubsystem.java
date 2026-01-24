@@ -48,10 +48,18 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intakeRun(){
         intakeMotor.setPower(0.8);
     }
+
+    // used to back out a ball a little bit
+    public void intakeReverse() {
+        intakeMotor.setPower(-0.50);
+    }
+
     // Stop intake
     public void intakeStop(){
         intakeMotor.setPower(0.0);
     }
+
+
 
 //    public void intakeBackup(){
 //        intakeMotor.setPower(-1.0);

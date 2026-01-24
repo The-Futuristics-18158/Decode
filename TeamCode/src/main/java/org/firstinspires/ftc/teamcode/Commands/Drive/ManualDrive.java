@@ -17,8 +17,8 @@ public class ManualDrive extends CommandBase {
     private long m_pidDelay = -1;
 
     double powerFactor;
-    double basePowerFacter = 0.45;
-    double boostPowerFacter = 0.55;
+    double basePowerFacter = 0.65;
+    double boostPowerFacter = 0.35;
 
     final double MAX_ACCEL = 1.0;  // max accel in m/s2
 

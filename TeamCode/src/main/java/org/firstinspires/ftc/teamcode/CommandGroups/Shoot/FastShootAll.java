@@ -60,7 +60,7 @@ public class FastShootAll extends CommandBase {
 
         // start intake
         cmd.addCommands(new InstantCommand(()->RobotContainer.intake.intakeRun()));
-        cmd.addCommands(new Pause(0.15));
+        cmd.addCommands(new Pause(0.25));
 
         // stop intake / unblock
         cmd.addCommands(new ParallelCommandGroup(
