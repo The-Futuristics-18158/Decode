@@ -98,7 +98,7 @@ public class Obelisk extends SubsystemBase {
      */
     public ArtifactColor GetColorAtIndex(int index)
     {
-        int i = index + (RobotContainer.artifactsInRamp%3);
+        int i = (index + RobotContainer.artifactsInRamp)%3;
 
         if ((pattern==ObeliskPattern.GPP && i==0) ||
                 (pattern==ObeliskPattern.PGP && i==1) ||
