@@ -251,7 +251,6 @@ public class GoalTargeting extends SubsystemBase {
         double x = this.GetDistanceToGoal();
         // double speed = (49.688*(x*x)) + (111.58*(x)) + 2497.3;
         // Last Characterization from January 19th at Cloud Metric field to improve long shots.
-        // R^2 = 0.9609
         double speed = 318.54*(x) + 2304.7;
         return speed;
     }
@@ -267,7 +266,6 @@ public class GoalTargeting extends SubsystemBase {
         double distance = this.GetDistanceToGoal();
         // double hoodPos = (-0.1606*(distance*distance)) + (0.9442*(distance)) - 0.7733;
         // Last Characterization from January 19th at Cloud Metric field to improve long shots.
-        // R^2 = 0.9395
         double hoodPos = (-0.1529*(distance*distance)) + (0.864*(distance)) - 0.6675;
         return hoodPos;
     }
