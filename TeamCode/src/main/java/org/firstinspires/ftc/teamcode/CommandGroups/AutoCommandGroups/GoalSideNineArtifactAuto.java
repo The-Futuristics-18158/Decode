@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -29,50 +32,60 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 //move to a shooting position
                 new MoveToPose(
                         1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
+                        0.7,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.45, -0.45, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
-                new ShootAllObeliskColor(),
+                new FastShootObeliskColor(),
 
-                //move to intake point
+//                //move to intake point
 //                new MoveToPose(
 //                        1.5,
 //                        1.5,
 //                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
-
-                new TurnTo(AutoFunctions.redVsBlue(-90.0),false,3.0),
-
-                // intaking and moving forwards
+//
+                new TurnTo(AutoFunctions.redVsBlue(-90.0),false,1.5),
+//
+//                // intaking and moving forwards
                 new HuntModeCommand(4.0),
 
-                // move to shoot
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
-
-                new ShootAllObeliskColor(),
-
-                // move to pickup
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
-
-                // intaking and moving forwards
-                new HuntModeCommand(4.0),
-
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
-
-                new ShootAllObeliskColor(),
-
-                new MoveToPose(
-                        1.5,
-                        1.5,
-                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
+                new JogBackIntake()
+//
+//                new ParallelCommandGroup(
+//                        new JogBackIntake(),
+//                        // move to shoot
+//                        new MoveToPose(
+//                                1.5,
+//                                0.7,
+//                                AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0))))))
+//                ),
+//
+//
+//                new FastShootObeliskColor(),
+//
+//                // move to pickup
+//                new MoveToPose(
+//                        1.5,
+//                        0.7,
+//                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
+//
+//                // intaking and moving forwards
+//                new HuntModeCommand(3.0),
+//
+//                new ParallelCommandGroup(
+//                        new JogBackIntake(),
+//
+//                        new MoveToPose(
+//                                1.5,
+//                                0.7,
+//                                AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0))))))
+//                ),
+//
+//                new FastShootObeliskColor(),
+//
+//                new MoveToPose(
+//                        1.5,
+//                        0.7,
+//                        AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );
     }

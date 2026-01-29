@@ -221,8 +221,10 @@ public class RobotContainer {
 
 
         // Hunt Mode
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(
-                                                        new HuntModeCommand(), new JogBackIntake()  ));
+//        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(
+//                                                        new HuntModeCommand(), new JogBackIntake()  ));
+
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
 
         // Manual Intake
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());

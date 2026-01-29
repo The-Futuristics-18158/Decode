@@ -34,10 +34,10 @@ public class ColourSensor extends SubsystemBase {
      * Method called periodically by the scheduler
      * Place any code here you wish to have run periodically
      */
-    @Override
-    public void periodic() {
-
-    }
+//    @Override
+//    public void periodic() {
+//
+//    }
     // place special subsystem methods here
 //    public enum ArtifactColours{
 //        Purple,
@@ -45,25 +45,25 @@ public class ColourSensor extends SubsystemBase {
     //Nothing
 //    }
 
-//    public boolean isLeftArtifactPresent() {
-//        try {
-//            return (leftSensor.alpha() > 80.0);
-//
-//        } catch (Exception e) {
-//            // Log the error (if you can), and handle recovery
-//            RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage(), true);
-//            RobotContainer.telemetrySubsystem.update();
-//            try {
-//                leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
-//            } catch (Exception ex) {
-//                // failed to recover
-//                RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage(), true);
-//                RobotContainer.telemetrySubsystem.update();
-//            }
-//
-//            return false;
-//        }
-//    }
+    public boolean isLeftArtifactPresent() {
+        try {
+            return (leftSensor.alpha() > 80.0);
+
+        } catch (Exception e) {
+            // Log the error (if you can), and handle recovery
+            RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.update();
+            try {
+                leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "leftColorSensor");
+            } catch (Exception ex) {
+                // failed to recover
+                RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.update();
+            }
+
+            return false;
+        }
+    }
 
 
 //    public ArtifactColours GetLeftColour(){
@@ -78,27 +78,27 @@ public class ColourSensor extends SubsystemBase {
 //       }
 //    }
 
-//    public boolean isRightArtifactPresent(){
-//
-//        try {
-//            return (rightSensor.alpha() > 80.0);
-//
-//        } catch (Exception e) {
-//            // Log the error (if you can), and handle recovery
-//            RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage(), true);
-//            RobotContainer.telemetrySubsystem.update();
-//            try {
-//                rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
-//            } catch (Exception ex) {
-//                // failed to recover
-//                RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage(), true);
-//                RobotContainer.telemetrySubsystem.update();
-//            }
-//
-//            return false;
-//        }
-//
-//    }
+    public boolean isRightArtifactPresent(){
+
+        try {
+            return (rightSensor.alpha() > 80.0);
+
+        } catch (Exception e) {
+            // Log the error (if you can), and handle recovery
+            RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.update();
+            try {
+                rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorSensor.class, "rightColorSensor");
+            } catch (Exception ex) {
+                // failed to recover
+                RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.update();
+            }
+
+            return false;
+        }
+
+    }
 //    public ArtifactColours GetRightColour(){
 //        if (isRightArtifactPresent() == true){
 //            if(rightSensor.green()> rightSensor.blue()){

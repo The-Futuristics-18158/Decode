@@ -103,7 +103,7 @@ public class TurnTo extends CommandBase {
         RobotContainer.drivesystem.RobotDrive(0.0, 0.0, m_rotatespeed);
 
         // if we are within target, allow timer to count up
-        if (Math.abs(m_angleerror) >=1.0)
+        if (Math.abs(m_angleerror) >=3.0)
             OnTargetTime.reset();
     }
 
@@ -119,6 +119,6 @@ public class TurnTo extends CommandBase {
     public boolean isFinished() {
         // we are finished when within tolerance of target for required duration,
         // or have timed out
-        return (OnTargetTime.seconds()>1.0 || TimeOutTime.seconds() >=m_timeout);
+        return (OnTargetTime.seconds()>0.25 || TimeOutTime.seconds() >=m_timeout);
     }
 }
