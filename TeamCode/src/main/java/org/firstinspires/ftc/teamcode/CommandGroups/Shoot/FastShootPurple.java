@@ -4,16 +4,19 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ArtifactCamera;
 
 
-// command template
+// Command
 public class FastShootPurple extends CommandBase {
 
-    // the sequential command that we are creating and running
+    // The sequential command that we are creating and running
     SequentialCommandGroup cmd;
 
 
@@ -47,7 +50,20 @@ public class FastShootPurple extends CommandBase {
         ));
 
         // Artifact #1
-        RobotContainer.targeting.ShootGreen();
+        if(RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            cmd.addCommands(new CycleLeftUptake());
+        else if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            cmd.addCommands(new CycleRightUptake());
+        else if(RobotContainer.artifactCamera.IsRightPresent())
+            cmd.addCommands(new CycleLeftUptake());
+        else if (RobotContainer.artifactCamera.IsLeftPresent())
+            cmd.addCommands(new CycleRightUptake());
+        else
+            cmd.addCommands(new ParallelCommandGroup(
+                    new CycleRightUptake(),
+                    new CycleLeftUptake()
+            ));
+
         cmd.addCommands(new Pause(0.05));
 
         // initialize the sequence command
