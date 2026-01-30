@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -16,18 +15,11 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootPurple;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSingleGreen;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootSinglePurple;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllAnyColor;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
-import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Blinkin;
@@ -224,7 +216,9 @@ public class RobotContainer {
 //        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(
 //                                                        new HuntModeCommand(), new JogBackIntake()  ));
 
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+//        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeAuto(10.0));
 
         // Manual Intake
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
