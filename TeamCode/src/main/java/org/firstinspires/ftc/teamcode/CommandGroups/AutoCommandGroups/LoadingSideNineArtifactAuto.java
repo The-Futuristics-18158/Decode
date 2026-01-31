@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.FollowPath;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
@@ -44,7 +45,7 @@ public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
-                new HuntModeCommand(4.0),
+                new HuntModeAuto(4.0),
 
                 new FollowPath(
                         1.5,
@@ -65,7 +66,7 @@ public class LoadingSideNineArtifactAuto extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // intaking and moving forwards
-                new HuntModeCommand(4.0),
+                new HuntModeAuto(4.0),
 
 
                 new MoveToPose(
