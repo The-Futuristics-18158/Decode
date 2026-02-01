@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.ShootAllObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.FollowPath;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -42,7 +43,7 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeCommand(2.5),
+                new HuntModeAuto(2.5),
                 // Clean-up Hunt
                 new JogBackIntake(),
 
@@ -67,7 +68,7 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeCommand(2.5),
+                new HuntModeAuto(2.5),
                 // Clean-up Hunt
                 new JogBackIntake(),
                 // Move to shot #3
