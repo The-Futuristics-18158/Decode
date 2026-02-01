@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SelectCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -15,6 +17,8 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootPurple;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
+import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
@@ -200,6 +204,9 @@ public class RobotContainer {
 
         //driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new CycleRightUptake());
 
+//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new SequentialCommandGroup(new InstantCommand(()-> RobotContainer.shotblock.Unblock()), new CycleRightUptake()));
+//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenReleased(new InstantCommand(()-> RobotContainer.shotblock.Block()));
+
         // Shoot Purple
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurple());
 
@@ -208,6 +215,9 @@ public class RobotContainer {
 
 
         //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
+//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new SequentialCommandGroup(new InstantCommand(()-> RobotContainer.shotblock.Unblock()), new CycleLeftUptake()));
+//
+//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenReleased(new InstantCommand(()-> RobotContainer.shotblock.Block()));
 
         driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootObeliskColor());
 

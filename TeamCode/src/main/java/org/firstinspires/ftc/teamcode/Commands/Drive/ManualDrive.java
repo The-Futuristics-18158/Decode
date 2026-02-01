@@ -52,6 +52,8 @@ public class ManualDrive extends CommandBase {
         double dY = -RobotContainer.ActiveOpMode.gamepad1.left_stick_y;
         double omega = -3.0 * RobotContainer.ActiveOpMode.gamepad1.right_stick_x;
         double speedTrigger = RobotContainer.ActiveOpMode.gamepad1.right_trigger;
+        double slowTrigger = RobotContainer.ActiveOpMode.gamepad1.left_trigger;
+
 
         if (RobotContainer.isRedAlliance==false){
             dX = dX * -1;
@@ -89,7 +91,8 @@ public class ManualDrive extends CommandBase {
         // --------- End Correct robot angle for gyro angle wander --------
 
 
-        powerFactor = basePowerFacter + (speedTrigger * boostPowerFacter);
+        powerFactor = basePowerFacter + (speedTrigger * boostPowerFacter) - (slowTrigger * boostPowerFacter);
+
         // Since the drive was shifted to closed loop (i.e. requested velocities), change joystick input max values
         // to MAX_SPEED values.
         powerFactor = powerFactor * RobotContainer.drivesystem.MAX_SPEED;

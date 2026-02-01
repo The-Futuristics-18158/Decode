@@ -247,10 +247,13 @@ public class GoalTargeting extends SubsystemBase {
      */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-        // double speed = (49.688*(x*x)) + (111.58*(x)) + 2497.3;
-        // Last Characterization from January 19th at Cloud Metric field to improve long shots.
-        double speed = 318.54*(x) + 2304.7;
-        return speed;
+
+        if (x <= 2.5){
+            return 253.51*x + 2403.8;
+        }else {
+            return 3350;
+        }
+
     }
 
     /**add description here
@@ -261,11 +264,13 @@ public class GoalTargeting extends SubsystemBase {
      */
     public double CalculateHoodAngle(){
 
-        double distance = this.GetDistanceToGoal();
-        // double hoodPos = (-0.1606*(distance*distance)) + (0.9442*(distance)) - 0.7733;
-        // Last Characterization from January 19th at Cloud Metric field to improve long shots.
-        double hoodPos = (-0.1529*(distance*distance)) + (0.864*(distance)) - 0.6675;
-        return hoodPos;
+        double x = this.GetDistanceToGoal();
+
+        if (x <= 2.5){
+            return -0.6343*x*x + 2.3894*x - 1.8076;
+        }else {
+            return 0.44;
+        }
     }
 
     public void SetHoodAngleAndSpeed(){
