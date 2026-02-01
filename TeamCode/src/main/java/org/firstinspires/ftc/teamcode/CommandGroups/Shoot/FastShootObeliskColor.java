@@ -44,19 +44,19 @@ public class FastShootObeliskColor extends CommandBase {
         RobotContainer.targeting.SetHoodAngleAndSpeed();
 
         // turn to target, wait for shooter spin up, whichever lasts longer
-        if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+        //if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
             cmd.addCommands(new ParallelCommandGroup(
 
                     new TurnToTarget(10.0),
                     new WaitForSpinup()
             ));
-        } else {
-            cmd.addCommands(new ParallelCommandGroup(
-
-                    new AimToShoot(),
-                    new WaitForSpinup()
-            ));
-        }
+        //} else {
+        //    cmd.addCommands(new ParallelCommandGroup(
+        //
+         //            new AimToShoot(),
+        //            new WaitForSpinup()
+        //    ));
+        //}
 
         // ---------- Artifact #1 ----------
 

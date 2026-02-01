@@ -19,6 +19,7 @@ public class ManualDrive extends CommandBase {
     double powerFactor;
     double basePowerFacter = 0.65;
     double boostPowerFacter = 0.35;
+    double slowPowerFactor = 0.4;
 
     //final double MAX_ACCEL = 1.0;  // max accel in m/s2
     //double old_dX, old_dY;
@@ -91,7 +92,7 @@ public class ManualDrive extends CommandBase {
         // --------- End Correct robot angle for gyro angle wander --------
 
 
-        powerFactor = basePowerFacter + (speedTrigger * boostPowerFacter) - (slowTrigger * boostPowerFacter);
+        powerFactor = basePowerFacter + (speedTrigger * boostPowerFacter) - (slowTrigger * slowPowerFactor);
 
         // Since the drive was shifted to closed loop (i.e. requested velocities), change joystick input max values
         // to MAX_SPEED values.

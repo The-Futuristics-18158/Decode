@@ -26,8 +26,11 @@ public class GoalTargeting extends SubsystemBase {
             // whatever
     );
 
-    Pose2d redGoal = new Pose2d(-1.63, 1.63, new Rotation2d(0));
-    Pose2d blueGoal = new Pose2d(-1.63, -1.63, new Rotation2d(0));
+    Pose2d redGoalNear = new Pose2d(-1.63, 1.55, new Rotation2d(0));
+    Pose2d blueGoalNear = new Pose2d(-1.63, -1.55, new Rotation2d(0));
+    Pose2d redGoalFar = new Pose2d(-1.63, 1.45, new Rotation2d(0));
+    Pose2d blueGoalFar = new Pose2d(-1.63, -1.45, new Rotation2d(0));
+
 
     Pose2d currentPos = new Pose2d();
 
@@ -225,9 +228,15 @@ public class GoalTargeting extends SubsystemBase {
         currentPos = RobotContainer.odometry.getCurrentPos();
         Pose2d goalPose = new Pose2d();
         if(RobotContainer.isRedAlliance()){
-            goalPose = redGoal;
+            if (currentPos.getX() <=1.90)
+                goalPose = redGoalNear;
+            else
+                goalPose = redGoalFar;
         }else{
-            goalPose = blueGoal;
+            if (currentPos.getX() <=1.90)
+                goalPose = blueGoalNear;
+            else
+                goalPose = blueGoalFar;
         }
 
         double x = goalPose.getX() - currentPos.getX();
