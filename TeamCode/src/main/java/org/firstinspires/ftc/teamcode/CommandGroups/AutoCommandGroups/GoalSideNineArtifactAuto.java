@@ -69,15 +69,20 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 new JogBackIntake(),
 
                 // Follow a path around the gate to shot #3
-                new FollowPath(
+//                new FollowPath(
+//                        1.5,
+//                        0.7,
+//                        0.0,
+//                        0.0,
+//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(-90.0))),
+//                        new ArrayList<Translation2d>() {{AutoFunctions.redVsBlue(new Translation2d(0.9, 0.0));}},
+//                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(150.0)))),
+//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
+                new MoveToPose(
                         1.5,
                         0.7,
-                        0.0,
-                        0.0,
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(-90.0))),
-                        new ArrayList<Translation2d>() {{AutoFunctions.redVsBlue(new Translation2d(0.9, 0.0));}},
-                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(150.0)))),
-                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
+                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
+                ),
 
 //      -------------------------- Artifact Cycle #3 --------------------------
                 new FastShootObeliskColor(),

@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -43,11 +44,19 @@ public class FastShootObeliskColor extends CommandBase {
         RobotContainer.targeting.SetHoodAngleAndSpeed();
 
         // turn to target, wait for shooter spin up, whichever lasts longer
-        cmd.addCommands(new ParallelCommandGroup(
-                new TurnToTarget(10.0),
-                new WaitForSpinup()
-        ));
+        if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+            cmd.addCommands(new ParallelCommandGroup(
 
+                    new TurnToTarget(10.0),
+                    new WaitForSpinup()
+            ));
+        } else {
+            cmd.addCommands(new ParallelCommandGroup(
+
+                    new AimToShoot(),
+                    new WaitForSpinup()
+            ));
+        }
 
         // ---------- Artifact #1 ----------
 
@@ -76,12 +85,27 @@ public class FastShootObeliskColor extends CommandBase {
         Obelisk.ArtifactColor color2 = RobotContainer.obelisk.GetColorAtIndex(1);
 
         // if we previously shot left, and right matches 2nd desired color, shoot right
-        if (shotleft && RobotContainer.artifactCamera.getLeftColour().name().equals(color2.name()))
-        { cmd.addCommands(new Pause(0.2)); cmd.addCommands(new CycleRightUptake()); AddAdvance(); }
+        if (shotleft && RobotContainer.artifactCamera.getLeftColour().name().equals(color2.name())) {
+            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+                cmd.addCommands(new Pause(0.2));
+            }else {
+                cmd.addCommands(new Pause(0.4));
+            }
+
+            cmd.addCommands(new CycleRightUptake());
+            AddAdvance();
+        }
 
         // previously shot right and if left matches 2nd desired color, shoot left
-        else if (!shotleft && RobotContainer.artifactCamera.getRightColour().name().equals(color2.name()))
-        { cmd.addCommands(new Pause(0.2)); cmd.addCommands(new CycleLeftUptake()); AddAdvance(); }
+        else if (!shotleft && RobotContainer.artifactCamera.getRightColour().name().equals(color2.name())) {
+            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+                cmd.addCommands(new Pause(0.2));
+            }else {
+                cmd.addCommands(new Pause(0.4));
+            }
+            cmd.addCommands(new CycleLeftUptake());
+            AddAdvance();
+        }
 
         // other side does not match, we need to advance and shoot that side
         else
@@ -96,7 +120,11 @@ public class FastShootObeliskColor extends CommandBase {
                 cmd.addCommands(new CycleRightUptake());
 
             // delay to let paddle come back down before proceeding
-            cmd.addCommands(new Pause(0.2));
+            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+                cmd.addCommands(new Pause(0.2));
+            }else {
+                cmd.addCommands(new Pause(0.4));
+            }
         }
 
 

@@ -18,7 +18,7 @@ public class WaitForSpinup extends CommandBase {
     // Function overload - assume default of 1.0s max delay time
     public WaitForSpinup() {
         // no maximum time provided - assume 1.0s
-        this(1.0);
+        this(2.0);
     }
 
     // constructor - time limited to provided max time (seconds)
