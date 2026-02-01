@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems.Utils;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ArtifactCamera;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 
 /**
  * Place description of subsystem here

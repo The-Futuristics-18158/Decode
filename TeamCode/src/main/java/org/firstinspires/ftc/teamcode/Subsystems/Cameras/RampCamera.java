@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
+package org.firstinspires.ftc.teamcode.Subsystems.Cameras;
 
 import android.graphics.Color;
 import android.util.Size;

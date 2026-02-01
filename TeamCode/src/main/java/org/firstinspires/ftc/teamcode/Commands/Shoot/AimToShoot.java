@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
+import org.firstinspires.ftc.teamcode.Subsystems.Sensors.GoalTargeting;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 import org.firstinspires.ftc.teamcode.Utility.Utils;
 

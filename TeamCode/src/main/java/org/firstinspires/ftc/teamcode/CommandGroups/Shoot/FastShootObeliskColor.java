@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.Obelisk;
+import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 
 
 // command template

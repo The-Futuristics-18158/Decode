@@ -30,7 +30,7 @@ public class HuntModeAuto extends CommandBase {
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
         omegaControl = new PIDController(0.05, 0.0005, 0.01);
-        xControl = new PIDController(0.005, 0.0, 0.0);
+        xControl = new PIDController(0.01, 0.0, 0.0);
         timer = new ElapsedTime();
         seconds = time;
     }
@@ -84,7 +84,12 @@ public class HuntModeAuto extends CommandBase {
             blobX = blobs.get(0).getCircle().getCenter().x - 160.0;
 
             // set forward speed to value depending on how far artifact from center of camera
-            y_speed = 0.6 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
+            // first number is forward
+            // second number is how quickly the speed goes down when artifact is off center
+            y_speed = 0.4 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
+
+            if (y_speed < 0.0){ y_speed = 0.0;}
+
             if(!RobotContainer.isRedAlliance()){
                y_speed = y_speed* -1.0;
             }

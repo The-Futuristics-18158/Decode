@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
@@ -12,8 +10,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.ArtifactCamera;
-import org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras.GoalTargeting;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 
 
 // command template

@@ -1,14 +1,12 @@
-package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
+package org.firstinspires.ftc.teamcode.Subsystems.Sensors;
 
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 import java.util.List;
 

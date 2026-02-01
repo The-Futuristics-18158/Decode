@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
+package org.firstinspires.ftc.teamcode.Subsystems.Sensors;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 

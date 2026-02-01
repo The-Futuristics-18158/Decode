@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
+package org.firstinspires.ftc.teamcode.Subsystems.Sensors;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.LimeLight;
 
 /**
  * Obelisk module is used to monitor and record obelisk pattern.

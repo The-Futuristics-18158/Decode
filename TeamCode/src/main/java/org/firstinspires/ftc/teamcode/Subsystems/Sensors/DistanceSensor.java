@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.Subsystems.SensorsAndCameras;
+package org.firstinspires.ftc.teamcode.Subsystems.Sensors;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -31,6 +30,11 @@ public class DistanceSensor extends SubsystemBase {
     @Override
     public void periodic() {
 
+       if(rampSensor.getDistance(DistanceUnit.MM) >= 1000) {
+            rampSensor.initialize();
+       }
+
+
     }
 
     private boolean isRampSensorInitialized = true;
@@ -38,7 +42,7 @@ public class DistanceSensor extends SubsystemBase {
     public boolean isRampArtifactPresent(){
         try {
             double distance = rampSensor.getDistance(DistanceUnit.MM);
-            return (distance >= 40.0 && distance <= 141.0);
+            return (distance >= 55.0 && distance <= 130.0);
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
             RobotContainer.telemetrySubsystem.addData("rampDistance Sensor Error", e.getMessage());
@@ -57,6 +61,7 @@ public class DistanceSensor extends SubsystemBase {
                     RobotContainer.telemetrySubsystem.addData("rampDistance Sensor recovery failed", ex.getMessage());
                     RobotContainer.telemetrySubsystem.update();
                 }
+
             }
             return false; // Can't determine presence, assume no artifact
         }
