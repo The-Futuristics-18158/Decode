@@ -30,10 +30,6 @@ public class DistanceSensor extends SubsystemBase {
     @Override
     public void periodic() {
 
-       if(rampSensor.getDistance(DistanceUnit.MM) >= 1000) {
-            rampSensor.initialize();
-       }
-
 
     }
 
