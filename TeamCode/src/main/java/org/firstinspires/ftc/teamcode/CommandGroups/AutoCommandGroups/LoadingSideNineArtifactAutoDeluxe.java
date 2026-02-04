@@ -25,29 +25,27 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
 
         addCommands (
                 // Was X = 1.59 Y was -0.39
-                new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(1.64, -0.35, new Rotation2d(Math.toRadians(0.0)))))),
+                new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(1.60, -0.37, new Rotation2d(Math.toRadians(0.0)))))),
 
                 // Move to shot #1
                 new MoveToPose(
-                        1.75,
+                       1.75,
                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))), // + or - 20 degrees
+                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.45, new Rotation2d(Math.toRadians(45.0)))))), // + or - 20 degrees
 
 //      -------------------------- Artifact Cycle #1 --------------------------
                 new FastShootObeliskColor(),
 
-                // Move to pickup
+                // Move to intake point
                 new MoveToPose(
                         1.5,
-                        1.5,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.9, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeAuto(2.5),
-                // Clean-up Hunt
-                new JogBackIntake(),
+                new HuntModeAuto(4.0),
 
-                // Follow a path around the gate to shot #2
+                // Mover to shoot
                 new FollowPath(
                         1.5,
                         1.0,
@@ -55,7 +53,7 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                         0.0,
                         AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(90.0))),
                         new ArrayList<Translation2d>(){{AutoFunctions.redVsBlue(new Translation2d(0.5,-0.95));}},
-                        AutoFunctions.redVsBlue(new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(180)))),
+                        AutoFunctions.redVsBlue(new Pose2d(-0.15, -0.45, new Rotation2d(Math.toRadians(180)))),
                         AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45.0)))),
 
 //      -------------------------- Artifact Cycle #2 --------------------------
@@ -68,23 +66,22 @@ public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeAuto(2.5),
-                // Clean-up Hunt
-                new JogBackIntake(),
-                // Move to shot #3
+                new HuntModeAuto(4.0),
+
+                // Move to shoot
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(-0.25, -0.45, new Rotation2d(Math.toRadians(45.0)))))),
 
 //      -------------------------- Artifact Cycle #3 --------------------------
                 new FastShootObeliskColor(),
-                // Move off line
+
+                // Leave
                 new MoveToPose(
                         1.5,
-                        1.5,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.67, new Rotation2d(Math.toRadians(-90.0))))))
-
         );
     }
 }

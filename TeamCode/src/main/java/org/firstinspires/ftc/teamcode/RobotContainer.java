@@ -22,8 +22,11 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
+import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Utils.Blinkin;
@@ -190,59 +193,55 @@ public class RobotContainer {
         uptake.LowerRightUptake();
         uptake.LowerLeftUptake();
 
-        // Controller bindings
 
+//      -------------------------- Driver Controls --------------------------
         // Reset odometry
         driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
                 (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
+        // Climb in three seconds
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
+
+//      -------------------------- (Driver) Shooting Controls  --------------------------
         // Shoot Green
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new FastShootGreen());
 
         // Shoot All
         driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new FastShootAll());
 
-        //driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new CycleRightUptake());
-
-//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new SequentialCommandGroup(new InstantCommand(()-> RobotContainer.shotblock.Unblock()), new CycleRightUptake()));
-//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenReleased(new InstantCommand(()-> RobotContainer.shotblock.Block()));
-
         // Shoot Purple
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurple());
 
-        //Shoot According to the obelisk reading
-        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new ShootAllObeliskColor());
-
-
-        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new CycleLeftUptake());
-//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new SequentialCommandGroup(new InstantCommand(()-> RobotContainer.shotblock.Unblock()), new CycleLeftUptake()));
-//
-//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenReleased(new InstantCommand(()-> RobotContainer.shotblock.Block()));
-
+        // Shoot All According to Obelisk Pattern
         driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootObeliskColor());
 
-
+//      -------------------------- (Driver) Intake Systems --------------------------
         // Hunt Mode
-//        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(
-//                                                        new HuntModeCommand(), new JogBackIntake()  ));
-
-//        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
-
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeAuto(10.0));
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(new HuntModeCommand(), new JogBackIntake()));
 
         // Manual Intake
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
 
-        // Climb Positioning
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new MoveToPose(1, 1, AutoFunctions.redVsBlue( new Pose2d( new Translation2d(0.935, 0.81), new Rotation2d(0)))));
+//      -------------------------- (Driver) Turning To Exact Angle --------------------------
+        // Turn To 0 degrees
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(0.0), false, 5.0));
 
-        // Climb in three seconds
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
+        // Turn To 90 degrees
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new TurnTo(AutoFunctions.redVsBlue(-90.0), false, 5.0));
 
+        // Turn To 180 degrees
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(180.0), false, 5.0));
+
+        // Turn To 270 degrees
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new TurnTo(AutoFunctions.redVsBlue(90.0), false, 5.0));
+
+//      -------------------------- Operator Controls --------------------------
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(()-> telemetrySubsystem.telemetryModeToggle()));
+
+//      -------------------------- Examples --------------------------
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'

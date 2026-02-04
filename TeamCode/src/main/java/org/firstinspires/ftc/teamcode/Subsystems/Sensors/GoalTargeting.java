@@ -276,7 +276,8 @@ public class GoalTargeting extends SubsystemBase {
         double x = this.GetDistanceToGoal();
 
         if (x <= 2.5){
-            return -0.6343*x*x + 2.3894*x - 1.8076;
+            //return -0.6343*x*x + 2.3894*x - 1.8076;
+            return -0.6077*x*x + 2.2606*x - 1.6945;
         }else {
             return 0.44;
         }
