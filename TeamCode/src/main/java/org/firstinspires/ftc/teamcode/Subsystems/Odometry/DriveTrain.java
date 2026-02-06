@@ -263,9 +263,11 @@ public class DriveTrain extends SubsystemBase {
         // This can be due to effects of robot mass and wheel inertia and rolling resistance
         // requiring greater motor control efforts to achieve same speeds.
         // note: battery voltage can somewhat impact the optimal value selected for F-gain
+        // I=6.0 Feb 5/2026 KN
+
         private double Pgain = 1.5 * 0.00016667; // 0.8 is optimal for no-load operation
-        private double Igain = 6.0 * 0.00016667; // note at >250rpm error, igain drops to 0.15*6 = ~0.90
-        private double Fgain = 1.4 * 0.00016667; // 0.9 to 1.0 is optimal for no-load operation depending on battery voltage
+        private double Igain = 5.5 * 0.00016667; // note at >250rpm error, igain drops to 0.15*6 = ~0.90
+        private double Fgain = 1.1 * 0.00016667; // 0.9 to 1.0 is optimal for no-load operation depending on battery voltage
 
 
         // Integrated Error

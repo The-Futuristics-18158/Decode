@@ -30,7 +30,7 @@ public class HuntModeAuto extends CommandBase {
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
         omegaControl = new PIDController(0.05, 0.0005, 0.01);
-        xControl = new PIDController(0.01, 0.0, 0.0);
+        xControl = new PIDController(0.0075, 0.0, 0.0);
         timer = new ElapsedTime();
         seconds = time;
     }
@@ -126,7 +126,7 @@ public class HuntModeAuto extends CommandBase {
     @Override
     public boolean isFinished(){
 
-        return (finishedCounter>=3);
+        return (finishedCounter>=2);
 
         //return finished;
     }

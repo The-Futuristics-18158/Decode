@@ -32,7 +32,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 // Move to a shot #1
                 new MoveToPose(
                         1.5,
-                        0.7,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(-0.45, -0.45, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
 //      -------------------------- Artifact Cycle #1 --------------------------
@@ -59,7 +59,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 // Move to pickup
                 new MoveToPose(
                         1.5,
-                        0.7,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
@@ -80,7 +80,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
 //                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
                 new MoveToPose(
                         1.5,
-                        0.7,
+                        0.8,
                         AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
                 ),
 
@@ -90,7 +90,7 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 // Move off line
                 new MoveToPose(
                         1.5,
-                        0.7,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );
