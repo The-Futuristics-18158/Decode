@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.geometry.Vector2d;
-import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -14,19 +13,18 @@ import org.firstinspires.ftc.teamcode.Utility.Utils;
 
 /** A command to follow a path generated from input parameters
  * */
-@Configurable
 public class TurnToTarget extends CommandBase {
 
-    public static double m_endangle;
+    double m_endangle;
     double m_timeout;
 
     // speed to rotate robot - determined by PID controller
     double m_rotatespeed;
-    public static double m_angleerror;
+    double m_angleerror;
 
     // PID gains for rotating robot towards ball target
-    public static double kpmax = 0.15; // 0.075;
-    public static double kpmin = 0.05;
+    public static double kpmax = 0.11; // was 0.15 Feb 5/2026 KN
+    public static double kpmin = 0.04; // was 0.05 Feb 5/2026 KN
     public static double kp_deg = 90.0;
     public static double ki = 0.2; // 0.20;
     public static double ki_range = 5.0;
@@ -141,9 +139,9 @@ public class TurnToTarget extends CommandBase {
             OnTargetTime.reset();
 
 
-        RobotContainer.Panels.FTCTelemetry.addData("TargetAngle", m_endangle);
-        RobotContainer.Panels.FTCTelemetry.addData("AngleError", Math.max(-10.0, Math.min(10.0, m_angleerror)));
-        RobotContainer.Panels.FTCTelemetry.update();
+        // RobotContainer.Panels.FTCTelemetry.addData("TargetAngle", m_endangle);
+        // RobotContainer.Panels.FTCTelemetry.addData("AngleError", Math.max(-10.0, Math.min(10.0, m_angleerror)));
+        // RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Called once the command ends or is interrupted.

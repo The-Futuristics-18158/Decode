@@ -3,27 +3,20 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SelectCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootPurple;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
-import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
@@ -43,7 +36,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Sensors.GoalTargeting;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
-import org.firstinspires.ftc.teamcode.Subsystems.Utils.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter.ShotBlockServo;
@@ -63,7 +55,7 @@ public class RobotContainer {
     public static boolean isRedAlliance;
 
     // FTC dashboard and telemetries
-    public static Panels Panels;
+    // public static Panels Panels;
     public static TelemetrySubsystem telemetrySubsystem;
 
     // timer used to determine how often to run scheduler periodic
@@ -138,7 +130,7 @@ public class RobotContainer {
         timer.reset();
 
         // set up dashboard and various telemetries
-        Panels = new Panels();
+        // Panels = new Panels();
         telemetrySubsystem = new TelemetrySubsystem();
 
         // cancel any commands previously running by scheduler
@@ -285,6 +277,8 @@ public class RobotContainer {
             limeLight.SetPipelineMode(2);
         }
 
+        artifactsInRamp = 0;
+
         //obelisk.StartObeliskScan();
     }
 
@@ -327,7 +321,7 @@ public class RobotContainer {
             CommandScheduler.getInstance().run();
 
             // report robot odometry on robot controller
-            telemetrySubsystem.odometryTelemetry();
+            //telemetrySubsystem.odometryTelemetry();
 
             // report time interval on robot controller
             telemetrySubsystem.timerOdometry();
