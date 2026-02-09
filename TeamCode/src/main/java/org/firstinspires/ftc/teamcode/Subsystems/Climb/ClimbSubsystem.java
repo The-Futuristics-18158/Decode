@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  */
 public class ClimbSubsystem extends SubsystemBase {
 
-    // Initialize both motors
+    // Initialize both motors and the distance sensor
     private final DcMotorEx climbL;
     private final DcMotorEx climbR;
     private  final Rev2mDistanceSensor climbSensor;
@@ -72,11 +72,14 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
+    /**Gets the distance from the climb sensor
+     * @return the distance from the ground in inches
+     */
     public double getClimbDistance(){
         return climbSensor.getDistance(DistanceUnit.INCH);
     }
 
-    // only move as fast as slowest motor
+    /**Causes the robot to climb. Only raises as fast as slowest motor.*/
     public void moveClimb() {
 
         // Sets both motors to the target position
@@ -105,12 +108,9 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
+    /**Stops the climbing motors*/
     public void climbStop(){
         climbL.setPower(0);
         climbR.setPower(0);
-
     }
-
-
-
 }

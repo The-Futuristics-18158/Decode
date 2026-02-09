@@ -61,6 +61,9 @@ public class HoodTiltSubsystem extends SubsystemBase {
 //    }
 
 
+    /**Sets shooter hood position
+     * @param position Desired position between 0.0 and 0.57
+     */
     public void SetHoodPosition(double position){
         double pos = position;
         if (pos < MinLeftAngle){ pos = MinLeftAngle;}

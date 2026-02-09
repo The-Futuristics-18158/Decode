@@ -26,11 +26,9 @@ public class ColourSensor extends SubsystemBase {
         rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorRangeSensor.class, "rightColorSensor");
     }
 
-    /**
-     * Method called periodically by the scheduler
-     * Place any code here you wish to have run periodically
+    /**Uses the left color sensor to determine if an artifact is present on the left side of the robot.
+     * @return true if an artifact is detected, false otherwise
      */
-
     public boolean isLeftArtifactPresent() {
         try {
             return (leftSensor.getDistance(DistanceUnit.MM) < 55.0);
@@ -50,6 +48,9 @@ public class ColourSensor extends SubsystemBase {
         }
     }
 
+    /**Uses the right color sensor to determine if an artifact is present on the right side of the robot.
+     * @return true if an artifact is detected, false otherwise
+     */
     public boolean isRightArtifactPresent(){
 
         try {

@@ -35,6 +35,10 @@ public class DistanceSensor extends SubsystemBase {
 
     private boolean isRampSensorInitialized = true;
 
+
+    /**Uses the distance sensor to determine if an artifact is present on the ramp.
+     * @return true if an artifact is detected, false otherwise
+     */
     public boolean isRampArtifactPresent(){
         try {
             double distance = rampSensor.getDistance(DistanceUnit.MM);
