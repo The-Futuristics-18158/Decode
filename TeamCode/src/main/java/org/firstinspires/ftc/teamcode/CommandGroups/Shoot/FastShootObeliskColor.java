@@ -78,6 +78,13 @@ public class FastShootObeliskColor extends CommandBase {
         else
             cmd.addCommands(new CycleLeftUptake());
 
+        // advance next ball
+        AddAdvance();
+
+        // allow extra time for spinup if we are shooting from far away
+        if (RobotContainer.targeting.GetDistanceToGoal() >= 2.75)
+            cmd.addCommands(new Pause(0.15));
+
 
         // ---------- Artifact #2 ----------
 
@@ -85,46 +92,28 @@ public class FastShootObeliskColor extends CommandBase {
         Obelisk.ArtifactColor color2 = RobotContainer.obelisk.GetColorAtIndex(1);
 
         // if we previously shot left, and right matches 2nd desired color, shoot right
-        if (shotleft && RobotContainer.artifactCamera.getLeftColour().name().equals(color2.name())) {
-            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
-                cmd.addCommands(new Pause(0.2));
-            }else {
-                cmd.addCommands(new Pause(0.4));
-            }
-
+        if (shotleft && RobotContainer.artifactCamera.getLeftColour().name().equals(color2.name()))
             cmd.addCommands(new CycleRightUptake());
-            AddAdvance();
-        }
 
         // previously shot right and if left matches 2nd desired color, shoot left
-        else if (!shotleft && RobotContainer.artifactCamera.getRightColour().name().equals(color2.name())) {
-            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
-                cmd.addCommands(new Pause(0.2));
-            }else {
-                cmd.addCommands(new Pause(0.4));
-            }
+        else if (!shotleft && RobotContainer.artifactCamera.getRightColour().name().equals(color2.name()))
             cmd.addCommands(new CycleLeftUptake());
-            AddAdvance();
-        }
 
-        // other side does not match, we need to advance and shoot that side
+        // the 'alternate side does not match next colour, so we need to shoot the ball we advanced
         else
         {
-            // advance the 3rd ball
-            AddAdvance();
-
-            // shoot ball - this will be same as as we used for shot #1
+            // did we shoot the left first, if so shoot left again, otherwise shoot right
             if (shotleft)
                 cmd.addCommands(new CycleLeftUptake());
             else
                 cmd.addCommands(new CycleRightUptake());
+        }
 
-            // delay to let paddle come back down before proceeding
-            if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
-                cmd.addCommands(new Pause(0.2));
-            }else {
-                cmd.addCommands(new Pause(0.4));
-            }
+        // delay to allow flywheel spinup
+        if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
+            cmd.addCommands(new Pause(0.2));
+        }else {
+            cmd.addCommands(new Pause(0.4));
         }
 
 
@@ -136,6 +125,7 @@ public class FastShootObeliskColor extends CommandBase {
         cmd.addCommands(new ParallelCommandGroup(
                 new CycleRightUptake(),
                 new CycleLeftUptake() ));
+
 
         // initialize the sequence command
         cmd.initialize();

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Utils;
 
-import com.arcrobotics.ftclib.command.SubsystemBase;
+/*import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.geometry.Translation2d;
@@ -13,7 +13,6 @@ import com.bylazar.gamepad.PanelsGamepad;
 import com.bylazar.lights.PanelsLights;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
-
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
@@ -196,3 +195,4 @@ public class Panels extends SubsystemBase {
     }
 
 }
+ */
