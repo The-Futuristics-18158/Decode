@@ -78,4 +78,7 @@ lint/intermediates/
 lint/generated/
 lint/outputs/
 lint/tmp/
+
 # lint/reports/
+/TeamCode/FindEmptyJavaDoc.ps1
+*.ps1

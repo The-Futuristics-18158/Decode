@@ -8,17 +8,17 @@ public enum ClimbTargetHeight {
     SAMPLE_LIFT(2850); // was 2381 before changing the fenders
 
 
-
-
     // Stores ticks in var value
     private final int value;
 
-    // Assigns the ticks to each constant
+    /**Assigns the ticks to each constant
+     * @param value the target height in ticks
+     */
     ClimbTargetHeight(int value) {
         this.value = value;
     }
 
-    // Gets the ticks from the enum
+    /**Gets the ticks from the enum*/
     public int getValue() {
         return value;
     }

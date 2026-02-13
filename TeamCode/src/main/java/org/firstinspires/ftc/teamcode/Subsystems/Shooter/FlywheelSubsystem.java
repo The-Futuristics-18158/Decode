@@ -101,6 +101,9 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     // Place special subsystem methods here
 
+    /** Sets shooter flywheel speed in rpm
+     * @param RPM a double representing the desired flywheel speed in rpm. Negative values will be treated as 0.0.
+     */
     public void SetFlywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode
         //TargetSpeed = RobotContainer.targeting.CalculateSpeed();
@@ -108,12 +111,16 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     }
 
-    // returns current flywheel speed in rpm
+    /**gets current flywheel speed in rpm
+     * @return current flywheel speed in rpm
+     */
     public double GetFlyWheelSpeed() {
         return CurrentSpeed;
     }
 
-    // returns target flywheel speed in rpm
+    /**gets target flywheel speed in rpm
+     * @return target flywheel speed in rpm
+     */
     public double GetFlyWheelTargetSpeed() {
         return TargetSpeed;
     }

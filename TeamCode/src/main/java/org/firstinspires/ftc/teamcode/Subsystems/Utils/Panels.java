@@ -16,6 +16,9 @@ import com.bylazar.telemetry.TelemetryManager;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
+/**
+ *Place description of subsystem here
+ */
 public class Panels extends SubsystemBase {
 
     // Local objects and variables here
@@ -29,6 +32,9 @@ public class Panels extends SubsystemBase {
     // field update counter
     private int FieldUpdateCounter;
 
+    /**
+     *add description here
+     */
     public Panels() {
 
         // get pointers to various parts of Panels
@@ -57,6 +63,9 @@ public class Panels extends SubsystemBase {
         //            if (!RobotContainer.ActiveOpMode.isStopRequested() && updateDashboardCounter >= 15)
     }
 
+    /**
+     * add description here
+     */
     private void UpdateField() {
 
         // set field offset to FTC default
@@ -117,6 +126,9 @@ public class Panels extends SubsystemBase {
     private double[] currentTrajectoryXpoints;
     private double[] currentTrajectoryYpoints;
 
+    /**add description here
+     * @param trajectory
+     */
     public void DisplayTrajectory (Trajectory trajectory) {
 
         if (trajectory!=null)
@@ -139,6 +151,9 @@ public class Panels extends SubsystemBase {
     }
 
 
+    /**
+     * add description here
+     */
     private void gamepadTelemetry(){
 
         // Get current gamepads from the active FTC hardware instance

@@ -106,7 +106,6 @@ public class Odometry extends SubsystemBase {
      * sets robot position to provided Pose2d
      * @param pos - Pose2d of robot position (in m)
      */
-    // sets robot position to provided Pose2d
     public void setCurrentPos(Pose2d pos){
         // record new robot position
         CurrentPose = pos;

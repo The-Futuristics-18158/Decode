@@ -52,7 +52,7 @@ public class GoalTargeting extends SubsystemBase {
         RobotContainer.telemetrySubsystem.addData("distance", distance, true);
     }
 
-    // returns list of available shooting locations
+    /**returns list of available shooting locations*/
     public List<Translation2d> GetListOfSHootingPoints() {
         return ShootingCoordinates;
     }
@@ -283,6 +283,10 @@ public class GoalTargeting extends SubsystemBase {
         }
     }
 
+    /**add description here
+     *
+     * @author superzokabear
+     */
     public void SetHoodAngleAndSpeed(){
         RobotContainer.hoodtilt.SetHoodPosition(CalculateHoodAngle());
         RobotContainer.shooter.SetFlywheelSpeed(CalculateSpeed());

@@ -102,9 +102,10 @@ public class RobotContainer {
 
     public static int artifactsInRamp = 0;
 
-    // robot initialization - common to both auto and teleop
-    // mode - current opmode that is being run
-    // RedAlliance - true if robot in red alliance, false if blue
+    /**Robot initialization - common to both auto and teleop
+     * @param mode A value from the Modes enum representing the current opmode being run, valid Modes as of 2/9/2026: Off, AutoInit, Auto, TeleOp
+     * @param RedAlliance True if red alliance, false if blue alliance
+     */
     public static void Init(CommandOpMode mode, boolean RedAlliance) {
 
         // save pointer to active OpMode
@@ -170,7 +171,7 @@ public class RobotContainer {
 
     }
 
-    // Robot initialization for teleop - This runs once at initialization of teleop
+    /**Robot initialization for teleop - This runs once at initialization of teleop*/
     public static void Init_TeleOp() {
 
         // robot is in teleop mode
@@ -263,7 +264,7 @@ public class RobotContainer {
         artifactsInRamp = 0;
     }
 
-    // Robot initialization for auto - This runs once at initialization of auto
+    /**Robot initialization for auto - This runs once at initialization of auto*/
     public static void Init_Auto() {
 
         // robot is in auto init mode
@@ -282,7 +283,7 @@ public class RobotContainer {
         //obelisk.StartObeliskScan();
     }
 
-    // Robot starting code for auto - This runs once at start of auto
+    /**Robot starting code for auto - This runs once at start of auto*/
     public static void Start_Auto() {
 
         // robot is in auto mode
@@ -296,7 +297,7 @@ public class RobotContainer {
     }
 
 
-    // call this function periodically to operate scheduler
+    /**call this function periodically to operate scheduler*/
     public static void Periodic() {
 
         // clear I/O cache for robot control and expansion hubs
@@ -333,17 +334,26 @@ public class RobotContainer {
         }
     }
 
+
+    /**Gets the current alliance colour
+     * @return True if red alliance, false if blue alliance
+     */
     public static boolean isRedAlliance() {
         return isRedAlliance;
     }
 
-    // Returns the current robot mode
+    /**Returns the current robot mode
+     * @return a value from the Modes enum, valid Modes as of 2/9/2026: Off, AutoInit, Auto, TeleOp*/
     public static Modes GetCurrentMode() { return CurrentRobotMode; }
 
+    /**Gets our most commonly used starting angles for auto when we're on blue alliance
+     * @return The angle of the robot when it's facing the red alliance drive team*/
     public static double getBlueStartAngle() {
         return BlueStartAngle;
     }
 
+    /**Gets our most commonly used starting angles for auto when we're on red alliance
+     * @return The angle of the robot when it's facing the blue alliance drive team*/
     public static double getRedStartAngle() {
         return RedStartAngle;
     }
