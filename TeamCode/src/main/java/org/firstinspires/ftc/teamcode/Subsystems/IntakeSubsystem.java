@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
         // Resets the encoders
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Sets motor direction
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         // Setting power to zero upon initialization
         intakeMotor.setPower(0);
 
