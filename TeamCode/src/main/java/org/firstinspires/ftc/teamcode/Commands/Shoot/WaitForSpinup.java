@@ -43,8 +43,8 @@ public class WaitForSpinup extends CommandBase {
     @Override
     public boolean isFinished() {
 
-        // command is finished when shooter reaches 95% of speed or max time is exceeded
-        return (RobotContainer.shooter.GetFlyWheelSpeed() >=0.95*RobotContainer.shooter.GetFlyWheelTargetSpeed() ||
+        // command is finished when shooter reaches 98% of speed or max time is exceeded
+        return (RobotContainer.shooter.GetFlyWheelSpeed() >=0.98*RobotContainer.shooter.GetFlyWheelTargetSpeed() ||
                 time.seconds() >= maxtime);
     }
 

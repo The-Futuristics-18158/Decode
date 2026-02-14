@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Cameras;
 import android.graphics.Color;
 import android.util.Size;
 import androidx.annotation.NonNull;
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.SortOrder;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -370,10 +369,10 @@ public class ArtifactCamera extends SubsystemBase {
 
     // enables camera view in dashboard
     public void enableDashBoardView(boolean enable) {
-        if (enable)
-            FtcDashboard.getInstance().startCameraStream(visionPortal, 4);
-        else
-            FtcDashboard.getInstance().stopCameraStream();
+        // if (enable)
+        //    FtcDashboard.getInstance().startCameraStream(visionPortal, 4);
+        // else
+        //    FtcDashboard.getInstance().stopCameraStream();
     }
 
     // displays camera view in driver station
@@ -443,33 +442,105 @@ public class ArtifactCamera extends SubsystemBase {
         Nothing
     }
     public ArtifactColours getLeftColour(){
+
         List<ColorBlobLocatorProcessor.Blob> blobs;
-       blobs =  TLgreenBlobProcessor.getBlobs();
-        if(blobs != null && !blobs.isEmpty()){
-            return ArtifactColours.Green;
-        }else{
+
+        // if we have ball in right, assume green unless proven otherwise
+        if (RobotContainer.colour.isRightArtifactPresent())
+        {
+            // if we have purple, return purple, otherwise assume green
             blobs =  TLpurpleBlobProcessor.getBlobs();
-            if(blobs != null && !blobs.isEmpty()){
-                return ArtifactColours.Purple;
-            }else{
-                return ArtifactColours.Nothing;
-            }
+            if(blobs != null && !blobs.isEmpty())
+               return ArtifactColours.Purple;
+            else
+                return ArtifactColours.Green;
         }
+        // if right sensor is not working - use camera only for decision
+        else if (!RobotContainer.colour.isRightSensorAlive())
+        {
+            // does camera alone show we have green?
+            blobs =  TLgreenBlobProcessor.getBlobs();
+            if(blobs != null && !blobs.isEmpty())
+                return ArtifactColours.Green;
+
+            // does camera alone show we have purple?
+            blobs = TLpurpleBlobProcessor.getBlobs();
+            if (blobs != null && !blobs.isEmpty())
+                return ArtifactColours.Purple;
+
+            // camera does not see anything
+            return ArtifactColours.Nothing;
+        }
+
+        else
+            // sensor is alive, but we have nothing
+            return ArtifactColours.Nothing;
+
+//        List<ColorBlobLocatorProcessor.Blob> blobs;
+//       blobs =  TLgreenBlobProcessor.getBlobs();
+//        if(blobs != null && !blobs.isEmpty()){
+//            return ArtifactColours.Green;
+//        }else{
+//            blobs =  TLpurpleBlobProcessor.getBlobs();
+//            if(blobs != null && !blobs.isEmpty()){
+//                return ArtifactColours.Purple;
+//            }else{
+//               return ArtifactColours.Nothing;
+//            }
+//        }
     }
+
     public ArtifactColours getRightColour(){
+
         List<ColorBlobLocatorProcessor.Blob> blobs;
-        blobs =  TRgreenBlobProcessor.getBlobs();
-        if(blobs != null && !blobs.isEmpty()){
-            return ArtifactColours.Green;
-        }else{
+
+        // if we have ball in right, assume green unless proven otherwise
+        if (RobotContainer.colour.isLeftArtifactPresent())
+        {
+            // if we have purple, return purple, otherwise assume green
             blobs =  TRpurpleBlobProcessor.getBlobs();
-            if(blobs != null && !blobs.isEmpty()){
+            if(blobs != null && !blobs.isEmpty())
                 return ArtifactColours.Purple;
-            }else{
-                return ArtifactColours.Nothing;
-            }
+            else
+                return ArtifactColours.Green;
         }
+        // if right sensor is not working - use camera only for decision
+        else if (!RobotContainer.colour.isLeftSensorAlive())
+        {
+            // does camera alone show we have green?
+            blobs =  TRgreenBlobProcessor.getBlobs();
+            if(blobs != null && !blobs.isEmpty())
+                return ArtifactColours.Green;
+
+            // does camera alone show we have purple?
+            blobs = TRpurpleBlobProcessor.getBlobs();
+            if (blobs != null && !blobs.isEmpty())
+                return ArtifactColours.Purple;
+
+            // camera does not see anything
+            return ArtifactColours.Nothing;
+        }
+
+        else
+            // sensor is alive, but we have nothing
+            return ArtifactColours.Nothing;
+
+
+//        List<ColorBlobLocatorProcessor.Blob> blobs;
+//        blobs =  TRgreenBlobProcessor.getBlobs();
+//        if(blobs != null && !blobs.isEmpty()){
+//            return ArtifactColours.Green;
+//        }else{
+//            blobs =  TRpurpleBlobProcessor.getBlobs();
+//            if(blobs != null && !blobs.isEmpty()){
+//                return ArtifactColours.Purple;
+//            }else{
+//                return ArtifactColours.Nothing;
+//            }
+//        }
     }
+
+
     public ArtifactColours getBottomColour(){
         List<ColorBlobLocatorProcessor.Blob> blobs;
         blobs =  BottomgreenBlobProcessor.getBlobs();

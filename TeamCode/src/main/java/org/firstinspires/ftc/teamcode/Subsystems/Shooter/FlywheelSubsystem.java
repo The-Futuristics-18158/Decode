@@ -24,8 +24,8 @@ public class FlywheelSubsystem extends SubsystemBase {
     private final double TICKSPStoRPM = (1/28.0)*60.0;
 
     // target speed
-    public static double TargetSpeed;  // When disabling dashboard/panels turn back to privet.
-    public static double CurrentSpeed; // When disabling dashboard/panels turn back to privet.
+    public static double TargetSpeed;  // When disabling dashboard/panels turn back to privet. Make static when not using pannels
+    public static double CurrentSpeed; // When disabling dashboard/panels turn back to privet. Make static when not using pannels
     // PIF Controller Gains
     private final double FsGain = 0.0;
     private final double FvGain = 0.00021; // was 0.0002 // unit=power/rpm   initial value=1.0/6000rpm=0.00016667
@@ -102,6 +102,9 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     // Place special subsystem methods here
 
+    /** Sets shooter flywheel speed in rpm
+     * @param RPM a double representing the desired flywheel speed in rpm. Negative values will be treated as 0.0.
+     */
     public void SetFlywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode
         //TargetSpeed = RobotContainer.targeting.CalculateSpeed();
@@ -109,12 +112,16 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     }
 
-    // returns current flywheel speed in rpm
+    /**gets current flywheel speed in rpm
+     * @return current flywheel speed in rpm
+     */
     public double GetFlyWheelSpeed() {
         return CurrentSpeed;
     }
 
-    // returns target flywheel speed in rpm
+    /**gets target flywheel speed in rpm
+     * @return target flywheel speed in rpm
+     */
     public double GetFlyWheelTargetSpeed() {
         return TargetSpeed;
     }

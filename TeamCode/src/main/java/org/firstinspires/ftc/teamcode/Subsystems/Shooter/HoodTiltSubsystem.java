@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
@@ -11,11 +10,11 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  *
  * @author superzokabear
  */
-@Configurable
+ //@Configurable
 public class HoodTiltSubsystem extends SubsystemBase {
 
     // Local objects and variables here
-    public static double hoodPosition;
+    public static double hoodPosition; // set as a static when no using pannels
     private Servo leftTilt;
     private Servo rightTilt;
 
@@ -29,10 +28,6 @@ public class HoodTiltSubsystem extends SubsystemBase {
         rightTilt.setDirection(Servo.Direction.FORWARD);
 
         hoodPosition = MinLeftAngle;
-
-//        LowerLeftTilt();
-//        LowerRightTilt();
-
     }
 
     /** Method called periodically by the scheduler
@@ -61,6 +56,9 @@ public class HoodTiltSubsystem extends SubsystemBase {
 //    }
 
 
+    /**Sets shooter hood position
+     * @param position Desired position between 0.0 and 0.57
+     */
     public void SetHoodPosition(double position){
         double pos = position;
         if (pos < MinLeftAngle){ pos = MinLeftAngle;}
@@ -68,9 +66,6 @@ public class HoodTiltSubsystem extends SubsystemBase {
         leftTilt.setPosition(pos);
         rightTilt.setPosition(1.0 - pos);
     }
-//    public void MaxRaiseHood(){
-//        MaxRaiseLeftTilt();
-//        MaxRaiseRightTIlt();
-//    }
+
 
 }

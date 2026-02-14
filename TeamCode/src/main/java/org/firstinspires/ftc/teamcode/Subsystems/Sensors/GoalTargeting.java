@@ -26,10 +26,10 @@ public class GoalTargeting extends SubsystemBase {
             // whatever
     );
 
-    Pose2d redGoalNear = new Pose2d(-1.63, 1.55, new Rotation2d(0));
-    Pose2d blueGoalNear = new Pose2d(-1.63, -1.55, new Rotation2d(0));
-    Pose2d redGoalFar = new Pose2d(-1.63, 1.45, new Rotation2d(0));
-    Pose2d blueGoalFar = new Pose2d(-1.63, -1.45, new Rotation2d(0));
+    Translation2d redGoalNear = new Translation2d(-1.63, 1.55);
+    Translation2d blueGoalNear = new Translation2d (-1.63, -1.55);
+    Translation2d redGoalFar = new Translation2d(-1.63, 1.45);
+    Translation2d blueGoalFar = new Translation2d(-1.63, -1.45);
 
 
     Pose2d currentPos = new Pose2d();
@@ -52,7 +52,7 @@ public class GoalTargeting extends SubsystemBase {
         RobotContainer.telemetrySubsystem.addData("distance", distance, true);
     }
 
-    // returns list of available shooting locations
+    /**returns list of available shooting locations*/
     public List<Translation2d> GetListOfSHootingPoints() {
         return ShootingCoordinates;
     }
@@ -226,7 +226,7 @@ public class GoalTargeting extends SubsystemBase {
      */
     public double GetDistanceToGoal (){
         currentPos = RobotContainer.odometry.getCurrentPos();
-        Pose2d goalPose = new Pose2d();
+        Translation2d goalPose;
         if(RobotContainer.isRedAlliance()){
             if (currentPos.getX() <=1.90)
                 goalPose = redGoalNear;
@@ -256,12 +256,7 @@ public class GoalTargeting extends SubsystemBase {
      */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-
-        if (x <= 2.5){
-            return 253.51*x + 2403.8;
-        }else {
-            return 3350;
-        }
+        return 386.46 * x + 1909.4;
 
     }
 
@@ -274,19 +269,31 @@ public class GoalTargeting extends SubsystemBase {
     public double CalculateHoodAngle(){
 
         double x = this.GetDistanceToGoal();
+        return -0.0433 * x *x + 0.2732 * x + 0.0398;
 
-        if (x <= 2.5){
-            //return -0.6343*x*x + 2.3894*x - 1.8076;
-            return -0.6077*x*x + 2.2606*x - 1.6945;
-        }else {
-            return 0.44;
-        }
     }
 
+    /**add description here
+     *
+     * @author superzokabear
+     */
     public void SetHoodAngleAndSpeed(){
         RobotContainer.hoodtilt.SetHoodPosition(CalculateHoodAngle());
         RobotContainer.shooter.SetFlywheelSpeed(CalculateSpeed());
     }
+
+    /**add description here
+     *
+     * @author superzokabear
+     */
+    public Translation2d GetShotTaget(){
+        if(RobotContainer.isRedAlliance()){
+            return redGoalNear;
+        }else{
+            return blueGoalNear;
+        }
+    }
+
 
 
     /**add description here
@@ -309,13 +316,6 @@ public class GoalTargeting extends SubsystemBase {
             return 0.0;
         }
 
-        //if (distance <= 2.0){
-        //    return shootSpeed;
-        //}else if(distance >= 3.2 && distance <= 3.7){
-        //    return (0.7 * shootSpeed);
-        //}else {
-        //    return 800.0;
-        //}
     }
 
 }

@@ -18,11 +18,17 @@ public class CycleRightUptake extends SequentialCommandGroup {
     public CycleRightUptake() {
 
         addCommands (
+                // Only use commented out lines when doing shot charachterization
+                //new InstantCommand(()-> RobotContainer.shotblock.Unblock()),
+                //new Pause(0.1),
+
                 new InstantCommand(()-> RobotContainer.uptake.RaiseRightUptake()),
 
                 new Pause(0.2),
 
                 new InstantCommand(()-> RobotContainer.uptake.LowerRightUptake())
+
+               // new InstantCommand(()-> RobotContainer.shotblock.Block())
 
         );
     }
@@ -30,5 +36,6 @@ public class CycleRightUptake extends SequentialCommandGroup {
     @Override
     public void end(boolean interrupted){
         RobotContainer.uptake.LowerRightUptake();
+        //RobotContainer.shotblock.Block();
     }
 }
