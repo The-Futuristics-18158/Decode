@@ -39,17 +39,19 @@ public class UptakeSubsystem extends SubsystemBase {
     }
 
     // place special subsystem methods here
-    // Raise left or right uptake
+    /**Raises the left intake*/
     public void RaiseLeftUptake(){
         leftUptake.setPosition(0.03);
     }
+    /**Raises the right intake*/
     public void RaiseRightUptake(){
         rightUptake.setPosition(0.15);
     }
-    // Lower Left or right uptake
+    /**Lowers the left intake*/
     public void LowerLeftUptake(){
         leftUptake.setPosition(0.18);
     }
+    /**Lowers the right intake*/
     public void LowerRightUptake(){
         rightUptake.setPosition(0.0);
     }

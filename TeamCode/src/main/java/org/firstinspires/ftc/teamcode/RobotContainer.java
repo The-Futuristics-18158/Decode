@@ -3,27 +3,20 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SelectCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootPurple;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
-import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
-import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
@@ -43,7 +36,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Sensors.GoalTargeting;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.LimeLight;
 import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
-import org.firstinspires.ftc.teamcode.Subsystems.Utils.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter.ShotBlockServo;
@@ -63,7 +55,7 @@ public class RobotContainer {
     public static boolean isRedAlliance;
 
     // FTC dashboard and telemetries
-    public static Panels Panels;
+    // public static Panels Panels;
     public static TelemetrySubsystem telemetrySubsystem;
 
     // timer used to determine how often to run scheduler periodic
@@ -110,9 +102,10 @@ public class RobotContainer {
 
     public static int artifactsInRamp = 0;
 
-    // robot initialization - common to both auto and teleop
-    // mode - current opmode that is being run
-    // RedAlliance - true if robot in red alliance, false if blue
+    /**Robot initialization - common to both auto and teleop
+     * @param mode A value from the Modes enum representing the current opmode being run, valid Modes as of 2/9/2026: Off, AutoInit, Auto, TeleOp
+     * @param RedAlliance True if red alliance, false if blue alliance
+     */
     public static void Init(CommandOpMode mode, boolean RedAlliance) {
 
         // save pointer to active OpMode
@@ -138,7 +131,7 @@ public class RobotContainer {
         timer.reset();
 
         // set up dashboard and various telemetries
-        Panels = new Panels();
+        // Panels = new Panels();
         telemetrySubsystem = new TelemetrySubsystem();
 
         // cancel any commands previously running by scheduler
@@ -178,7 +171,7 @@ public class RobotContainer {
 
     }
 
-    // Robot initialization for teleop - This runs once at initialization of teleop
+    /**Robot initialization for teleop - This runs once at initialization of teleop*/
     public static void Init_TeleOp() {
 
         // robot is in teleop mode
@@ -271,7 +264,7 @@ public class RobotContainer {
         artifactsInRamp = 0;
     }
 
-    // Robot initialization for auto - This runs once at initialization of auto
+    /**Robot initialization for auto - This runs once at initialization of auto*/
     public static void Init_Auto() {
 
         // robot is in auto init mode
@@ -285,10 +278,12 @@ public class RobotContainer {
             limeLight.SetPipelineMode(2);
         }
 
+        artifactsInRamp = 0;
+
         //obelisk.StartObeliskScan();
     }
 
-    // Robot starting code for auto - This runs once at start of auto
+    /**Robot starting code for auto - This runs once at start of auto*/
     public static void Start_Auto() {
 
         // robot is in auto mode
@@ -302,7 +297,7 @@ public class RobotContainer {
     }
 
 
-    // call this function periodically to operate scheduler
+    /**call this function periodically to operate scheduler*/
     public static void Periodic() {
 
         // clear I/O cache for robot control and expansion hubs
@@ -327,7 +322,7 @@ public class RobotContainer {
             CommandScheduler.getInstance().run();
 
             // report robot odometry on robot controller
-            telemetrySubsystem.odometryTelemetry();
+            //telemetrySubsystem.odometryTelemetry();
 
             // report time interval on robot controller
             telemetrySubsystem.timerOdometry();
@@ -339,17 +334,26 @@ public class RobotContainer {
         }
     }
 
+
+    /**Gets the current alliance colour
+     * @return True if red alliance, false if blue alliance
+     */
     public static boolean isRedAlliance() {
         return isRedAlliance;
     }
 
-    // Returns the current robot mode
+    /**Returns the current robot mode
+     * @return a value from the Modes enum, valid Modes as of 2/9/2026: Off, AutoInit, Auto, TeleOp*/
     public static Modes GetCurrentMode() { return CurrentRobotMode; }
 
+    /**Gets our most commonly used starting angles for auto when we're on blue alliance
+     * @return The angle of the robot when it's facing the red alliance drive team*/
     public static double getBlueStartAngle() {
         return BlueStartAngle;
     }
 
+    /**Gets our most commonly used starting angles for auto when we're on red alliance
+     * @return The angle of the robot when it's facing the blue alliance drive team*/
     public static double getRedStartAngle() {
         return RedStartAngle;
     }

@@ -34,15 +34,15 @@ public class LimeLight extends SubsystemBase {
             this.value = value;
         }
     }
+
     // different pipelines for obelisk tags and location tags
     public  static enum pipeline{
         OBELISK_MODE,
         POSITION_MODE;
     }
 
-    //private Telemetry telemetry = RobotContainer.RCTelemetry;
-
     private LLResult result;
+
     /** Place code here to initialize subsystem */
     public LimeLight() { // initialize limelight in
         limeLight = RobotContainer.ActiveOpMode.hardwareMap.get(Limelight3A.class, "limeLight");
@@ -91,13 +91,18 @@ public class LimeLight extends SubsystemBase {
         return pose2D;
     }
 
-    // switch between detecting obelisk id and position tags
+    /**Switch between detecting obelisk id and position tags
+     * @param pipelineMode an integer representing the desired pipeline mode: 0 for obelisk id detection, 1 for position tag detection, 2 for driver camera mode
+     */
     public void SetPipelineMode(int pipelineMode){
         if (pipelineMode == 0 || pipelineMode == 1 || pipelineMode == 2){
             limeLight.pipelineSwitch(pipelineMode);
         }
     }
-    // get obelisk id from limelight
+
+    /**Get obelisk id from limelight
+     * @return the tag id of the detected obelisk, or TAG_NULL if no obelisk is detected
+     */
     public tagId getObeliskID(){
         int detectedTag = tagId.TAG_NULL.value;
         LLResult detectedtags=limeLight.getLatestResult();
@@ -117,11 +122,13 @@ public class LimeLight extends SubsystemBase {
         return tagId.TAG_NULL;
     }
 
+    /**add description here
+     * @return what does this return?
+     */
     public LLResultTypes.FiducialResult getTargetInfo(){
         LLResult detectedtags = limeLight.getLatestResult();
         List<LLResultTypes.FiducialResult> results = detectedtags.getFiducialResults();
         if (results!=null){
-
             if(RobotContainer.isRedAlliance() && results.size()>0 && results.get(0).getFiducialId() == 24){
                 hasGoal = true;
                 return results.get(0);
@@ -138,13 +145,9 @@ public class LimeLight extends SubsystemBase {
                 hasGoal = false;
                 return  null;
             }
-
         }else{
             hasGoal = false;
             return null;
-
         }
-
     }
-
 }

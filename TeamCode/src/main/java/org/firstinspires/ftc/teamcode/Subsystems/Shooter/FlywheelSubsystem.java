@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,7 +12,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  *
  * @author superzokabear
  */
-@Configurable
+// @Configurable
 public class FlywheelSubsystem extends SubsystemBase {
 
     // Local objects and variables here
@@ -95,13 +94,16 @@ public class FlywheelSubsystem extends SubsystemBase {
         else
             flywheelMotor.setPower(0.0);
 
-        RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
-        RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
-        RobotContainer.Panels.FTCTelemetry.update();
+        //RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
+        //RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        //RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here
 
+    /** Sets shooter flywheel speed in rpm
+     * @param RPM a double representing the desired flywheel speed in rpm. Negative values will be treated as 0.0.
+     */
     public void SetFlywheelSpeed(double RPM){
         // Setting velocity using the RPMToVelocity methode
         //TargetSpeed = RobotContainer.targeting.CalculateSpeed();
@@ -109,12 +111,16 @@ public class FlywheelSubsystem extends SubsystemBase {
 
     }
 
-    // returns current flywheel speed in rpm
+    /**gets current flywheel speed in rpm
+     * @return current flywheel speed in rpm
+     */
     public double GetFlyWheelSpeed() {
         return CurrentSpeed;
     }
 
-    // returns target flywheel speed in rpm
+    /**gets target flywheel speed in rpm
+     * @return target flywheel speed in rpm
+     */
     public double GetFlyWheelTargetSpeed() {
         return TargetSpeed;
     }

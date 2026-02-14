@@ -30,8 +30,6 @@ public class TelemetrySubsystem extends SubsystemBase {
 
     }
 
-    // place special subsystem methods here
-
     /** what is displayed as part of this telemetry?
      *
      * runs when testing telemetry
@@ -39,6 +37,21 @@ public class TelemetrySubsystem extends SubsystemBase {
     public void testingTelemetryEmpty(){
         if (testingTelemetry){
             //telemetry goes here
+        }
+    }
+
+    // place special subsystem methods here
+
+    /** what is displayed as part of this telemetry?
+     *
+     * runs when testing telemetry
+     */
+    public void ken(){
+        if (testingTelemetry){
+            addData("LeftPresent", RobotContainer.colour.isLeftArtifactPresent());
+            addData("RightPresent", RobotContainer.colour.isRightArtifactPresent());
+            addData("LeftColour", RobotContainer.artifactCamera.getRightColour().name());
+            addData("RightColour", RobotContainer.artifactCamera.getLeftColour().name());
         }
     }
 
@@ -338,6 +351,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * the {@link #getMsTransmissionInterval() transmission interval} expires.
      */
     public void update(){
+        //ken();
         RCTelemetry.update();
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Place description of subsystem here
  *
- * @author Kw126
+ * @author kaitlyn
  */
 public class Blinkin extends SubsystemBase {
     private RevBlinkinLedDriver blinkin;
@@ -45,6 +45,10 @@ public class Blinkin extends SubsystemBase {
     }
 
     // place special subsystem methods here
+
+    /**
+     * shows alliance color on the blinkin - red for red alliance, blue for blue alliance
+     */
     public void ShowAlliance(){
         if (RobotContainer.isRedAlliance()){
             blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
@@ -53,6 +57,9 @@ public class Blinkin extends SubsystemBase {
         }
     }
 
+    /**
+     * shows ball colors on the blinkin - green for green ball, purple for purple ball
+     */
     public void ShowBallColours(){
 
 //        // Blobs list

@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems.Cameras;
 import android.graphics.Color;
 import android.util.Size;
 import androidx.annotation.NonNull;
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.SortOrder;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -130,7 +129,7 @@ public class RampCamera extends SubsystemBase {
     public void periodic() {
     }
 
-    /**use this function to set vision processing mode of the camera
+    /**Use this function to set vision processing mode of the camera
      * @param newMode the new mode from VisionProcessorMode Enum
      */
     public void setVisionProcessingMode(@NonNull VisionProcessorMode newMode) {
@@ -166,15 +165,16 @@ public class RampCamera extends SubsystemBase {
     }
 
     // use this function to set vision processing mode of the camera
-    /** used to get the current vision processing mode
+    /** Used to get the current vision processing mode
      */
     public VisionProcessorMode getVisionProcessingMode()
     { return currentMode; }
 
     // ---------- Colour blob access functions ----------
 
-    // get all blob detections (if any) from camera
-    // returns list containing info on each blob
+    /**Get all blob detections (if any) from camera
+     * @return returns list containing info on each blob
+     */
     public List<ColorBlobLocatorProcessor.Blob> GetAllBlobDetections() {
         List<ColorBlobLocatorProcessor.Blob> blobs;
 
@@ -205,7 +205,9 @@ public class RampCamera extends SubsystemBase {
         return blobs;
     }
 
-    // gets all purple blobs
+    /**Gets all purple blobs
+     * @return returns list containing info on each purple blob
+     */
     public List<ColorBlobLocatorProcessor.Blob> GetPurpleBlobDetections() {
         List<ColorBlobLocatorProcessor.Blob> blobs;
 
@@ -228,7 +230,9 @@ public class RampCamera extends SubsystemBase {
         return blobs;
     }
 
-    // gets all green blobs
+    /**Gets all green blobs
+     * @return returns list containing info on each green blob
+     */
     public List<ColorBlobLocatorProcessor.Blob> GetGreenBlobDetections() {
         List<ColorBlobLocatorProcessor.Blob> blobs;
 
@@ -262,20 +266,24 @@ public class RampCamera extends SubsystemBase {
 
     // ---------- General Camera access functions
 
-    // enables camera view in dashboard
+    /**enables camera view in dashboard
+     * @param enable true to enable live view, false to disable live view
+     */
     public void enableDashBoardView(boolean enable) {
-        if (enable)
-            FtcDashboard.getInstance().startCameraStream(visionPortal,4);
-        else
-            FtcDashboard.getInstance().stopCameraStream();
+        //if (enable)
+        //    FtcDashboard.getInstance().startCameraStream(visionPortal,4);
+        //else
+        //    FtcDashboard.getInstance().stopCameraStream();
     }
 
-    // displays camera view in driver station
+    /**displays camera view in driver station*/
     public void enableCameraStream() {
         CameraStreamServer.getInstance().setSource(visionPortal);
     }
 
-    // enables live view for this camera
+    /**enables live view for this camera
+     * @param enable true to enable live view, false to disable live view (live view is the camera stream preview that can be seen on the driver station and FTC dashboard)
+     */
     public void enableLiveView(boolean enable) {
         if (enable)
             visionPortal.resumeLiveView();
@@ -283,11 +291,16 @@ public class RampCamera extends SubsystemBase {
             visionPortal.stopLiveView();
     }
 
-    // get camera frames per second
+    /**get camera frames per second
+     * @return the current camera frames per second
+     */
     public double GetCameraFPS () {
         return visionPortal.getFps();
     }
 
+    /**Checks if camera is ready to stream (i.e. in streaming mode)
+     * @return true if camera is in streaming mode, false otherwise
+     */
     public boolean cameraReady(){
         return( visionPortal.getCameraState() == VisionPortal.CameraState.STREAMING);
     }
