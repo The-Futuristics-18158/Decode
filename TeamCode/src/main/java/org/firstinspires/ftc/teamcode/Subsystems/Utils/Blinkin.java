@@ -24,21 +24,21 @@ public class Blinkin extends SubsystemBase {
     private boolean hasTag = false;
 //    private boolean seesPurple;
 //    private boolean seesGreen;
-    private ElapsedTime timer;
+    private ElapsedTime Blinktimer;
     // Local objects and variables here
 
     /** Place code here to initialize subsystem */
     public Blinkin() {
         blinkin = RobotContainer.ActiveOpMode.hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-        timer = new ElapsedTime();
-        timer.reset();
-        Blink();
+        Blinktimer = new ElapsedTime();
+        Blinktimer.reset();
     }
 
     /** Method called periodically by the scheduler
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
+        Blink();
        hasArtifact = (RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent());
        hasGreen = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
                RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green ));
@@ -72,19 +72,19 @@ public class Blinkin extends SubsystemBase {
         blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
     }
     public void Blink(){
-      if (timer.seconds() % 1.5 == 0 && hasTag){
+      if (Blinktimer.seconds() % 1.5 == 0){
           if (hasTag){
               ShowGoal();
           }else {
               ShowAlliance();
           }
-      }else if (timer.seconds() % 1.0 == 0){
+      }else if (Blinktimer.seconds() % 1.0 == 0){
           if (hasPurple){
               ShowPurple();
           }else{
               ShowAlliance();
           }
-      }else if (timer.seconds() % 0.5 == 0){
+      }else if (Blinktimer.seconds() % 0.5 == 0){
          if (hasGreen){
               ShowGreen();
           }else{
