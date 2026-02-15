@@ -1,9 +1,6 @@
-package org.firstinspires.ftc.teamcode.CommandGroups;
+package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
 
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import org.firstinspires.ftc.teamcode.RobotContainer;
-
 
 // Example Sequential Command Group
 // There are also:
@@ -11,41 +8,22 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 // ParallelRaceGroup
 // ParallelDeadlineGroup
 
-public class SpinUpAimAndShoot extends SequentialCommandGroup {
+public class LineUpAndShoot extends SequentialCommandGroup {
 
     // constructor
-    public SpinUpAimAndShoot() {
+    public LineUpAndShoot() {
 
         addCommands (
-                //new AimToShoot(),
-                new InstantCommand(()->RobotContainer.targeting.SetHoodAngleAndSpeed())
+                // spin up flywheel (continuous on odometry dist if slow spinup)
+                // command (needed) to 'go to nearest shooting position'
+                // command (needed) to aim to target (based limelight detection)
+                // uptake (might be sequence to 'shoot all (everything)
+                // stop flywheel (if spinup is fast)
+                // end
         );
     }
 
 }
-
-// Example #2: Using conditional command
-// conditionally run commands depending on condition
-/*      new FourWayConditionalCommand(
-            ()-> { return true; },
-            new SequentialCommandGroup(
-                commands to do this
-            ),
-            ()-> { return false; },
-            new SequentialCommandGroup(
-                commands to do that
-            ),
-            ()-> { return false; },
-            new SequentialCommandGroup(
-                commands to do those
-            ),
-            new SequentialCommandGroup(
-                commands to do something else
-            )
-
-        ) // end FourWayCondition
-*/
-
 
 // Example #1: Lily's 2023 FRC super cube auto
 /*          // enable arm, and lift to stow position

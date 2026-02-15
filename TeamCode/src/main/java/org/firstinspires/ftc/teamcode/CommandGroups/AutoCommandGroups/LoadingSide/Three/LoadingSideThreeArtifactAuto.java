@@ -1,19 +1,14 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Three;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
-import com.arcrobotics.ftclib.geometry.Translation2d;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastShootObeliskColor;
-import org.firstinspires.ftc.teamcode.Commands.Drive.FollowPath;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
-
-import java.util.ArrayList;
 
 public class LoadingSideThreeArtifactAuto extends SequentialCommandGroup {
 

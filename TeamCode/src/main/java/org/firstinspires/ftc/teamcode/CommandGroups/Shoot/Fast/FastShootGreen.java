@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
+package org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;

@@ -3,7 +3,7 @@
 //import com.arcrobotics.ftclib.command.CommandOpMode;
 //import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 //
-//import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSideNineArtifactAuto;
+//import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide.GoalSideNineArtifactAuto;
 //import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSideEmptyNineArtifactAuto;
 //import org.firstinspires.ftc.teamcode.RobotContainer;
 //

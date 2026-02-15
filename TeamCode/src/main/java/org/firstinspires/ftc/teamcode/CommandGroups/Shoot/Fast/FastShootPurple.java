@@ -1,31 +1,33 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
+package org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 
 
-// command template
-public class FastShootAll extends CommandBase {
+// Command
+public class FastShootPurple extends CommandBase {
 
-    // the sequential command that we are creating and running
+    // The sequential command that we are creating and running
     SequentialCommandGroup cmd;
 
 
     // constructor
-    public FastShootAll() {
+    public FastShootPurple() {
 
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
         addRequirements(RobotContainer.shooter);
         addRequirements(RobotContainer.hoodtilt);
+        addRequirements(RobotContainer.targeting);
     }
 
     // This method is called once when command is started
@@ -48,33 +50,21 @@ public class FastShootAll extends CommandBase {
         ));
 
         // Artifact #1
-        cmd.addCommands(new CycleLeftUptake());
-        cmd.addCommands(new Pause(0.2));
+        if(RobotContainer.artifactCamera.getRightColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            cmd.addCommands(new CycleLeftUptake());
+        else if (RobotContainer.artifactCamera.getLeftColour().name().equals(ArtifactCamera.ArtifactColours.Purple.name()))
+            cmd.addCommands(new CycleRightUptake());
+        else if(RobotContainer.artifactCamera.IsRightPresent())
+            cmd.addCommands(new CycleLeftUptake());
+        else if (RobotContainer.artifactCamera.IsLeftPresent())
+            cmd.addCommands(new CycleRightUptake());
+        else
+            cmd.addCommands(new ParallelCommandGroup(
+                    new CycleRightUptake(),
+                    new CycleLeftUptake()
+            ));
 
-        // Artifact #2
-        cmd.addCommands(new CycleRightUptake());
-
-        // ARTIFACT #3
-        // unblock
-        cmd.addCommands(new InstantCommand(()-> RobotContainer.shotblock.Block()));
-
-        // start intake
-        cmd.addCommands(new InstantCommand(()->RobotContainer.intake.intakeRun()));
-        cmd.addCommands(new Pause(0.25));
-
-        // stop intake / unblock
-        cmd.addCommands(new ParallelCommandGroup(
-                new InstantCommand(()->RobotContainer.intake.intakeStop()),
-                new InstantCommand(()-> RobotContainer.shotblock.Unblock())
-        ));
-        //cmd.addCommands(new Pause(0.05));
-
-        // cycle both sides
-        cmd.addCommands(new ParallelCommandGroup(
-                new CycleRightUptake(),
-                new CycleLeftUptake()
-        ));
-
+        cmd.addCommands(new Pause(0.05));
 
         // initialize the sequence command
         cmd.initialize();
