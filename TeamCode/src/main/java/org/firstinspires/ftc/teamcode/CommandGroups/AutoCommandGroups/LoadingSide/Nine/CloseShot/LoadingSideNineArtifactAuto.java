@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.CloseShot;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;

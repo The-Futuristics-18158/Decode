@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Auto.RedSide.LoadingSide;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.LoadingSideNineArtifactAutoDeluxe;
+import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.CloseShot.LoadingSideNineArtifactAutoDeluxe;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /*

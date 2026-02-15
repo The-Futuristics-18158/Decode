@@ -312,12 +312,12 @@ public class GoalTargeting extends SubsystemBase {
     public double IdleSpeed(){
         double shootSpeed = this.CalculateSpeed();
         double distance = this.GetDistanceToGoal();
-        if (RobotContainer.odometry.getCurrentPos().getX() > (boxPos.getX() - error) &&
-            RobotContainer.odometry.getCurrentPos().getX() < (boxPos.getX() + error) &&
-            RobotContainer.odometry.getCurrentPos().getY() > (boxPos.getY() - error) &&
-            RobotContainer.odometry.getCurrentPos().getY() < (boxPos.getY() + error)) {
-            return 0.0;
-        } else if(distance >= 3.2 && distance <= 3.7) {
+//        if (RobotContainer.odometry.getCurrentPos().getX() > (boxPos.getX() - error) &&
+//            RobotContainer.odometry.getCurrentPos().getX() < (boxPos.getX() + error) &&
+//            RobotContainer.odometry.getCurrentPos().getY() > (boxPos.getY() - error) &&
+//            RobotContainer.odometry.getCurrentPos().getY() < (boxPos.getY() + error)) {
+//            return 0.0;
+        if(distance >= 2.8) {
             return (0.7 * shootSpeed);
         }else {
             return 0.0;

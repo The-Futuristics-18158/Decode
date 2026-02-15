@@ -46,19 +46,16 @@ public class IntakeSubsystem extends SubsystemBase {
     // Place special subsystem methods here
 
     /**Run the intake at set percentage of motor voltage*/
-    public void intakeRun(){
-        intakeMotor.setPower(1.0);
-    }
+    public void intakeRun(){intakeMotor.setPower(1.0);}
+
+    /**Run the intake at set percentage of motor voltage*/
+    public void intakeSlowRun() {intakeMotor.setPower(0.3);}
 
     /**used to back out a ball a little bit*/
-    public void intakeReverse() {
-        intakeMotor.setPower(-0.5);
-    }
+    public void intakeReverse(){intakeMotor.setPower(-0.5);}
 
     /**Stop intake*/
-    public void intakeStop(){
-        intakeMotor.setPower(0.0);
-    }
+    public void intakeStop(){intakeMotor.setPower(0.0);}
 
 
 //    public void intakeBackup(){

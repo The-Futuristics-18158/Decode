@@ -170,6 +170,8 @@ public class RobotContainer {
         else
             artifactCamera.enableCameraStream();
 
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
     }
 
     /**Robot initialization for teleop - This runs once at initialization of teleop*/
@@ -180,9 +182,6 @@ public class RobotContainer {
 
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
-
-        // set default shooter speed control
-        shooter.setDefaultCommand(new DefaultShooterSpeed());
 
         uptake.LowerRightUptake();
         uptake.LowerLeftUptake();
