@@ -256,8 +256,12 @@ public class GoalTargeting extends SubsystemBase {
      */
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
-        return 386.46 * x + 1909.4;
 
+        // enhanced equation - Feb 14/2026, 10pm
+        return 383.29*x + 1922.3;
+
+        // equation from Feb 14/2026 early PM
+        //return 386.46 * x + 1909.4;
     }
 
     /**add description here
@@ -269,8 +273,11 @@ public class GoalTargeting extends SubsystemBase {
     public double CalculateHoodAngle(){
 
         double x = this.GetDistanceToGoal();
-        return -0.0433 * x *x + 0.2732 * x + 0.0398;
+        // enhanced equation - Feb 14/2026, 10pm
+        return -0.0386*x*x +0.2542*x + 0.053;
 
+        // equation from Feb 14/2026 early PM
+        // return -0.0433 * x *x + 0.2732 * x + 0.0398;
     }
 
     /**add description here

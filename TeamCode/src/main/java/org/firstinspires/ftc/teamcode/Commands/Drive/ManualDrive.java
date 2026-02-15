@@ -121,7 +121,7 @@ public class ManualDrive extends CommandBase {
         //deltat.reset();
 
         // drive robot
-        RobotContainer.drivesystem.FieldDrive(dX, dY, omega, 1.0);
+        RobotContainer.drivesystem.FieldDrive(dX, dY, omega);
     }
 
     // This method to return true only when command is to finish. Otherwise return false

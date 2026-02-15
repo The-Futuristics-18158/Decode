@@ -15,23 +15,22 @@ public class WaitForSpinup extends CommandBase {
     double maxtime;
     ElapsedTime time;
 
-    // Function overload - assume default of 1.0s max delay time
+    // Constructor
     public WaitForSpinup() {
-        // no maximum time provided - assume 1.0s
-        this(2.0);
-    }
-
-    // constructor - time limited to provided max time (seconds)
-    public WaitForSpinup(double maxtime) {
-        this.maxtime = maxtime;
         time = new ElapsedTime();
     }
+
 
     // This method is called once when command is started
     @Override
     public void initialize() {
         // start timer;
         time.reset();
+
+        // determine maximum time before command timeout
+        // assume shooter takes ~4s/3,000rpm. Note: time to spin up varies with square of speed
+        double x = Math.max(RobotContainer.shooter.GetFlyWheelTargetSpeed() / 3000.0, 0.0);
+        maxtime = x * x * 4.0;
     }
 
     // This method is called periodically while command is active

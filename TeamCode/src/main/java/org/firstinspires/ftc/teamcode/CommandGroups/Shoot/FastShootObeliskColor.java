@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandGroupBase;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDriveAutoTurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
+import org.firstinspires.ftc.teamcode.Commands.Drive.WaitForTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -17,9 +20,11 @@ import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 // command template
 public class FastShootObeliskColor extends CommandBase {
 
-    // the sequential command that we are creating and running
+    // the sequential command to shoot
     SequentialCommandGroup cmd;
 
+    // the overall command to aim and shoot in parallel race group
+    // ParallelRaceGroup fullcmd;
 
     // constructor
     public FastShootObeliskColor() {
@@ -43,20 +48,13 @@ public class FastShootObeliskColor extends CommandBase {
         RobotContainer.shotblock.Unblock();
         RobotContainer.targeting.SetHoodAngleAndSpeed();
 
-        // turn to target, wait for shooter spin up, whichever lasts longer
-        //if (RobotContainer.targeting.GetDistanceToGoal() <= 2.75){
-            cmd.addCommands(new ParallelCommandGroup(
-
-                    new TurnToTarget(10.0),
+        // wait for robot to finish turning to target and spinning up flywheel, whichever lasts longer
+        cmd.addCommands(new ParallelCommandGroup(
+                    new TurnToTarget(4.0),
+                    //new WaitForTarget(4.0),
                     new WaitForSpinup()
-            ));
-        //} else {
-        //    cmd.addCommands(new ParallelCommandGroup(
-        //
-         //            new AimToShoot(),
-        //            new WaitForSpinup()
-        //    ));
-        //}
+        ));
+
 
         // ---------- Artifact #1 ----------
 
@@ -127,7 +125,12 @@ public class FastShootObeliskColor extends CommandBase {
                 new CycleLeftUptake() ));
 
 
-        // initialize the sequence command
+        // ---------- Overall parallel race group command ----------
+
+        // put command into a parallel race group with manual driving with auto rotate to target
+        //fullcmd = new ParallelRaceGroup(cmd, new ManualDriveAutoTurnToTarget());
+
+        // initialize the command
         cmd.initialize();
     }
 

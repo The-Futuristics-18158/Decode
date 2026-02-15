@@ -140,26 +140,15 @@ public class DriveTrain extends SubsystemBase {
     }
 
 
-    /**
-     * drive robot in field coordinates
-     *
-     * @param Vx - forward/backward velocity, range -1 to 1
-     * @param Vy - left/right velocity, range -1 to 1
-     * @param Omega - rotation velocity, range -1 to 1
-     */
-    public void FieldDrive(double Vx, double Vy, double Omega) {
-        FieldDrive(Vx, Vy, Omega, 1.0);
-    }
 
     /**
      * drive robot in field coordinates
      *
-     * @param Vx - forward/backward velocity, range -1 to 1
-     * @param Vy - left/right velocity, range -1 to 1
-     * @param Omega - rotation velocity, range -1 to 1
-     * @param powerFactor - scaling factor for power, range 0 to 1
+     * @param Vx - forward/backward velocity, m/s
+     * @param Vy - left/right velocity, range m/s
+     * @param Omega - rotation velocity, range rad/s
      */
-    public void FieldDrive(double Vx, double Vy, double Omega, double powerFactor) {
+    public void FieldDrive(double Vx, double Vy, double Omega) {
 
         // get angle of vector rotation angle
         // i.e. neg of gyro angle - in rad
@@ -170,32 +159,20 @@ public class DriveTrain extends SubsystemBase {
         double y = Vx * Math.sin(-rotAngRad) + Vy * Math.cos(-rotAngRad);
 
         // x,y now in robot coordinates - call robot drive
-        RobotDrive(x, y, Omega, powerFactor);
+        RobotDrive(x, y, Omega);
     }
+
 
     /**
      * drive robot in robot coordinates
      *
-     * @param Vx - forward/backward velocity, range -1 to 1
-     * @param Vy - left/right velocity, range -1 to 1
-     * @param Omega - rotation velocity, range -1 to 1
+     * @param Vx - forward/backward velocity, m/s
+     * @param Vy - left/right velocity, m/s
+     * @param Omega - rotation velocity, rad/s
      */
     public void RobotDrive(double Vx, double Vy, double Omega) {
-        RobotDrive(Vx, Vy, Omega, 1.0);
-    }
-
-    /**
-     * drive robot in robot coordinates
-     *
-     * @param Vx - forward/backward velocity, range -1 to 1
-     * @param Vy - left/right velocity, range -1 to 1
-     * @param Omega - rotation velocity, range -1 to 1
-     * @param powerFactor - scaling factor for power, range 0 to 1
-     */
-    public void RobotDrive(double Vx, double Vy, double Omega, double powerFactor) {
         // create a chassis speed object and populate with x, y, and omega
-        ChassisSpeeds driveChassisSpeeds = new ChassisSpeeds(Vx * powerFactor,
-                Vy * powerFactor, Omega * powerFactor);
+        ChassisSpeeds driveChassisSpeeds = new ChassisSpeeds(Vx, Vy, Omega);
 
         // determine desired wheel speeds from the chassis speeds
         // rotate around center of robot (i.e. coordinate 0,0)
