@@ -18,8 +18,10 @@ import java.util.List;
  */
 public class Blinkin extends SubsystemBase {
     private RevBlinkinLedDriver blinkin;
-    private boolean hasGreen;
-    private boolean hasPurple;
+    private boolean hasGreen = false;
+    private boolean hasPurple = false;
+    private  boolean hasArtifact = false;
+    private boolean hasTag = false;
 //    private boolean seesPurple;
 //    private boolean seesGreen;
     private ElapsedTime timer;
@@ -30,18 +32,18 @@ public class Blinkin extends SubsystemBase {
         blinkin = RobotContainer.ActiveOpMode.hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         timer = new ElapsedTime();
         timer.reset();
+        Blink();
     }
 
     /** Method called periodically by the scheduler
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-        if(RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent()) {
-            ShowBallColours();
-
-        } else{
-           ShowAlliance();
-       }
+       hasArtifact = (RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent());
+       hasGreen = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green ));
+       hasPurple = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
+               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple));
     }
 
     // place special subsystem methods here
@@ -57,83 +59,39 @@ public class Blinkin extends SubsystemBase {
         }
     }
 
-    /**
-     * shows ball colors on the blinkin - green for green ball, purple for purple ball
-     */
-    public void ShowBallColours(){
-
-//        // Blobs list
-//        List<ColorBlobLocatorProcessor.Blob> blobs;
-//
-//     -------------------------- Sees Green --------------------------
-//        // Setting Green Detection Variable
-//        blobs = RobotContainer.rampCamera.GetGreenBlobDetections();
-//        // Sees Green
-//        if (blobs != null && !(blobs.isEmpty())){
-//            seesGreen = true;
-//        } else {
-//            seesGreen = false;
-//        }
-//    -------------------------- Sees Purple --------------------------
-//        // Setting Purple Detection Variable
-//        blobs = RobotContainer.rampCamera.GetPurpleBlobDetections();
-//        // Sees Purple
-//        if (blobs != null && !(blobs.isEmpty())){
-//            seesPurple = true;
-//        } else {
-//            seesPurple = false;
-//        }
-//     -------------------------- Sees Purple and Green --------------------------
-//        if (seesPurple && seesGreen){
-//            if (timer.seconds() <=0.5){
-//                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_FOREST_PALETTE);
-//
-//            } else if (timer.seconds() <=1){
-//                blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-//
-//            } else {
-//                timer.reset();
-//            }
-//        }
-//      -------------------------- Has Green --------------------------
-        if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
-               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green ))
-        {
-           hasGreen = true;
-        } else {
-           hasGreen = false;
-        }
-//      -------------------------- Has Purple --------------------------
-        if(RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
-               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple))
-        {
-            hasPurple = true;
-
-//      -------------------------- Has Purple and Green --------------------------
-            if (hasPurple && hasGreen){
-                if (timer.seconds() <=0.5){
-                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
-
-                } else if (timer.seconds() <=1){
-                    blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
-
-                } else if (timer.seconds() <=1.5) {
-                    if (RobotContainer.limeLight.hasGoal) {
-                        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
-                    }
-                } else{
-                    timer.reset();
-                }
-            }
-//      -------------------------- Setting Blinkin Colors --------------------------
-       } else if (hasPurple){
-           blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
-       } else if (hasGreen){
-           blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
-//       } else if (seesPurple) {
-//           blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-//       } else if (seesGreen) {
-//           blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_FOREST_PALETTE);
-       }
+    public void ShowPurple(){
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
     }
+
+    public void ShowGreen(){
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+    }
+
+
+    public void ShowGoal(){
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+    }
+    public void Blink(){
+      if (timer.seconds() % 1.5 == 0 && hasTag){
+          if (hasTag){
+              ShowGoal();
+          }else {
+              ShowAlliance();
+          }
+      }else if (timer.seconds() % 1.0 == 0){
+          if (hasPurple){
+              ShowPurple();
+          }else{
+              ShowAlliance();
+          }
+      }else if (timer.seconds() % 0.5 == 0){
+         if (hasGreen){
+              ShowGreen();
+          }else{
+              ShowAlliance();
+          }
+      }
+    }
+
+
 }
