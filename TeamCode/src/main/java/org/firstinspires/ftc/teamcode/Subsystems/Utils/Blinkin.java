@@ -39,11 +39,7 @@ public class Blinkin extends SubsystemBase {
     @Override
     public void periodic() {
         Blink();
-       hasArtifact = (RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent());
-       hasGreen = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
-               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green ));
-       hasPurple = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
-               RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple));
+        Update();
     }
 
     // place special subsystem methods here
@@ -51,6 +47,17 @@ public class Blinkin extends SubsystemBase {
     /**
      * shows alliance color on the blinkin - red for red alliance, blue for blue alliance
      */
+
+    public void Update(){
+        if(Blinktimer.seconds() % 0.5 <= 0.05){
+            hasArtifact = (RobotContainer.artifactCamera.IsLeftPresent()|| RobotContainer.artifactCamera.IsRightPresent());
+            hasGreen = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Green)||
+                    RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Green ));
+            hasPurple = (RobotContainer.artifactCamera.getLeftColour().equals(ArtifactCamera.ArtifactColours.Purple)||
+                    RobotContainer.artifactCamera.getRightColour().equals(ArtifactCamera.ArtifactColours.Purple));
+            hasTag = (RobotContainer.limeLight.hasGoal);
+        }
+    }
     public void ShowAlliance(){
         if (RobotContainer.isRedAlliance()){
             blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
@@ -71,20 +78,21 @@ public class Blinkin extends SubsystemBase {
     public void ShowGoal(){
         blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
     }
+
     public void Blink(){
-      if (Blinktimer.seconds() % 1.5 == 0){
+      if (Blinktimer.seconds() % 1.5 <= 0.05){
           if (hasTag){
               ShowGoal();
           }else {
               ShowAlliance();
           }
-      }else if (Blinktimer.seconds() % 1.0 == 0){
+      }else if (Blinktimer.seconds() % 1.0 <= 0.05){
           if (hasPurple){
               ShowPurple();
           }else{
               ShowAlliance();
           }
-      }else if (Blinktimer.seconds() % 0.5 == 0){
+      }else if (Blinktimer.seconds() % 0.5 <= 0.05){
          if (hasGreen){
               ShowGreen();
           }else{
