@@ -40,6 +40,8 @@ public class ArtifactCamera extends SubsystemBase {
     private volatile ColorBlobLocatorProcessor TRgreenBlobProcessor;
     private volatile ColorBlobLocatorProcessor BottompurpleBlobProcessor;
     private volatile ColorBlobLocatorProcessor BottomgreenBlobProcessor;
+    private volatile ColorBlobLocatorProcessor OverloadgreenBlobProcessor;
+    private volatile ColorBlobLocatorProcessor OverloadpurpleBlobProcessor;
 
 
     // current selected vision mode
@@ -243,13 +245,76 @@ public class ArtifactCamera extends SubsystemBase {
         // tell blob processor how to sort its results
         BottomgreenBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
 
+        OverloadgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
+                .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                     new Scalar(0, 40, 0),
+                //                     new Scalar(134, 23.0, 49)))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.3, 0.0, -0.1, -0.2))// entire screen / screen size
+                .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
+                //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
+                .setDrawContours(true)   // Show contours on the Stream Preview
+                .setRoiColor(Color.rgb(255, 255, 255))
+                .setBoxFitColor(Color.rgb(0, 255, 0))       // Disable the drawing of rectangles
+                //.setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
+                .setBlurSize(5)          // Smooth the transitions between different colors in image
+                .setDilateSize(15)       // Expand blobs to fill any divots on the edges
+                .setErodeSize(15)        // Shrink blobs back to original size
+                .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
+                .build();
+
+        // available filtering functions
+        OverloadgreenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 150, 76800));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_ASPECT_RATIO, 1.0, 2.0));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_DENSITY, 0.8, 1.0));
+
+        // tell blob processor how to sort its results
+        OverloadgreenBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
+
+
+        OverloadpurpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
+                .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
+                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                //                     new Scalar(0, 40, 0),
+                //                     new Scalar(134, 23.0, 49)))
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.3, 0.0, -0.1, -0.2))// entire screen / screen size
+                .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
+                //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
+                .setDrawContours(true)   // Show contours on the Stream Preview
+                .setRoiColor(Color.rgb(255,255,255))
+                .setBoxFitColor(Color.rgb(255, 0, 0))       // Disable the drawing of rectangles
+                //.setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
+                .setBlurSize(5)          // Smooth the transitions between different colors in image
+                .setDilateSize(15)       // Expand blobs to fill any divots on the edges
+                .setErodeSize(15)        // Shrink blobs back to original size
+                .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
+                .build();
+
+        // available filtering functions
+        OverloadpurpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 150, 76800));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_ASPECT_RATIO, 1.0, 2.0));
+        //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_DENSITY, 0.8, 1.0));
+
+        // tell blob processor how to sort its results
+        OverloadpurpleBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
+
 
         // Build the camera vision portal
         visionPortal = new VisionPortal.Builder()
                 .setCamera(RobotContainer.ActiveOpMode.hardwareMap.get(WebcamName.class, cameraName))
                 .setCameraResolution(new Size(160, 120))
                 //.setCameraResolution(new Size(1280,720)) if have an HD camera
-                .addProcessors(TLpurpleBlobProcessor, TLgreenBlobProcessor, TRpurpleBlobProcessor, TRgreenBlobProcessor, BottompurpleBlobProcessor, BottomgreenBlobProcessor)
+                .addProcessors(TLpurpleBlobProcessor, TLgreenBlobProcessor, TRpurpleBlobProcessor, TRgreenBlobProcessor, BottompurpleBlobProcessor, BottomgreenBlobProcessor, OverloadgreenBlobProcessor, OverloadpurpleBlobProcessor)
                 .enableLiveView(false)
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .build();
@@ -292,6 +357,8 @@ public class ArtifactCamera extends SubsystemBase {
                 visionPortal.setProcessorEnabled(TRgreenBlobProcessor, false);
                 visionPortal.setProcessorEnabled(BottompurpleBlobProcessor, false);
                 visionPortal.setProcessorEnabled(BottomgreenBlobProcessor, false);
+                visionPortal.setProcessorEnabled(OverloadgreenBlobProcessor, false);
+                visionPortal.setProcessorEnabled(OverloadpurpleBlobProcessor, false);
                 break;
             case ARTIFACT:
                 currentMode = VisionProcessorMode.ARTIFACT;
@@ -303,6 +370,8 @@ public class ArtifactCamera extends SubsystemBase {
                 visionPortal.setProcessorEnabled(TRgreenBlobProcessor, true);
                 visionPortal.setProcessorEnabled(BottompurpleBlobProcessor, true);
                 visionPortal.setProcessorEnabled(BottomgreenBlobProcessor, true);
+                visionPortal.setProcessorEnabled(OverloadgreenBlobProcessor, true);
+                visionPortal.setProcessorEnabled(OverloadpurpleBlobProcessor, true);
                 //visionPortal.setProcessorEnabled(aprilTagProcessor, false);
                 break;
             default:
@@ -476,18 +545,6 @@ public class ArtifactCamera extends SubsystemBase {
             // sensor is alive, but we have nothing
             return ArtifactColours.Nothing;
 
-//        List<ColorBlobLocatorProcessor.Blob> blobs;
-//       blobs =  TLgreenBlobProcessor.getBlobs();
-//        if(blobs != null && !blobs.isEmpty()){
-//            return ArtifactColours.Green;
-//        }else{
-//            blobs =  TLpurpleBlobProcessor.getBlobs();
-//            if(blobs != null && !blobs.isEmpty()){
-//                return ArtifactColours.Purple;
-//            }else{
-//               return ArtifactColours.Nothing;
-//            }
-//        }
     }
 
     public ArtifactColours getRightColour(){
@@ -525,19 +582,6 @@ public class ArtifactCamera extends SubsystemBase {
             // sensor is alive, but we have nothing
             return ArtifactColours.Nothing;
 
-
-//        List<ColorBlobLocatorProcessor.Blob> blobs;
-//        blobs =  TRgreenBlobProcessor.getBlobs();
-//        if(blobs != null && !blobs.isEmpty()){
-//            return ArtifactColours.Green;
-//        }else{
-//            blobs =  TRpurpleBlobProcessor.getBlobs();
-//            if(blobs != null && !blobs.isEmpty()){
-//                return ArtifactColours.Purple;
-//            }else{
-//                return ArtifactColours.Nothing;
-//            }
-//        }
     }
 
 
@@ -555,6 +599,24 @@ public class ArtifactCamera extends SubsystemBase {
             }
         }
     }
+
+    // returns colour of overloaded artifact detection
+    public ArtifactColours getOverloadColour(){
+        List<ColorBlobLocatorProcessor.Blob> blobs;
+        blobs =  OverloadgreenBlobProcessor.getBlobs();
+        if(blobs != null && !blobs.isEmpty()){
+            return ArtifactColours.Green;
+        }else{
+            blobs =  OverloadpurpleBlobProcessor.getBlobs();
+            if(blobs != null && !blobs.isEmpty()){
+                return ArtifactColours.Purple;
+            }else{
+                return ArtifactColours.Nothing;
+            }
+        }
+    }
+
+
 
     public boolean IsLeftPresent(){
         if(getLeftColour() != ArtifactColours.Nothing){
@@ -579,4 +641,13 @@ public class ArtifactCamera extends SubsystemBase {
             return false;
         }
     }
+
+    public boolean IsOverloadPresent(){
+        if(getOverloadColour() != ArtifactColours.Nothing){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
