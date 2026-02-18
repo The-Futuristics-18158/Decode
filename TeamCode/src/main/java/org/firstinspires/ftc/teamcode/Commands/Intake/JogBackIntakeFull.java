@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Intake;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.Robot;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
@@ -20,20 +21,22 @@ public class JogBackIntakeFull extends CommandBase {
     @Override
     public void initialize() {
 
-        RobotContainer.intake.intakeReverse();
     }
 
     // This method is called periodically while command is active
     @Override
     public void execute() {
 
+        if (RobotContainer.artifactCamera.IsOverloadPresent())
+            RobotContainer.intake.intakeReverse();
+        else
+            RobotContainer.intake.intakeStop();
     }
 
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-
-
+        return !RobotContainer.artifactCamera.IsOverloadPresent();
     }
 
     // This method is called once when command is finished.

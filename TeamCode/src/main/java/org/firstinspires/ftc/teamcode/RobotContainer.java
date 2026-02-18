@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
+import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntakeFull;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Utils.Blinkin;
@@ -216,7 +217,8 @@ public class RobotContainer {
 
 //      -------------------------- (Driver) Intake Systems --------------------------
         // Hunt Mode
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new SequentialCommandGroup(new HuntModeCommand(), new JogBackIntake()));
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenReleased(new JogBackIntakeFull());
 
         // Manual Intake
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
