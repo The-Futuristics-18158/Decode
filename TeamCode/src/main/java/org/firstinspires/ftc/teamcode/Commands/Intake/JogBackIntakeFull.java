@@ -36,7 +36,8 @@ public class JogBackIntakeFull extends CommandBase {
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-        return !RobotContainer.artifactCamera.IsOverloadPresent();
+        //return !RobotContainer.artifactCamera.IsOverloadPresent();
+        return false;
     }
 
     // This method is called once when command is finished.

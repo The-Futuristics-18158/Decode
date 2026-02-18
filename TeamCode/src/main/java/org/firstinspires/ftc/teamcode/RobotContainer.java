@@ -171,11 +171,10 @@ public class RobotContainer {
         else
             artifactCamera.enableCameraStream();
 
-        // set default shooter speed control
-        shooter.setDefaultCommand(new DefaultShooterSpeed());
+
     }
 
-    /**Robot initialization for teleop - This runs once at initialization of teleop*/
+    /**Init teleop runs when you hit play*/
     public static void Init_TeleOp() {
 
         // robot is in teleop mode
@@ -186,6 +185,12 @@ public class RobotContainer {
 
         uptake.LowerRightUptake();
         uptake.LowerLeftUptake();
+
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
+
+        // Set default intake control
+        intake.setDefaultCommand(new JogBackIntakeFull());
 
 
 //      -------------------------- Driver Controls --------------------------
@@ -218,7 +223,7 @@ public class RobotContainer {
 //      -------------------------- (Driver) Intake Systems --------------------------
         // Hunt Mode
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenReleased(new JogBackIntakeFull());
+        //driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenReleased(new JogBackIntakeFull());
 
         // Manual Intake
         driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
@@ -302,6 +307,12 @@ public class RobotContainer {
 
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
+
+        // set default shooter speed control
+        shooter.setDefaultCommand(new DefaultShooterSpeed());
+
+        // Set default intake control
+        intake.setDefaultCommand(new JogBackIntakeFull());
     }
 
 

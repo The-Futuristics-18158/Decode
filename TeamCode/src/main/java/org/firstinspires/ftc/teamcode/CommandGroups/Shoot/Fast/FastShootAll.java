@@ -26,6 +26,7 @@ public class FastShootAll extends CommandBase {
         addRequirements(RobotContainer.drivesystem);
         addRequirements(RobotContainer.shooter);
         addRequirements(RobotContainer.hoodtilt);
+        addRequirements(RobotContainer.intake);
     }
 
     // This method is called once when command is started

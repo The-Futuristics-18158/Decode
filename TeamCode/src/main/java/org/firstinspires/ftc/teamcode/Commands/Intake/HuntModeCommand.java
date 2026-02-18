@@ -28,6 +28,8 @@ public class HuntModeCommand extends CommandBase {
 
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
+        addRequirements(RobotContainer.intake);
+
         omegaControl = new PIDController(0.01, 0.0, 0.0);
         timer = new ElapsedTime();
         seconds = time;

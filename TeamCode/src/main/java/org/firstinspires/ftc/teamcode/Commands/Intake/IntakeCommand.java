@@ -18,6 +18,7 @@ public class IntakeCommand extends CommandBase {
         // add subsystem requirements (if any) - for example:
         //addRequirements(RobotContainer.drivesystem);
         addRequirements(RobotContainer.intake);
+
         timer = new ElapsedTime();
         timer.reset();
 

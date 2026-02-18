@@ -36,7 +36,7 @@ public class IntakeSubsystem extends SubsystemBase {
         // Creates the motor using the hardware map
         intakeMotor = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "intakeMotor");
         // Sets motor direction
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         // Set motor power
         intakeMotor.setPower(0.0);
 
