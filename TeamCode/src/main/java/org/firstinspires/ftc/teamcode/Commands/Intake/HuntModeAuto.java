@@ -92,7 +92,7 @@ public class HuntModeAuto extends CommandBase {
             // set forward speed to value depending on how far artifact from center of camera
             // first number is forward
             // second number is how quickly the speed goes down when artifact is off center
-            y_speed = 0.4 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
+            y_speed = 0.6 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
 
             if (y_speed < 0.0){ y_speed = 0.0;}
 

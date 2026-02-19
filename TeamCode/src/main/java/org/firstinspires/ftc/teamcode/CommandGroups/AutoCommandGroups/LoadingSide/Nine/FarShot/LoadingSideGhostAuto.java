@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.CommandGroups.GhostMoves;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull2Artifacts;
+import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -30,14 +31,11 @@ public class LoadingSideGhostAuto extends SequentialCommandGroup {
 //      -------------------------- Artifact Cycle #1 --------------------------
                 new FastShootObeliskColor(),
 
-                new InstantCommand(()->RobotContainer.intake.intakeRun()),
-
                 new ParallelRaceGroup(
+                        new IntakeRunEndless(),
                         new GhostMoves(),
                         new EndWhenFull2Artifacts()
                 ),
-
-                new InstantCommand(()->RobotContainer.intake.intakeStop()),
 
                 new MoveToPose(
                         1.5,
@@ -47,14 +45,11 @@ public class LoadingSideGhostAuto extends SequentialCommandGroup {
 //      -------------------------- Artifact Cycle #2 --------------------------
                 new FastShootObeliskColor(),
 
-                new InstantCommand(()->RobotContainer.intake.intakeRun()),
-
                 new ParallelRaceGroup(
+                        new IntakeRunEndless(),
                         new GhostMoves(),
                         new EndWhenFull2Artifacts()
                 ),
-
-                new InstantCommand(()->RobotContainer.intake.intakeStop()),
 
                 new MoveToPose(
                         1.5,

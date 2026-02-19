@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Auto.BlueSide;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.LoadingSideGhostAuto;
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot.BackNineArtifactAuto;
+import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot.LoadingSideGhostAuto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /*

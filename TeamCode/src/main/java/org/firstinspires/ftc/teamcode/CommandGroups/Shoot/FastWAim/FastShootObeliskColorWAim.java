@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast;
+package org.firstinspires.ftc.teamcode.CommandGroups.Shoot.FastWAim;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
+import org.firstinspires.ftc.teamcode.Commands.Shoot.AimToShoot;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -14,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 
 
 // command template
-public class FastShootObeliskColor extends CommandBase {
+public class FastShootObeliskColorWAim extends CommandBase {
 
     // the sequential command to shoot
     SequentialCommandGroup cmd;
@@ -23,7 +25,7 @@ public class FastShootObeliskColor extends CommandBase {
     // ParallelRaceGroup fullcmd;
 
     // constructor
-    public FastShootObeliskColor() {
+    public FastShootObeliskColorWAim() {
 
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
@@ -48,7 +50,7 @@ public class FastShootObeliskColor extends CommandBase {
         // wait for robot to finish turning to target and spinning up flywheel, whichever lasts longer
         cmd.addCommands(new ParallelCommandGroup(
                     new TurnToTarget(4.0),
-                    //new WaitForTarget(4.0),
+                    new AimToShoot(),
                     new WaitForSpinup()
         ));
 
@@ -136,7 +138,7 @@ public class FastShootObeliskColor extends CommandBase {
     {
         cmd.addCommands(new InstantCommand(()-> RobotContainer.shotblock.Block()));
         cmd.addCommands(new InstantCommand(()->RobotContainer.intake.intakeRun()));
-        cmd.addCommands(new Pause(0.35));
+        cmd.addCommands(new Pause(0.25));
         cmd.addCommands(new ParallelCommandGroup(
                 new InstantCommand(()->RobotContainer.intake.intakeStop()),
                 new InstantCommand(()-> RobotContainer.shotblock.Unblock())  ));

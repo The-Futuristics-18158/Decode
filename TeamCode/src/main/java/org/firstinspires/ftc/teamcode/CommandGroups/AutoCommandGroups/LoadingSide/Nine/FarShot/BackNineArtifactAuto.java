@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
@@ -8,6 +9,9 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -51,25 +55,30 @@ public class BackNineArtifactAuto extends SequentialCommandGroup {
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.05, -1.57, new Rotation2d(Math.toRadians(0.0))))))
-//
-//                // Hunt
-//                new HuntModeAuto(4.0),
-//
-//                // Move to shoot
-//                new MoveToPose(
-//                        1.5,
-//                        1.0,
-//                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
-//
-////      -------------------------- Artifact Cycle #3 --------------------------
-//                new FastShootObeliskColor(),
-//
-//                // Leave
-//                new MoveToPose(
-//                        1.5,
-//                        1.0,
-//                        AutoFunctions.redVsBlue((new Pose2d(1.5, -0.9, new Rotation2d(Math.toRadians(0.0))))))
+                        AutoFunctions.redVsBlue((new Pose2d(1.05, -1.59, new Rotation2d(Math.toRadians(0.0)))))),
+
+                //
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(1.05, -1.62, new Rotation2d(Math.toRadians(-15.0)))))),
+
+                new HuntModeCommand(3.0),
+
+                // Move to shoot
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
+
+//      -------------------------- Artifact Cycle #3 --------------------------
+                new FastShootObeliskColor(),
+
+                // Leave
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(1.5, -0.9, new Rotation2d(Math.toRadians(0.0))))))
         );
     }
 }
