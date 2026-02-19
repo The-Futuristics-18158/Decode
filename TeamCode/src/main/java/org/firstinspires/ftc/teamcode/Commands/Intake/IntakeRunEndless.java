@@ -18,7 +18,7 @@ public class IntakeRunEndless extends CommandBase {
     // This method is called once when command is started
     @Override
     public void initialize() {
-        RobotContainer.intake.intakeSlowRun();
+        RobotContainer.intake.intakeRun();
     }
 
     // This method is called periodically while command is active

@@ -19,7 +19,6 @@ import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntakeFull;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;

@@ -23,23 +23,23 @@ public class IntakeSubsystem extends SubsystemBase {
 
     private final double TICKS_PER_ROTATION = 28.0;
     private final double INV_TICKS_PER_ROTATION = 1.0 / TICKS_PER_ROTATION;
-    // f and p gain units in power/(ticks/s)
+    // f and p gain units in mtr power/(ticks/s)
     private double fgain = 0.000357 * TICKS_PER_ROTATION;     // no load ideal = 0.000357
     private double pgain = 0.00025 * TICKS_PER_ROTATION;
-    private double igain = 0.000;
+    private double igain = 0.0;
 
     private double ierror;
     private double TargetSpeed;
+
 
     /** Place code here to initialize subsystem */
     public IntakeSubsystem() {
         // Creates the motor using the hardware map
         intakeMotor = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "intakeMotor");
         // Sets motor direction
-        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         // Set motor power
         intakeMotor.setPower(0.0);
-
         // by default, set target speed to 0
         TargetSpeed = 0.0;
         // reset PIF controller
@@ -51,7 +51,6 @@ public class IntakeSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
 
-
         // sets motor speed in rps (=28xticks/s)
         double CurrentSpeed = intakeMotor.getVelocity() * INV_TICKS_PER_ROTATION;
         double error = TargetSpeed - CurrentSpeed;
@@ -59,33 +58,37 @@ public class IntakeSubsystem extends SubsystemBase {
         // integrated error
         ierror += igain * error;
 
-        // set intake motor power  (PIF controller)
-        intakeMotor.setPower(pgain * error + fgain * TargetSpeed + ierror);
+        // special case - if target is -ve, then we are jogging back - use higher P
+        double PExtra = 1.0;
+        if (TargetSpeed < 0.0)
+            PExtra = 1.5;
 
-        // RobotContainer.Panels.FTCTelemetry.addData("ShootSpeed", CurrentSpeed);
-        // RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
-        // RobotContainer.Panels.FTCTelemetry.update();
+        // set intake motor power  (PIF controller)
+        intakeMotor.setPower(PExtra * pgain * error + fgain * TargetSpeed + ierror);
+
+        //RobotContainer.Panels.FTCTelemetry.addData("ShootSpeed", CurrentSpeed);
+        //RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        //RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here
 
-    /**Run the intake at set speed (rps)*/
-    public void intakeRun(){
-        TargetSpeed=100.0;
-    }
+    /** Sets speed of intake in motor rps */
+    public void intakeSetSpeed(double speed) { TargetSpeed=speed; }
 
     /**Run the intake at set speed (rps)*/
-    public void intakeSlowRun() {
-        TargetSpeed=50.0;
-    }
+    public void intakeRun(){ TargetSpeed=100.0;}
 
     /**Run the intake at set speed (rps)*/
-    public void intakeReverse(){
-        TargetSpeed=-20.0;
-         }
+    public void intakeRunReducedSpeed() { TargetSpeed=40.0; }
+
+    /**Run the intake at set speed (rps)*/
+    public void intakeReverse(){ TargetSpeed = -15.0; }
 
     /**Stop intake*/
-    public void intakeStop(){ TargetSpeed=0.0; }
+    public void intakeStop(){ TargetSpeed=0.0;}
 
+    /** returns motor position in encoder ticks */
+    public double GetMotorPostion() { return intakeMotor.getCurrentPosition(); }
 
 }
