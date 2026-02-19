@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskC
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
-import org.firstinspires.ftc.teamcode.Commands.Intake.JogBackIntake;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
@@ -37,9 +36,6 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
                 // Hunt
                 new HuntModeAuto(3.0),
 
-                // Clean-up Hunt
-                new JogBackIntake(),
-
                 // Move to shot #2
                 new MoveToPose(
                         1.5,
@@ -57,9 +53,6 @@ public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
 
                 // Hunt
                 new HuntModeAuto(3.0),
-
-                // Clean-up Hunt
-                new JogBackIntake(),
 
                 // Follow a path around the gate to shot #3
 //                new FollowPath(

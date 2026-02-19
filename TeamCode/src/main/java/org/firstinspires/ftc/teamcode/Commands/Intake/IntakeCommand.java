@@ -50,7 +50,10 @@ public class IntakeCommand extends CommandBase {
             finished = true;
             RobotContainer.intake.intakeStop();
         }else {
-            RobotContainer.intake.intakeRun();
+            if (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent())
+                RobotContainer.intake.intakeRunReducedSpeed();
+            else
+                RobotContainer.intake.intakeRun();
         }
     }
 
