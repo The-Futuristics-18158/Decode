@@ -15,10 +15,10 @@ import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
 import java.util.ArrayList;
 
-public class LoadingSideNineArtifactAutoDeluxe extends SequentialCommandGroup {
+public class Back9ShortShotsAuto extends SequentialCommandGroup {
 
     // Constructor
-    public LoadingSideNineArtifactAutoDeluxe() {
+    public Back9ShortShotsAuto() {
 
         addCommands (
                 // Was X = 1.59 Y was -0.39

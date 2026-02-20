@@ -6,19 +6,18 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 
+import org.firstinspires.ftc.teamcode.CommandGroups.BackNineManualHunt;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
-import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
-public class BackNineArtifactAuto extends SequentialCommandGroup {
+public class Back9LongShotsAuto extends SequentialCommandGroup {
 
     // Constructor
-    public BackNineArtifactAuto() {
+    public Back9LongShotsAuto() {
 
         addCommands (
                 // Was X = 1.59 Y Was -0.39
@@ -39,8 +38,16 @@ public class BackNineArtifactAuto extends SequentialCommandGroup {
                         1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.98, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
-                // Hunt
-                new HuntModeAuto(4.0),
+//                // Hunt
+//                new HuntModeAuto(4.0),
+                new ParallelRaceGroup(
+
+                        // Move with pause
+                        new BackNineManualHunt(),
+
+                        // intake untile has
+                        new IntakeRunEndless()
+               ),
 
                 // Move to shoot
                 new MoveToPose(

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSi
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
-public class LoadingSideEmptyTwelveArtifactAuto extends SequentialCommandGroup {
+public class Back12EmptyAuto extends SequentialCommandGroup {
 
     // Constructor
     //public LoadingSideEmptyTwelveArtifactAuto() {

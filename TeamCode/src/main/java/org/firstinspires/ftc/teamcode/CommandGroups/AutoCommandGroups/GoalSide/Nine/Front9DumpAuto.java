@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide.Nine;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -12,71 +12,81 @@ import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
-public class GoalSideNineArtifactAuto extends SequentialCommandGroup {
+public class Front9DumpAuto extends SequentialCommandGroup {
 
     // Constructor
-    public GoalSideNineArtifactAuto() {
+    public Front9DumpAuto() {
 
         addCommands (
 
                 new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(-1.29, -1.29, new Rotation2d(Math.toRadians(-45.0)))))), // was x = -1.2, y = -1.35
-
+//      -------------------------- Artifact Cycle #1  --------------------------
                 // Move to a shot #1
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.45, -0.45, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
-//      -------------------------- Artifact Cycle #1 --------------------------
+                // Shot #1
                 new FastShootObeliskColor(),
 
+//      -------------------------- Start of Artifact Cycle #2 --------------------------
                 // Turn to Hunt
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,1.5),
 
                 // Hunt
                 new HuntModeAuto(3.0),
 
+//    -------------------------- Start Of Dump --------------------------
+
+                // Line up to dump gate
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.2, new Rotation2d(Math.toRadians(0.0)))))),
+
+                // Dump Gate
+                new MoveToPose(
+                        1.5,
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
+
+//    -------------------------- End Of Dump --------------------------
+
                 // Move to shot #2
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
-//      -------------------------- Artifact Cycle #2 --------------------------
+                // Shot #2
                 new FastShootObeliskColor(),
 
+//    -------------------------- Start of Artifact Cycle #3 --------------------------
                 // Move to pickup
                 new MoveToPose(
                         1.5,
-                        0.8,
-                        AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
+                        1.0,
+                        AutoFunctions.redVsBlue((new Pose2d(0.35, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
                 new HuntModeAuto(3.0),
 
-                // Follow a path around the gate to shot #3
-//                new FollowPath(
-//                        1.5,
-//                        0.7,
-//                        0.0,
-//                        0.0,
-//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(-90.0))),
-//                        new ArrayList<Translation2d>() {{AutoFunctions.redVsBlue(new Translation2d(0.9, 0.0));}},
-//                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(150.0)))),
-//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
+                // Move to Shot #3
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.0,
                         AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
                 ),
 
-//      -------------------------- Artifact Cycle #3 --------------------------
+                // Shot #3
                 new FastShootObeliskColor(),
 
-                // Move off line
+//      -------------------------- Leave --------------------------
+                // Move off the line
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );

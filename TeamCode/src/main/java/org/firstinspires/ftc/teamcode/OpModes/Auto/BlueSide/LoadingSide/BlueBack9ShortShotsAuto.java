@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes.Auto.BlueSide.LoadingSide;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot.BackNineArtifactAuto;
+import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.CloseShot.Back9ShortShotsAuto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /*
@@ -12,9 +12,9 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When a selection is made from the menu, the corresponding OpMode is executed.
  */
-@Autonomous(name="Blue Back Nine Artifact Auto", group="OpMode", preselectTeleOp="Blue TeleOp")
+@Autonomous(name="Blue Back 9 Short Shots", group="OpMode", preselectTeleOp="Blue TeleOp")
 //@Disabled
-public class BlueBackNineArtifactAuto extends CommandOpMode {
+public class BlueBack9ShortShotsAuto extends CommandOpMode {
 
     // Initialize all objects, set up subsystems, etc...
     @Override
@@ -45,7 +45,7 @@ public class BlueBackNineArtifactAuto extends CommandOpMode {
             // ---------- autonomous command ----------
 
             // add autonomous command to scheduler and run it
-            new BackNineArtifactAuto().schedule();
+            new Back9ShortShotsAuto().schedule();
         }
 
     }

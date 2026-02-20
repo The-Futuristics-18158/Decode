@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.OpModes.Auto.RedSide.LoadingSide;
+package org.firstinspires.ftc.teamcode.OpModes.Auto.BlueSide.GoalSide;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.CloseShot.LoadingSideNineArtifactAuto;
+import org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide.Nine.Front9Auto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /*
@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When a selection is made from the menu, the corresponding OpMode is executed.
  */
-@Autonomous(name="Red Loading Side Nine Artifact Auto", group="OpMode", preselectTeleOp="Red TeleOp")
+@Autonomous(name="Blue Front 9", group="OpMode", preselectTeleOp="Blue TeleOp")
 //@Disabled
-public class RedLoadingSideNineArtifactAuto extends CommandOpMode {
+public class BlueFront9Auto extends CommandOpMode {
 
     // Initialize all objects, set up subsystems, etc...
     @Override
     public void initialize() {
 
         // initialize robot
-        // set team alliance color to red (isRedAlliance=true)
-        RobotContainer.Init(this, true);
+        // set team alliance color to blue (isRedAlliance=false)
+        RobotContainer.Init(this, false);
 
         // perform any auto initialization
         RobotContainer.Init_Auto();
@@ -45,7 +45,7 @@ public class RedLoadingSideNineArtifactAuto extends CommandOpMode {
             // ---------- autonomous command ----------
 
             // add autonomous command to scheduler and run it
-            new LoadingSideNineArtifactAuto().schedule();
+            new Front9Auto().schedule();
         }
 
     }

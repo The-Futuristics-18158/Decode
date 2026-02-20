@@ -1,64 +1,38 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Nine.FarShot;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.LoadingSide.Three;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 
-import org.firstinspires.ftc.teamcode.CommandGroups.GhostMoves;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull2Artifacts;
-import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
-public class LoadingSideGhostAuto extends SequentialCommandGroup {
+public class Back3Auto extends SequentialCommandGroup {
 
     // Constructor
-    public LoadingSideGhostAuto() {
+    public Back3Auto() {
 
         addCommands (
+                // Was X = 1.59 Y Was -0.39
                 new InstantCommand(()-> RobotContainer.odometry.setCurrentPos(AutoFunctions.redVsBlue(new Pose2d(1.60, -0.37, new Rotation2d(Math.toRadians(0.0)))))),
 
                 // Move to shoot
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))), // + or - 20 degrees
 
 //      -------------------------- Artifact Cycle #1 --------------------------
                 new FastShootObeliskColor(),
 
-                new ParallelRaceGroup(
-                        new IntakeRunEndless(),
-                        new GhostMoves(),
-                        new EndWhenFull2Artifacts()
-                ),
-
+                // Leave
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
-
-//      -------------------------- Artifact Cycle #2 --------------------------
-                new FastShootObeliskColor(),
-
-                new ParallelRaceGroup(
-                        new IntakeRunEndless(),
-                        new GhostMoves(),
-                        new EndWhenFull2Artifacts()
-                ),
-
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))
-                ),
-//      -------------------------- Artifact Cycle #3 --------------------------
-                new FastShootObeliskColor()
-
+                        AutoFunctions.redVsBlue((new Pose2d(1.4, -0.9, new Rotation2d(Math.toRadians(0.0))))))
         );
     }
 }

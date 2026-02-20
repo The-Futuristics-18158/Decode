@@ -95,9 +95,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         else
             flywheelMotor.setPower(0.0);
 
-        //RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
-        //RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
-        //RobotContainer.Panels.FTCTelemetry.update();
+        RobotContainer.Panels.FTCTelemetry.addData("Speed", CurrentSpeed);
+        RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here

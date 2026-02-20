@@ -23,20 +23,20 @@ public class GhostMoves extends SequentialCommandGroup {
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight into pile
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.5, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.5, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight back
 
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- End of Movement Cycle One --------------------------
 
@@ -67,20 +67,20 @@ public class GhostMoves extends SequentialCommandGroup {
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight into pile
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.5, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.5, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight back
 
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(1.55, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- End of Movement Cycle Three --------------------------
 

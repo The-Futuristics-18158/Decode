@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide;
+package org.firstinspires.ftc.teamcode.CommandGroups.AutoCommandGroups.GoalSide.Nine;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -12,10 +12,10 @@ import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeAuto;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
-public class GoalSideNineDumpAuto extends SequentialCommandGroup {
+public class Front9Auto extends SequentialCommandGroup {
 
     // Constructor
-    public GoalSideNineDumpAuto() {
+    public Front9Auto() {
 
         addCommands (
 
@@ -24,13 +24,11 @@ public class GoalSideNineDumpAuto extends SequentialCommandGroup {
                 // Move to a shot #1
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(-0.45, -0.45, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
 //      -------------------------- Artifact Cycle #1 --------------------------
                 new FastShootObeliskColor(),
-
-
 
                 // Turn to Hunt
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,1.5),
@@ -38,35 +36,23 @@ public class GoalSideNineDumpAuto extends SequentialCommandGroup {
                 // Hunt
                 new HuntModeAuto(3.0),
 
-                // dump gate
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.2, new Rotation2d(Math.toRadians(0.0)))))),
-
-                new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
-
                 // Move to shot #2
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
-                //    -------------------------- Artifact Cycle #2 --------------------------
+//      -------------------------- Artifact Cycle #2 --------------------------
                 new FastShootObeliskColor(),
 
                 // Move to pickup
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
                 new HuntModeAuto(3.0),
-
 
                 // Follow a path around the gate to shot #3
 //                new FollowPath(
@@ -80,7 +66,7 @@ public class GoalSideNineDumpAuto extends SequentialCommandGroup {
 //                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        0.8,
                         AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
                 ),
 
@@ -90,7 +76,7 @@ public class GoalSideNineDumpAuto extends SequentialCommandGroup {
                 // Move off line
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        0.8,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );
