@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,7 +12,7 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  *
  * @author superzokabear
  */
-@Configurable
+//@Configurable
 public class FlywheelSubsystem extends SubsystemBase {
 
     // Local objects and variables here

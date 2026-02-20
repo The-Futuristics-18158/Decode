@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -66,9 +65,9 @@ public class IntakeSubsystem extends SubsystemBase {
         // set intake motor power  (PIF controller)
         intakeMotor.setPower(PExtra * pgain * error + fgain * TargetSpeed + ierror);
 
-        RobotContainer.Panels.FTCTelemetry.addData("ShootSpeed", CurrentSpeed);
-        RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
-        RobotContainer.Panels.FTCTelemetry.update();
+        //RobotContainer.Panels.FTCTelemetry.addData("ShootSpeed", CurrentSpeed);
+        //RobotContainer.Panels.FTCTelemetry.addData("Target", TargetSpeed);
+        //RobotContainer.Panels.FTCTelemetry.update();
     }
 
     // Place special subsystem methods here
