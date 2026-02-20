@@ -250,7 +250,7 @@ public class ArtifactCamera extends SubsystemBase {
                 //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
                 //                     new Scalar(0, 40, 0),
                 //                     new Scalar(134, 23.0, 49)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.3, 0.0, -0.1, -0.1))// entire screen / screen size
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.2, 0.1, 0.0, -0.1))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -265,7 +265,7 @@ public class ArtifactCamera extends SubsystemBase {
 
         // available filtering functions
         OverloadgreenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 60, 76800));
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 150, 76800));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
@@ -282,7 +282,7 @@ public class ArtifactCamera extends SubsystemBase {
                 //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
                 //                     new Scalar(0, 40, 0),
                 //                     new Scalar(134, 23.0, 49)))
-                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.3, 0.0, -0.1, -0.1))// entire screen / screen size
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.2, 0.1, 0.0, -0.1))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
                 .setDrawContours(true)   // Show contours on the Stream Preview
@@ -297,7 +297,7 @@ public class ArtifactCamera extends SubsystemBase {
 
         // available filtering functions
         OverloadpurpleBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
-                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 60, 76800));
+                ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, 150, 76800));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY, 0.6, 1));
         //greenBlobProcessor.addFilter(new ColorBlobLocatorProcessor.BlobFilter(
