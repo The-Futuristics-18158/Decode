@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import org.firstinspires.ftc.teamcode.CommandGroups.BackNineManualHunt;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntMode.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;

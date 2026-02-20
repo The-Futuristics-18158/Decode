@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Intake;
+package org.firstinspires.ftc.teamcode.Commands.Intake.JogBack;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.RobotContainer;

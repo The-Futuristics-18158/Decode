@@ -1,18 +1,19 @@
-package org.firstinspires.ftc.teamcode.Commands.Intake;
+package org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 /**
- * This command ends only when the robot contains two artifacts in it
+ * This command ends only when the robot contains three artifacts in it
  *
  * @author knutt5
  */
-public class EndWhenFull2Artifacts extends CommandBase {
+public class EndWhenFull3Artifacts extends CommandBase {
 
     // constructor
-    public EndWhenFull2Artifacts() {
+    public EndWhenFull3Artifacts() {
 
         // Note: this command does not require any subsystems
         //addRequirements();
@@ -35,7 +36,8 @@ public class EndWhenFull2Artifacts extends CommandBase {
     public boolean isFinished() {
 
         return RobotContainer.colour.isLeftArtifactPresent() &&
-                RobotContainer.colour.isRightArtifactPresent();
+                RobotContainer.colour.isRightArtifactPresent() &&
+                RobotContainer.distance.isRampArtifactPresent();
     }
 
     // This method is called once when command is finished.

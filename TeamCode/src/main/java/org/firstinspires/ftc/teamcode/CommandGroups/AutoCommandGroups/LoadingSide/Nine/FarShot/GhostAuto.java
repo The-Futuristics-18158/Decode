@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.geometry.Rotation2d;
 import org.firstinspires.ftc.teamcode.CommandGroups.GhostMoves;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
 import org.firstinspires.ftc.teamcode.Commands.Drive.MoveToPose;
-import org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull2Artifacts;
+import org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull.EndWhenFull2Artifacts;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeRunEndless;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
