@@ -42,7 +42,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.RampCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Shooter.ShotBlockServo;
-import org.firstinspires.ftc.teamcode.Subsystems.Utils.Panels;
 import org.firstinspires.ftc.teamcode.Subsystems.Utils.TelemetrySubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
@@ -59,7 +58,7 @@ public class RobotContainer {
     public static boolean isRedAlliance;
 
     // FTC dashboard and telemetries
-     public static Panels Panels;
+    //public static Panels Panels;
     public static TelemetrySubsystem telemetrySubsystem;
 
     // timer used to determine how often to run scheduler periodic
@@ -135,7 +134,7 @@ public class RobotContainer {
         timer.reset();
 
         // set up dashboard and various telemetries
-        Panels = new Panels();
+        // Panels = new Panels();
         telemetrySubsystem = new TelemetrySubsystem();
 
         // cancel any commands previously running by scheduler
