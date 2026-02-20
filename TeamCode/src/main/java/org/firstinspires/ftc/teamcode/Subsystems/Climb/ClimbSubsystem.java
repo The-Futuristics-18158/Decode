@@ -85,7 +85,7 @@ public class ClimbSubsystem extends SubsystemBase {
         // Sets both motors to the target position
         double rollAngle = RobotContainer.gyro.getRollAngle();
         double climbDistance = climbSensor.getDistance(DistanceUnit.INCH);
-        double angleDifference = (Math.abs(rollAngle) - 0.5) / 1.5;
+        double angleDifference = (Math.abs(rollAngle) - 0.5) / 3.5;
         // ~1500 tics to top
         // when right side is low, roll is positive. left side low = roll negative
         if(climbDistance < 20.0){
@@ -100,7 +100,6 @@ public class ClimbSubsystem extends SubsystemBase {
                 climbR.setPower(1.0);
             }else{
                 climbL.setPower(1.0);
-                climbR.setPower(1.0);
             }
         }else{
             climbStop();
