@@ -77,7 +77,8 @@ public class HuntModeCommand extends CommandBase {
             blobX = blobs.get(0).getCircle().getCenter().x - 160.0;
 
             // set forward speed to value depending on how far artifact from center of camera
-            x_speed = 0.6 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
+            x_speed = 0.9 - 0.8*Math.min(Math.abs(blobX/160.0),1.0);
+            // 0.8 - 0.7*
 
             // determine sideways speed
             omega_speed = omegaControl.calculate(blobX); //320
@@ -85,7 +86,7 @@ public class HuntModeCommand extends CommandBase {
             haveArtifact = false;
             blobX = 0;
             omega_speed = 0.0;
-            x_speed = 0.8;
+            x_speed = 0.9;
         }
 
        // if busy intaking robot, stop and wait for it to finish before proceeding

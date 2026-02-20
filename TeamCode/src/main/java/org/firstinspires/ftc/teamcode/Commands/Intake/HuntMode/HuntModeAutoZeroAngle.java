@@ -99,7 +99,7 @@ public class HuntModeAutoZeroAngle extends CommandBase {
             haveArtifact = false;
             blobX = 0;
             //omega_speed = 0.0;
-            y_speed = 0.8;
+            y_speed = 0.7;
             x_speed = 0.0;
         }
 

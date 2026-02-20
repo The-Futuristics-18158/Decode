@@ -22,8 +22,8 @@ public class ManualDriveAutoTurnToTarget extends CommandBase {
     double m_angleerror;
 
     // PID gains for rotating robot towards ball target
-    public static double kpmax = 0.11; // was 0.15 Feb 5/2026 KN
-    public static double kpmin = 0.04; // was 0.05 Feb 5/2026 KN
+    public static double kpmax = 0.13; // was 0.15 Feb 5/2026 KN
+    public static double kpmin = 0.05; // was 0.05 Feb 5/2026 KN
     public static double kp_deg = 90.0;
     public static double ki = 0.2; // 0.20;
     public static double ki_range = 5.0;
@@ -42,7 +42,7 @@ public class ManualDriveAutoTurnToTarget extends CommandBase {
     public ManualDriveAutoTurnToTarget() {
 
         // this command requires mecanum drive subsystem
-        addRequirements(RobotContainer.drivesystem);
+        //addRequirements(RobotContainer.drivesystem);
 
     }
 
