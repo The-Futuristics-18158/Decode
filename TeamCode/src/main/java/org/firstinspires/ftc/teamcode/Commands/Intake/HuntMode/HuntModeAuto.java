@@ -91,7 +91,7 @@ public class HuntModeAuto extends CommandBase {
             // set forward speed to value depending on how far artifact from center of camera
             // first number is forward
             // second number is how quickly the speed goes down when artifact is off center
-            y_speed = 0.6 - 0.5*Math.min(Math.abs(blobX/160.0),1.0);
+            y_speed = 0.9 - 0.8*Math.min(Math.abs(blobX/160.0),1.0);
 
             if (y_speed < 0.0){ y_speed = 0.0;}
 
@@ -111,7 +111,7 @@ public class HuntModeAuto extends CommandBase {
             haveArtifact = false;
             blobX = 0;
             //omega_speed = 0.0;
-            y_speed = 0.8;
+            y_speed = 0.9;
             x_speed = 0.0;
             if(!RobotContainer.isRedAlliance()){
                y_speed = y_speed* -1.0;

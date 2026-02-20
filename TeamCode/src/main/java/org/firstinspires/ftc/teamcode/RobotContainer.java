@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
@@ -12,13 +13,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootAll;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootGreen;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
+import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColorConstantAim;
 import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootPurple;
 import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
+import org.firstinspires.ftc.teamcode.Commands.Intake.HuntMode.HuntModeAutoZeroAngle;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntMode.HuntModeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.JogBack.JogBackIntakeFull;
+import org.firstinspires.ftc.teamcode.Commands.Odomeetry.ResetOdometryXYAngle;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
 import org.firstinspires.ftc.teamcode.Subsystems.Utils.Blinkin;
@@ -203,14 +207,16 @@ public class RobotContainer {
         // Shoot Green
         driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new FastShootGreen());
 
-        // Shoot All
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new FastShootAll());
+        // Reset odometry to apriltag before shooting all according to obelisk pattern
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new SequentialCommandGroup(
+                                                                         new ResetOdometryXYAngle(),
+                                                                        new FastShootObeliskColorConstantAim() ));
 
         // Shoot Purple
         driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurple());
 
         // Shoot All According to Obelisk Pattern
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootObeliskColor());
+        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootObeliskColorConstantAim());
 
 //      ------------------ (Driver) Shooter Characterization Controls  ------------------
 
@@ -221,6 +227,8 @@ public class RobotContainer {
 //      -------------------------- (Driver) Intake Systems --------------------------
         // Hunt Mode
         driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+
+
         //driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenReleased(new JogBackIntakeFull());
 
         // Manual Intake

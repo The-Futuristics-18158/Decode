@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandGroupBase;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
+import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDriveAutoTurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
@@ -14,13 +17,13 @@ import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
 
 
 // command template
-public class FastShootObeliskColor extends CommandBase {
+public class FastShootObeliskColorConstantAim extends CommandBase {
 
     // the sequential command to shoot
-    SequentialCommandGroup cmd;
+    CommandGroupBase cmd;
 
     // constructor
-    public FastShootObeliskColor() {
+    public FastShootObeliskColorConstantAim() {
 
         // add subsystem requirements (if any) - for example:
         addRequirements(RobotContainer.drivesystem);
@@ -45,6 +48,7 @@ public class FastShootObeliskColor extends CommandBase {
         // wait for robot to finish turning to target and spinning up flywheel, whichever lasts longer
         cmd.addCommands(new ParallelCommandGroup(
                     new TurnToTarget(4.0),
+                    //new WaitForTarget(4.0),
                     new WaitForSpinup()
         ));
 
@@ -54,7 +58,7 @@ public class FastShootObeliskColor extends CommandBase {
         // we are shooting on left unless set otherwise
         boolean shotleft = true;
 
-        // get first desired desired color
+        // get first desired color
         Obelisk.ArtifactColor color1 = RobotContainer.obelisk.GetColorAtIndex(0);
 
         // if color is on left
@@ -79,7 +83,7 @@ public class FastShootObeliskColor extends CommandBase {
 
         // ---------- Artifact #2 ----------
 
-        // get second desired desired color
+        // get second desired color
         Obelisk.ArtifactColor color2 = RobotContainer.obelisk.GetColorAtIndex(1);
 
         // if we previously shot left, and right matches 2nd desired color, shoot right
@@ -118,6 +122,12 @@ public class FastShootObeliskColor extends CommandBase {
                 new CycleLeftUptake() ));
 
 
+        // ---------- Overall parallel race group command ----------
+
+
+        // put command into a parallel race group with manual driving with auto rotate to target
+        cmd = new ParallelRaceGroup(cmd, new ManualDriveAutoTurnToTarget());
+
         // initialize the command
         cmd.initialize();
     }
@@ -151,7 +161,9 @@ public class FastShootObeliskColor extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // we are ending, end the sequence
-        cmd.end(interrupted);
+        // chosen not to call end. FTC library has bug that may cause crash.
+        // instead, we simply turn off all affected subsystems
+        //cmd.end(interrupted);
 
         RobotContainer.shotblock.Block();
         RobotContainer.intake.intakeStop();

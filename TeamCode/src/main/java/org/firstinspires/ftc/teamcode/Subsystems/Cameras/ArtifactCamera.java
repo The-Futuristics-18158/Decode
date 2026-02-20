@@ -14,9 +14,12 @@ import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorRange;
+import org.firstinspires.ftc.vision.opencv.ColorSpace;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -246,10 +249,10 @@ public class ArtifactCamera extends SubsystemBase {
         BottomgreenBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
 
         OverloadgreenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
-                //                     new Scalar(0, 40, 0),
-                //                     new Scalar(134, 23.0, 49)))
+                //.setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                                     new Scalar(50, 30, 90),
+                                     new Scalar(90, 255, 255)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-0.2, 0.1, 0.0, -0.1))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -258,8 +261,8 @@ public class ArtifactCamera extends SubsystemBase {
                 .setBoxFitColor(Color.rgb(0, 255, 0))       // Disable the drawing of rectangles
                 //.setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
                 .setBlurSize(5)          // Smooth the transitions between different colors in image
-                .setDilateSize(15)       // Expand blobs to fill any divots on the edges
-                .setErodeSize(15)        // Shrink blobs back to original size
+                .setDilateSize(7)       // Expand blobs to fill any divots on the edges
+                .setErodeSize(7)        // Shrink blobs back to original size
                 .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
                 .build();
 
@@ -278,10 +281,10 @@ public class ArtifactCamera extends SubsystemBase {
 
 
         OverloadpurpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
-                .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
-                //.setTargetColorRange(new ColorRange(ColorSpace.HSV,
-                //                     new Scalar(0, 40, 0),
-                //                     new Scalar(134, 23.0, 49)))
+                //.setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
+                .setTargetColorRange(new ColorRange(ColorSpace.HSV,
+                                     new Scalar(130, 25, 90),
+                                     new Scalar(175, 255, 255)))
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-0.2, 0.1, 0.0, -0.1))// entire screen / screen size
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
                 //.setContourMode(ColorBlobLocatorProcessor.ContourMode.ALL_FLATTENED_HIERARCHY)
@@ -290,8 +293,8 @@ public class ArtifactCamera extends SubsystemBase {
                 .setBoxFitColor(Color.rgb(255, 0, 0))       // Disable the drawing of rectangles
                 //.setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
                 .setBlurSize(5)          // Smooth the transitions between different colors in image
-                .setDilateSize(15)       // Expand blobs to fill any divots on the edges
-                .setErodeSize(15)        // Shrink blobs back to original size
+                .setDilateSize(7)       // Expand blobs to fill any divots on the edges
+                .setErodeSize(7)        // Shrink blobs back to original size
                 .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
                 .build();
 
