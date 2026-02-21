@@ -42,7 +42,7 @@ public class ManualDriveAutoTurnToTarget extends CommandBase {
     public ManualDriveAutoTurnToTarget() {
 
         // this command requires mecanum drive subsystem
-        //addRequirements(RobotContainer.drivesystem);
+        addRequirements(RobotContainer.drivesystem);
 
     }
 

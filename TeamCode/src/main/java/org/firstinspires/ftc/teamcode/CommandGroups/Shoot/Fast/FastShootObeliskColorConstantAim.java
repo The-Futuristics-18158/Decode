@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleLeftUptake;
 import org.firstinspires.ftc.teamcode.CommandGroups.Uptake.CycleRightUptake;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDriveAutoTurnToTarget;
-import org.firstinspires.ftc.teamcode.Commands.Drive.TurnToTarget;
+import org.firstinspires.ftc.teamcode.Commands.Drive.WaitForTarget;
 import org.firstinspires.ftc.teamcode.Commands.Shoot.WaitForSpinup;
 import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -26,7 +26,6 @@ public class FastShootObeliskColorConstantAim extends CommandBase {
     public FastShootObeliskColorConstantAim() {
 
         // add subsystem requirements (if any) - for example:
-        addRequirements(RobotContainer.drivesystem);
         addRequirements(RobotContainer.shooter);
         addRequirements(RobotContainer.hoodtilt);
         addRequirements(RobotContainer.intake);
@@ -47,8 +46,8 @@ public class FastShootObeliskColorConstantAim extends CommandBase {
 
         // wait for robot to finish turning to target and spinning up flywheel, whichever lasts longer
         cmd.addCommands(new ParallelCommandGroup(
-                    new TurnToTarget(4.0),
-                    //new WaitForTarget(4.0),
+                    //new TurnToTarget(4.0),
+                    new WaitForTarget(3.0),
                     new WaitForSpinup()
         ));
 
@@ -123,7 +122,6 @@ public class FastShootObeliskColorConstantAim extends CommandBase {
 
 
         // ---------- Overall parallel race group command ----------
-
 
         // put command into a parallel race group with manual driving with auto rotate to target
         cmd = new ParallelRaceGroup(cmd, new ManualDriveAutoTurnToTarget());
