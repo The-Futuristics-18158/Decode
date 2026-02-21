@@ -23,9 +23,9 @@ public class Front9DumpAuto extends SequentialCommandGroup {
 //      -------------------------- Artifact Cycle #1  --------------------------
                 // Move to a shot #1
                 new MoveToPose(
-                        1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.4, -0.4, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
+                        1.5,// was 1.5
+                        1.5,// was 1.0
+                        AutoFunctions.redVsBlue((new Pose2d(-0.33, -0.47, new Rotation2d(Math.toRadians(45.0)))))),//  45 degrees // was -0.4, -0.4
 
                 // Shot #1
                 new FastShootObeliskColor(),
@@ -35,7 +35,7 @@ public class Front9DumpAuto extends SequentialCommandGroup {
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,1.5),
 
                 // Hunt
-                new HuntModeAuto(3.0),
+                new HuntModeAuto(2.0),
 
 //    -------------------------- Start Of Dump --------------------------
 
@@ -43,21 +43,21 @@ public class Front9DumpAuto extends SequentialCommandGroup {
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.2, new Rotation2d(Math.toRadians(0.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(-0.10, -1.2, new Rotation2d(Math.toRadians(0.0)))))),
 
                 // Dump Gate
                 new MoveToPose(
                         1.5,
                         1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.15, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
+                        AutoFunctions.redVsBlue((new Pose2d(-0.10, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
 
 //    -------------------------- End Of Dump --------------------------
 
                 // Move to shot #2
                 new MoveToPose(
                         1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
+                        1.5,
+                        AutoFunctions.redVsBlue((new Pose2d(-0.33, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
                 // Shot #2
                 new FastShootObeliskColor(),
@@ -66,17 +66,17 @@ public class Front9DumpAuto extends SequentialCommandGroup {
                 // Move to pickup
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeAuto(3.0),
+                new HuntModeAuto(2.25),
 
                 // Move to Shot #3
                 new MoveToPose(
                         1.5,
-                        1.0,
-                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
+                        1.5,
+                        AutoFunctions.redVsBlue(new Pose2d(-0.33, -0.47, new Rotation2d(Math.toRadians(45))))
                 ),
 
                 // Shot #3
@@ -86,7 +86,7 @@ public class Front9DumpAuto extends SequentialCommandGroup {
                 // Move off the line
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );

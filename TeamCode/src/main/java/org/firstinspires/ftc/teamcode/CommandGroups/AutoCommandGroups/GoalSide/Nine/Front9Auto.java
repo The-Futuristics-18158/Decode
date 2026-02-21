@@ -24,8 +24,8 @@ public class Front9Auto extends SequentialCommandGroup {
                 // Move to a shot #1
                 new MoveToPose(
                         1.5,
-                        0.8,
-                        AutoFunctions.redVsBlue((new Pose2d(-0.45, -0.45, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
+                        1.5,// was 0.8
+                        AutoFunctions.redVsBlue((new Pose2d(-0.33, -0.47, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
 //      -------------------------- Artifact Cycle #1 --------------------------
                 new FastShootObeliskColor(),
@@ -34,12 +34,12 @@ public class Front9Auto extends SequentialCommandGroup {
                 new TurnTo(AutoFunctions.redVsBlue(-90.0),false,1.5),
 
                 // Hunt
-                new HuntModeAuto(3.0),
+                new HuntModeAuto(2.0),
 
                 // Move to shot #2
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
 //      -------------------------- Artifact Cycle #2 --------------------------
@@ -48,35 +48,25 @@ public class Front9Auto extends SequentialCommandGroup {
                 // Move to pickup
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeAuto(3.0),
+                new HuntModeAuto(2.25),
 
-                // Follow a path around the gate to shot #3
-//                new FollowPath(
-//                        1.5,
-//                        0.7,
-//                        0.0,
-//                        0.0,
-//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(-90.0))),
-//                        new ArrayList<Translation2d>() {{AutoFunctions.redVsBlue(new Translation2d(0.9, 0.0));}},
-//                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(150.0)))),
-//                        AutoFunctions.redVsBlue(new Rotation2d(Math.toRadians(45)))),
                 new MoveToPose(
                         1.5,
-                        0.8,
-                        AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
+                        1.5,
+                        AutoFunctions.redVsBlue(new Pose2d(-0.33, -0.47, new Rotation2d(Math.toRadians(45))))
                 ),
 
 //      -------------------------- Artifact Cycle #3 --------------------------
                 new FastShootObeliskColor(),
 
-                // Move off line
+                // Move off the line
                 new MoveToPose(
                         1.5,
-                        0.8,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
 
         );

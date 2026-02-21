@@ -22,7 +22,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Move closer to intake box
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight into pile
@@ -35,7 +35,7 @@ public class GhostMoves extends SequentialCommandGroup {
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- End of Movement Cycle One --------------------------
@@ -43,7 +43,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Shift
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.4, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- Start of Movement Cycle Two --------------------------
@@ -56,7 +56,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Move straight back
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.4, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- End of Movement Cycle Two --------------------------
@@ -66,7 +66,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Move closer to intake box
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight into pile
@@ -76,10 +76,9 @@ public class GhostMoves extends SequentialCommandGroup {
                         AutoFunctions.redVsBlue((new Pose2d(1.52, -1.5, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Move straight back
-
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.52, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- End of Movement Cycle Three --------------------------
@@ -87,7 +86,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Shift
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.4, -1.0, new Rotation2d(Math.toRadians(-90.0)))))),
 
 //      -------------------------- Start of Movement Cycle Four --------------------------
@@ -100,7 +99,7 @@ public class GhostMoves extends SequentialCommandGroup {
                 // Move straight back
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.4, -1.0, new Rotation2d(Math.toRadians(-90.0))))))
 
 //      -------------------------- End of Movement Cycle Four --------------------------

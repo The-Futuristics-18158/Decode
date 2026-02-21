@@ -28,7 +28,7 @@ public class Back9LongShotsAuto extends SequentialCommandGroup {
                 // Move to shoot
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))), // + or - 20 degrees
 
 //      -------------------------- Artifact Cycle #1 --------------------------
@@ -37,16 +37,16 @@ public class Back9LongShotsAuto extends SequentialCommandGroup {
 //              // Move to intake point
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.98, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
                 // Hunt
-                new HuntModeAuto(4.0),
+                new HuntModeAuto(2.25),
 
                 // Move to shoot
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))), // + or - 20 degrees
 
 //      -------------------------- Artifact Cycle #2 --------------------------
@@ -64,7 +64,7 @@ public class Back9LongShotsAuto extends SequentialCommandGroup {
                 // Move to shoot
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
 
 //      -------------------------- Artifact Cycle #3 --------------------------
@@ -73,7 +73,7 @@ public class Back9LongShotsAuto extends SequentialCommandGroup {
                 // Leave
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.5, -0.9, new Rotation2d(Math.toRadians(0.0))))))
         );
     }

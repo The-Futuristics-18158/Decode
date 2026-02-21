@@ -45,7 +45,7 @@ public class RedGhostAuto extends CommandOpMode {
             // ---------- autonomous command ----------
 
             // add autonomous command to scheduler and run it
-            new GhostAuto();
+            new GhostAuto().schedule();
         }
 
     }

@@ -25,7 +25,7 @@ public class GhostAuto extends SequentialCommandGroup {
                 // Move to shoot
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
 
 //      -------------------------- Artifact Cycle #1 --------------------------
@@ -39,7 +39,7 @@ public class GhostAuto extends SequentialCommandGroup {
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))),
 
 //      -------------------------- Artifact Cycle #2 --------------------------
@@ -53,7 +53,7 @@ public class GhostAuto extends SequentialCommandGroup {
 
                 new MoveToPose(
                         1.5,
-                        1.0,
+                        1.5,
                         AutoFunctions.redVsBlue((new Pose2d(1.34, -0.38, new Rotation2d(Math.toRadians(23.0)))))
                 ),
 //      -------------------------- Artifact Cycle #3 --------------------------

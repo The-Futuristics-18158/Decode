@@ -22,7 +22,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 //      -------------------------- Artifact Cycle #1  --------------------------
                 // Move to a shot #1
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -0.3, new Rotation2d(Math.toRadians(45.0)))))),// + or - 20 degrees // was -0.6, -0.6
 
@@ -46,7 +46,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
                 // Dump Gate
                 new MoveToPose(
-                        1.2,
+                        1.0,
                         1.2,
                         AutoFunctions.redVsBlue((new Pose2d(-0.3, -1.4, new Rotation2d(Math.toRadians(0.0)))))),
 
@@ -54,7 +54,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
                 // Move to shot #2
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue((new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45.0)))))),
 
@@ -64,7 +64,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 //    -------------------------- Start of Artifact Cycle #3 --------------------------
                 // Move to pickup
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         3.5,
                         AutoFunctions.redVsBlue((new Pose2d(0.3, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
@@ -73,7 +73,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
                 // Move to Shot #3
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))
                 ),
@@ -83,7 +83,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
 //              // Move to intake point
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.98, -0.6, new Rotation2d(Math.toRadians(-90.0)))))),
 
@@ -91,7 +91,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
                 // Move to shot #4
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue(new Pose2d(-0.6, -0.6, new Rotation2d(Math.toRadians(45))))),
 
@@ -100,7 +100,7 @@ public class Front12DumpAuto extends SequentialCommandGroup {
 
                 // Move off the line
                 new MoveToPose(
-                        1.2,
+                        1.5,
                         4.0,
                         AutoFunctions.redVsBlue((new Pose2d(0.0, -0.9, new Rotation2d(Math.toRadians(180.0))))))
         );
