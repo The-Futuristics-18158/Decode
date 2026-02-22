@@ -44,6 +44,8 @@ public class OperatorControlsSubsystem extends SubsystemBase {
         else if (RobotContainer.artifactsInRamp == 9)
             RobotContainer.telemetrySubsystem.ascii_9();
 
+        // ADDED Feb 21/2026 KN
+        RobotContainer.telemetrySubsystem.addData("RPM-add", RobotContainer.targeting.GetShooterRPMAdder(), false);
 
 //        if (RobotContainer.artifactsInRamp == 0){
 //            RobotContainer.RCTelemetry.addLine("◢■■■■◣");

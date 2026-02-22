@@ -37,11 +37,23 @@ public class GoalTargeting extends SubsystemBase {
     Pose2d boxPos;
     double error;
 
+
+    // ADDED Feb 21/2026 KN
+    // adds or subtracts rpms to shooter speed
+    private double RPM_ADDER;
+
+
+
     /** Place code here to initialize subsystem */
     public GoalTargeting() {
 
         boxPos = AutoFunctions.redVsBlue( new Pose2d(new Translation2d( 0.935, 0.81), new Rotation2d(0)));
         error = 0.40;
+
+        // ADDED Feb 21/2026 KN
+        // initialize RPM adder
+        RPM_ADDER = 0.0;
+
     }
 
     /** Method called periodically by the scheduler
@@ -257,17 +269,22 @@ public class GoalTargeting extends SubsystemBase {
     public double CalculateSpeed(){
         double x = this.GetDistanceToGoal();
 
+        // equation from Feb 14/2026 early PM
+        //return 386.46 * x + 1909.4;
+
         // enhanced equation - Feb 14/2026, 10pm
         //return 383.29*x + 1922.3;
 
         // befor turnament equation = Feb 21/2026, 9:28pm
-//        return 386.46*x + 1959.4;
+        // return 386.46*x + 1959.4;
+
+        // ADDED Feb 21/2026 KN
+        // added RPM_ADDER to equation
 
         // befor turnament equation = Feb 21/2026, 9:28pm
-        return 406.1*x + 1930.5;
+        return 406.1*x + 1930.5 + RPM_ADDER;
 
-        // equation from Feb 14/2026 early PM
-        //return 386.46 * x + 1909.4;
+
     }
 
     /**add description here
@@ -330,5 +347,31 @@ public class GoalTargeting extends SubsystemBase {
         }
 
     }
+
+    // ADDED Feb 21/2026 KN
+    // adds 25rpm to shooter speed
+    public void IncrementShooterRPMAdder() {
+        RPM_ADDER += 10.0;
+        if (RPM_ADDER >= 100.0)
+            RPM_ADDER = 100.0;
+    }
+
+    // ADDED Feb 21/2026 KN
+    // subtracts 25rpm from shooter speed
+    public void DecrementShooterRPMAdder() {
+        RPM_ADDER -= 10.0;
+        if (RPM_ADDER <= -100.0)
+            RPM_ADDER = -100.0;
+    }
+
+    // ADDED Feb 21/2026 KN
+    // zeros(resets) the RPM adder
+    public void ResetShooterRPMAdder()
+    { RPM_ADDER = 0.0; }
+
+    // ADDED Feb 21/2026 KN
+    // gets the shooter RPM adder value
+    public double GetShooterRPMAdder()
+    { return RPM_ADDER; }
 
 }

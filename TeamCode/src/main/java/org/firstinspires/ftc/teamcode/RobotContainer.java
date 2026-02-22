@@ -256,6 +256,11 @@ public class RobotContainer {
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
         toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(()-> telemetrySubsystem.telemetryModeToggle()));
 
+        // ADDED Feb 21/2026 KN
+        toolOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(()-> targeting.IncrementShooterRPMAdder()));
+        toolOp.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(()-> targeting.DecrementShooterRPMAdder()));
+
+
 //      -------------------------- Examples --------------------------
         // bind commands to buttons
         // bind gyro reset to back button.
