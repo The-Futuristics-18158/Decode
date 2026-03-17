@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
+import org.firstinspires.ftc.teamcode.Subsystems.Utils.TelemetrySubsystem;
 
 /**
  * Place description of subsystem here
@@ -43,13 +44,13 @@ public class ColourSensor extends SubsystemBase {
 
             } catch (Exception e) {
                 // Log the error (if you can), and handle recovery
-                RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage(), true);
+                RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage());
                 RobotContainer.telemetrySubsystem.update();
                 try {
                     leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorRangeSensor.class, "leftColorSensor");
                 } catch (Exception ex) {
                     // failed to recover
-                    RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage(), true);
+                    RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage());
                     RobotContainer.telemetrySubsystem.update();
                 }
                 return false;
@@ -74,13 +75,13 @@ public class ColourSensor extends SubsystemBase {
 
             } catch (Exception e) {
                 // Log the error (if you can), and handle recovery
-                RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage(), true);
+                RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage());
                 RobotContainer.telemetrySubsystem.update();
                 try {
                     rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorRangeSensor.class, "rightColorSensor");
                 } catch (Exception ex) {
                     // failed to recover
-                    RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage(), true);
+                    RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage());
                     RobotContainer.telemetrySubsystem.update();
                 }
                 return false;
@@ -95,13 +96,13 @@ public class ColourSensor extends SubsystemBase {
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.addData("Left Sensor Error", e.getMessage());
             RobotContainer.telemetrySubsystem.update();
             try {
                 leftSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorRangeSensor.class, "leftColorSensor");
             } catch (Exception ex) {
                 // failed to recover
-                RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.addData("Left Sensor recovery failed", ex.getMessage());
                 RobotContainer.telemetrySubsystem.update();
             }
             return false;
@@ -115,13 +116,13 @@ public class ColourSensor extends SubsystemBase {
 
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage(), true);
+            RobotContainer.telemetrySubsystem.addData("Right Sensor Error", e.getMessage());
             RobotContainer.telemetrySubsystem.update();
             try {
                 rightSensor = RobotContainer.ActiveOpMode.hardwareMap.get(ColorRangeSensor.class, "rightColorSensor");
             } catch (Exception ex) {
                 // failed to recover
-                RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage(), true);
+                RobotContainer.telemetrySubsystem.addData("Right Sensor recovery failed", ex.getMessage());
                 RobotContainer.telemetrySubsystem.update();
             }
             return false;

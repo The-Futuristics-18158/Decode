@@ -16,7 +16,14 @@ public class TelemetrySubsystem extends SubsystemBase {
 
     // Local objects and variables here
     public static Telemetry RCTelemetry;
-    public static boolean testingTelemetry = true;
+
+    public enum RCTelemetryMode {
+        OFF,
+        TESTING,
+        OPERATOR
+    }
+
+    public static RCTelemetryMode CurrentTelemetryMode= RCTelemetryMode.TESTING;
 
     /** Place code here to initialize subsystem */
     public TelemetrySubsystem() {
@@ -30,12 +37,21 @@ public class TelemetrySubsystem extends SubsystemBase {
 
     }
 
+    /**used to switch telemetry mode between OFF, TESTING and OPERATOR
+     * @param mode the mode to switch to
+     */
+    public void setRCTelemetryMode(RCTelemetryMode mode){
+        CurrentTelemetryMode = mode;
+    }
+
+
+
     /** what is displayed as part of this telemetry?
      *
      * runs when testing telemetry
      */
     public void testingTelemetryEmpty(){
-        if (testingTelemetry){
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING) {
             //telemetry goes here
         }
     }
@@ -47,7 +63,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * runs when testing telemetry
      */
     public void ken(){
-        if (testingTelemetry){
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING){
             addData("LeftPresent", RobotContainer.colour.isLeftArtifactPresent());
             addData("RightPresent", RobotContainer.colour.isRightArtifactPresent());
             addData("LeftColour", RobotContainer.artifactCamera.getRightColour().name());
@@ -60,7 +76,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * runs when not testing telemetry
      */
     public void operatorTelemetryEmpty(){
-        if (!testingTelemetry) {
+        if (CurrentTelemetryMode == RCTelemetryMode.OPERATOR) {
             //telemetry goes here
         }
     }
@@ -71,7 +87,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * @param value the value to display
      */
     public void addData(String caption, Object value){
-        if (testingTelemetry) {
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING) {
             RCTelemetry.addData(caption, value);
         }
     }
@@ -80,10 +96,10 @@ public class TelemetrySubsystem extends SubsystemBase {
      *Adds an item to the end if the telemetry being built for driver station display. The value shown will be the result of calling toString() on the provided value object. The caption and value are shown on the driver station separated by the #getCaptionValueSeparator() caption value separator. The item is removed if clear() or clearAll() is called.
      * @param caption the caption to use
      * @param value the value to display
-     * @param telemetryForTesting If true the data will be shown with the testing data, if false the data will be shown with the operator data
+     * @param mode sets the mode in which the data will be shown. If the mode is the same as the current telemetry mode, the data will be shown. Otherwise, it will not be shown.
      */
-    public void addData(String caption, Object value, boolean telemetryForTesting){
-        if (testingTelemetry == telemetryForTesting) {
+    public void addData(String caption, Object value, RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addData(caption, value);
         }
     }
@@ -94,7 +110,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      *  @param caption the caption for the line
      */
     public void addLine(String caption){
-        if (testingTelemetry) {
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING) {
             RCTelemetry.addLine(caption);
         }
     }
@@ -103,11 +119,32 @@ public class TelemetrySubsystem extends SubsystemBase {
      *Creates and returns a new line in the receiver Telemetry.
      *
      *  @param caption the caption for the line
-     *  @param telemetryForTesting If true the data will be shown with the testing data, if false the data will be shown with the operator data
+     *  @param mode sets the mode in which the data will be shown. If the mode is the same as the current telemetry mode, the data will be shown. Otherwise, it will not be shown.
      */
-    public void addLine(String caption, boolean telemetryForTesting){
-        if (testingTelemetry == telemetryForTesting) {
+    public void addLine(String caption, RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine(caption);
+        }
+    }
+
+    /**
+     * adds multiple lines of telemetry at once.
+     *
+     */
+    public void addTelemetryBlock(String[] telemetry){
+        if(CurrentTelemetryMode == RCTelemetryMode.TESTING) {
+            String nextCaption = "";
+            for (String line : telemetry) {
+                if (line != null && !line.isEmpty()) {
+                    if(line.charAt(0) == '!') {
+                        RCTelemetry.addLine(line.substring(1));
+                    } else if (line.charAt(0) == '@') {
+                        nextCaption = line.substring(1);
+                    } else {
+                        RCTelemetry.addData(nextCaption, line);
+                    }
+                }
+            }
         }
     }
 
@@ -117,7 +154,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * Runs when testing telemetry.
      */
     public void odometryTelemetry(){
-        if (testingTelemetry) {
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING) {
             Pose2d position = RobotContainer.odometry.getCurrentPos();
             RCTelemetry.addData("fieldX", position.getX());
             RCTelemetry.addData("fieldY", position.getY());
@@ -130,7 +167,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * runs when testing telemetry
      */
     public void timerOdometry(){
-        if (testingTelemetry){
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING){
             RCTelemetry.addData("interval time(ms)", RobotContainer.intervaltime);
             RCTelemetry.addData("execute time(ms)", RobotContainer.exectimer.milliseconds());
         }
@@ -141,7 +178,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * runs when testing telemetry
      */
     public void currentObeliskId(){
-        if (testingTelemetry){
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING){
             if (RobotContainer.GetCurrentMode()== RobotContainer.Modes.AutoInit) {
                 if (RobotContainer.limeLight.getObeliskID()== LimeLight.tagId.TAG_GPP)
                     RCTelemetry.addLine("See GPP Tag");
@@ -160,7 +197,7 @@ public class TelemetrySubsystem extends SubsystemBase {
      * runs when testing telemetry
      */
     public void climbTelemetry(){
-        if (testingTelemetry) {
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING) {
             RCTelemetry.addData("Climb distance", RobotContainer.climb.getClimbDistance());
             RCTelemetry.addData("roll", RobotContainer.gyro.getRollAngle());
         }
@@ -169,8 +206,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 0
      * runs when not testing telemetry
      */
-    public void ascii_0(){
-        if (!testingTelemetry) {
+    public void ascii_0(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■◣□");
             RCTelemetry.addLine("◢■■■■■■◣");
             RCTelemetry.addLine("■■■□□■■■");
@@ -187,8 +224,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 1
      * runs when not testing telemetry
      */
-    public void ascii_1(){
-        if (!testingTelemetry) {
+    public void ascii_1(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■□□");
             RCTelemetry.addLine("◢■■■■□□");
             RCTelemetry.addLine("□□■■■□□");
@@ -204,8 +241,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 2
      * runs when not testing telemetry
      */
-    public void ascii_2(){
-        if (!testingTelemetry) {
+    public void ascii_2(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■◣□");
             RCTelemetry.addLine("◢■■■■■■◣");
             RCTelemetry.addLine("■■◤□□◥■■");
@@ -222,8 +259,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 3
      * runs when not testing telemetry
      */
-    public void ascii_3(){
-        if (!testingTelemetry) {
+    public void ascii_3(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■◣□");
             RCTelemetry.addLine("◢■■■■■■◣");
             RCTelemetry.addLine("■■◤□□◥■■");
@@ -240,8 +277,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 4
      * runs when not testing telemetry
      */
-    public void ascii_4(){
-        if (!testingTelemetry) {
+    public void ascii_4(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("■■■□□■■■□");
             RCTelemetry.addLine("■■■□□■■■□");
             RCTelemetry.addLine("■■■□□■■■□");
@@ -257,8 +294,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 5
      * runs when not testing telemetry
      */
-    public void ascii_5(){
-        if (!testingTelemetry) {
+    public void ascii_5(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("■■■□□□□□");
@@ -275,8 +312,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 6
      * runs when not testing telemetry
      */
-    public void ascii_6(){
-        if (!testingTelemetry) {
+    public void ascii_6(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■■■");
             RCTelemetry.addLine("◢■■■■■■■");
             RCTelemetry.addLine("■■■□□□□□");
@@ -293,8 +330,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 7
      * runs when not testing telemetry
      */
-    public void ascii_7(){
-        if (!testingTelemetry) {
+    public void ascii_7(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("■■■■■■■■");
             RCTelemetry.addLine("□□□□□■■■");
@@ -310,8 +347,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 8
      * runs when not testing telemetry
      */
-    public void ascii_8(){
-        if (!testingTelemetry) {
+    public void ascii_8(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■◣□");
             RCTelemetry.addLine("◢■■■■■■◣");
             RCTelemetry.addLine("■■■□□■■■");
@@ -328,8 +365,8 @@ public class TelemetrySubsystem extends SubsystemBase {
     /**displays ascii art of the number 9
      * runs when not testing telemetry
      */
-    public void ascii_9(){
-        if (!testingTelemetry) {
+    public void ascii_9(RCTelemetryMode mode){
+        if (CurrentTelemetryMode == mode) {
             RCTelemetry.addLine("□◢■■■■◣□");
             RCTelemetry.addLine("◢■■■■■■◣");
             RCTelemetry.addLine("■■■□□■■■");
@@ -360,6 +397,9 @@ public class TelemetrySubsystem extends SubsystemBase {
      *
      */
     public void telemetryModeToggle(){
-        testingTelemetry = !testingTelemetry;
+        if (CurrentTelemetryMode == RCTelemetryMode.TESTING)
+            CurrentTelemetryMode = RCTelemetryMode.OPERATOR;
+        else if (CurrentTelemetryMode == RCTelemetryMode.OPERATOR)
+            CurrentTelemetryMode = RCTelemetryMode.TESTING;
     }
 }

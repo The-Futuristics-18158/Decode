@@ -49,7 +49,7 @@ public class GoalTargeting extends SubsystemBase {
     @Override
     public void periodic() {
         double distance = GetDistanceToGoal();
-        RobotContainer.telemetrySubsystem.addData("distance", distance, true);
+        RobotContainer.telemetrySubsystem.addData("distance", distance);
     }
 
     /**returns list of available shooting locations*/
