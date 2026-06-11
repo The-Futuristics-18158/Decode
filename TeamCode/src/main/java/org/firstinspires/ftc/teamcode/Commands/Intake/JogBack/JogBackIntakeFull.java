@@ -23,7 +23,7 @@ public class JogBackIntakeFull extends CommandBase {
     public JogBackIntakeFull() {
 
         // add subsystem requirements (if any) - for example:
-        addRequirements(RobotContainer.intake);
+        //addRequirements(RobotContainer.intake);
     }
 
     // This method is called once when command is started
@@ -35,23 +35,24 @@ public class JogBackIntakeFull extends CommandBase {
     // This method is called periodically while command is active
     @Override
     public void execute() {
-
-        // current robot position (in encoder ticks)
-        double currentPos = RobotContainer.intake.GetMotorPostion();
-
-        if (RobotContainer.artifactCamera.IsOverloadPresent())
-            // we are overloaded - set target position at 0.4 rotations back
-            // note: 28.0*5.0 factor converts to ticks
-            TargetPosition = currentPos - JogBackTurns*28.0*5.0;
-        else
-            // set target to current pos (=zero error) - will turn off intake
-            TargetPosition = currentPos;
-
-        // position error (in motor ticks)
-        double error = TargetPosition - RobotContainer.intake.GetMotorPostion();
-
-        // Set speed of intake (in motor rps)
-        RobotContainer.intake.intakeSetSpeed(Pgain * error);
+//
+//        // current robot position (in encoder ticks)
+//        double currentPos = RobotContainer.intake.GetMotorPostion();
+//
+//        // if condition does not exist anymore
+//        /**if (RobotContainer.artifactCamera.IsOverloadPresent())
+//            // we are overloaded - set target position at 0.4 rotations back
+//            // note: 28.0*5.0 factor converts to ticks
+//            TargetPosition = currentPos - JogBackTurns*28.0*5.0;
+//        else
+//            // set target to current pos (=zero error) - will turn off intake
+//            TargetPosition = currentPos;*/
+//
+//        // position error (in motor ticks)
+//        double error = TargetPosition - RobotContainer.intake.GetMotorPostion();
+//
+//        // Set speed of intake (in motor rps)
+//        RobotContainer.intake.intakeSetSpeed(Pgain * error);
     }
 
     // This method to return true only when command is to finish. Otherwise return false
@@ -64,7 +65,7 @@ public class JogBackIntakeFull extends CommandBase {
     @Override
     public void end(boolean interrupted) {
 
-        RobotContainer.intake.intakeStop();
+        //RobotContainer.intake.intakeStop();
     }
 
 }

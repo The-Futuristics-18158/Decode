@@ -2,37 +2,36 @@ package org.firstinspires.ftc.teamcode.Subsystems.Shooter;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 /**
- * Place description of subsystem here
+ * Subsystem to Operate Shot Blocker
+ * Open position = 0.35
+ * Close position = 0.0
  *
  * @author superzokabear
  */
-public class ShotBlockServo extends SubsystemBase {
+public class ShotBlock extends SubsystemBase {
 
     // Local objects and variables here
     private Servo shotBlockServo;
 
     /** Place code here to initialize subsystem */
-    public ShotBlockServo() {
+    public ShotBlock() {
 
+        // create servo and configure
         shotBlockServo = RobotContainer.ActiveOpMode.hardwareMap.get(Servo.class, "shotBlockServo");
-
         shotBlockServo.setDirection(Servo.Direction.FORWARD);
 
-        // 0.95 breaks
-        // 0.85 block
-        // 0.7 shoot
+        // set default blocker position
         Block();
+
     }
 
     /** Method called periodically by the scheduler
      * Place any code here you wish to have run periodically */
     @Override
     public void periodic() {
-
     }
 
     // place special subsystem methods here
@@ -42,12 +41,20 @@ public class ShotBlockServo extends SubsystemBase {
      * <p>
      * Never change under penalty of a creative death, the servo value to 0.25 or greater
      */
-    public void Block(){shotBlockServo.setPosition(0.17);}
+    public void Block(){shotBlockServo.setPosition(0.0);}
 
     /**Unblock the flywheel
      * <p>
      * Never change under penalty of a creative death, the servo value to 0.25 or greater
      */
-    public void Unblock(){shotBlockServo.setPosition(0.0);}
+    public void Unblock(){shotBlockServo.setPosition(0.35);}
+
+    public boolean ShotBlocked(){
+        if (shotBlockServo.getPosition() >= 0.0 && shotBlockServo.getPosition() < 0.35){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }

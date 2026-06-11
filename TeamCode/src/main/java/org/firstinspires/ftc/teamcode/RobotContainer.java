@@ -3,53 +3,63 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootAll;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootGreen;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootGreenConstantAim;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColor;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootObeliskColorConstantAim;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootPurple;
-import org.firstinspires.ftc.teamcode.CommandGroups.Shoot.Fast.FastShootPurpleConstantAim;
-import org.firstinspires.ftc.teamcode.Commands.ClimbCommand;
+import org.firstinspires.ftc.teamcode.CommandGroups.TeleOpSequences.IntakeSequence;
+import org.firstinspires.ftc.teamcode.CommandGroups.TeleOpSequences.ShotSequence;
 import org.firstinspires.ftc.teamcode.Commands.Drive.ManualDrive;
-import org.firstinspires.ftc.teamcode.Commands.Drive.TurnTo;
-import org.firstinspires.ftc.teamcode.Commands.Intake.HuntMode.HuntModeAutoZeroAngle;
 import org.firstinspires.ftc.teamcode.Commands.Intake.HuntMode.HuntModeCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.ReverseIntakeCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
-import org.firstinspires.ftc.teamcode.Commands.Intake.JogBack.JogBackIntakeFull;
-import org.firstinspires.ftc.teamcode.Commands.Odomeetry.ResetOdometryXYAngle;
-import org.firstinspires.ftc.teamcode.Commands.Shoot.DefaultShooterSpeed;
-import org.firstinspires.ftc.teamcode.Subsystems.Cameras.ArtifactCamera;
-import org.firstinspires.ftc.teamcode.Subsystems.Utils.Blinkin;
-import org.firstinspires.ftc.teamcode.Subsystems.Climb.ClimbSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Shooter.HoodTiltSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Utils.OperatorControlsSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Sensors.ColourSensor;
-import org.firstinspires.ftc.teamcode.Subsystems.Odometry.DriveTrain;
-import org.firstinspires.ftc.teamcode.Subsystems.Shooter.FlywheelSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Gyro;
-import org.firstinspires.ftc.teamcode.Subsystems.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.Sensors.DistanceSensor;
-import org.firstinspires.ftc.teamcode.Subsystems.Sensors.GoalTargeting;
+import org.firstinspires.ftc.teamcode.Commands.ManualTurretMoveForResetting;
+import org.firstinspires.ftc.teamcode.Commands.UptakeRampControle;
 import org.firstinspires.ftc.teamcode.Subsystems.Cameras.LimeLight;
-import org.firstinspires.ftc.teamcode.Subsystems.Sensors.Obelisk;
+import org.firstinspires.ftc.teamcode.Subsystems.Cameras.RampCamera;
+import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Subsystems.Sensors.GoalTargeting;
+import org.firstinspires.ftc.teamcode.Subsystems.Sensors.UptakeSensor;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.Flywheel;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.HoodTilt;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.RampLift;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.ShotBlock;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.Turret;
+import org.firstinspires.ftc.teamcode.Subsystems.Shooter.TurretResetButton;
+import org.firstinspires.ftc.teamcode.Subsystems.Utils.Blinkin;
+import org.firstinspires.ftc.teamcode.Subsystems.Utils.OperatorControlsSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Gyro;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.Odometry;
 import org.firstinspires.ftc.teamcode.Subsystems.Odometry.PinpointOdometry;
-import org.firstinspires.ftc.teamcode.Subsystems.Cameras.RampCamera;
-import org.firstinspires.ftc.teamcode.Subsystems.Shooter.ShotBlockServo;
 import org.firstinspires.ftc.teamcode.Subsystems.Utils.TelemetrySubsystem;
-import org.firstinspires.ftc.teamcode.Subsystems.UptakeSubsystem;
 import org.firstinspires.ftc.teamcode.Utility.AutoFunctions;
 
 import java.util.List;
 
+/** TODO
+ * Adjust UptakeSubsystem to use one servo instead of two, and update all commands that use it    (no uptake)
+ * Adjust Flywheel to use two motors instead of one, and update all commands that use it (in progress)
+ * Remove Operator controls and references to it, or adjust to be used for something else         (completed)
+ * Adjust shooting commands to not need to decide left vs right
+ * Add constant tracking for the turret to the goal using the limelight
+ * refactor ClimbSubsystem code to work with the DriveTrain
+ *
+ *
+ * Update pinpointDriver.setOffsets() with correct values, line 48 of PinpointOdometry.java (completed)
+ * Update Drive Kinematics with correct values, lines 31-32 of DriveTrain.java (completed)
+ * Adjust ShotBlock subsystem (completed)
+ * Adjust HoodTilt (completed)
+ * Add the turret's subsystem (completed)
+ * Remove code related to colour detection and pattern matching (completed)
+    * Remove Obelisk.java and references to it                  (completed)
+    * Remove code related to artifact colour detection          (completed)
+        * Remove references to ColourSensor subsystem           (completed)
+ */
 
 public class RobotContainer {
 
@@ -76,21 +86,20 @@ public class RobotContainer {
     public static Gyro gyro;
     public static PinpointOdometry odometryPod;
     public static DriveTrain drivesystem;
+    public static Odometry odometry;
+    public static TurretResetButton turretresetbutton;
+    public static HoodTilt hoodtilt;
+    public static ShotBlock shotblock;
+    public static RampLift ramplift;
+    public static Intake intake;
+    public static Flywheel shooter;
+    public static Turret turret;
     public static LimeLight limeLight;
     public static RampCamera rampCamera;
-    public static Odometry odometry;
-    public static ColourSensor colour;
-    public static DistanceSensor distance;
-    public static IntakeSubsystem intake;
-    public static FlywheelSubsystem shooter;
-    public static UptakeSubsystem uptake;
-    public static HoodTiltSubsystem hoodtilt;
-    public static Obelisk obelisk;
+    public static UptakeSensor uptakeSensor;
     public static GoalTargeting targeting;
-    public static ShotBlockServo shotblock;
-    public static ClimbSubsystem climb;
-    public static Blinkin blinkin;
-    public static ArtifactCamera artifactCamera;
+    public static Blinkin ledsubsystem;
+
 
     // Angle of the robot at the start of auto
     public static double RedStartAngle = 90;
@@ -100,12 +109,10 @@ public class RobotContainer {
     static List<LynxModule> allHubs;
 
     // Robot Modes
-    public enum Modes { Off, AutoInit, Auto, TeleOp}
+    public enum Modes { Off, AutoInit, Auto, TeleOpInit, TeleOp}
     private static Modes CurrentRobotMode;
 
     public static double intervaltime;
-
-    public static int artifactsInRamp = 0;
 
     /**Robot initialization - common to both auto and teleop
      * @param mode A value from the Modes enum representing the current opmode being run, valid Modes as of 2/9/2026: Off, AutoInit, Auto, TeleOp
@@ -150,30 +157,20 @@ public class RobotContainer {
         operatorControls = new OperatorControlsSubsystem();
         gyro = new Gyro();
         odometryPod = new PinpointOdometry();
-        odometry = new Odometry();
         drivesystem = new DriveTrain();
+        odometry = new Odometry();
+        turretresetbutton = new TurretResetButton();
+        hoodtilt = new HoodTilt();
+        shotblock = new ShotBlock();
+        ramplift = new RampLift();
+        intake = new Intake();
+        shooter = new Flywheel();
+        turret = new Turret();
         limeLight = new LimeLight();
         rampCamera = new RampCamera("RampCam");
-        colour = new ColourSensor();
-        distance = new DistanceSensor();
-        intake = new IntakeSubsystem();
-        shooter = new FlywheelSubsystem();
-        uptake = new UptakeSubsystem();
-        hoodtilt = new HoodTiltSubsystem();
-        obelisk = new Obelisk();
+        uptakeSensor = new UptakeSensor();
         targeting = new GoalTargeting();
-        shotblock = new ShotBlockServo();
-        climb = new ClimbSubsystem();
-        blinkin = new Blinkin();
-        artifactCamera = new ArtifactCamera("CookieCam");
-
-        // depending on red or blue team, set which camera gets displayed
-        // on driver's station in preview mode
-        if (isRedAlliance())
-            rampCamera.enableCameraStream();
-        else
-            artifactCamera.enableCameraStream();
-
+        ledsubsystem = new Blinkin();
 
     }
 
@@ -186,77 +183,75 @@ public class RobotContainer {
         // set drivetrain default command to manual driving mode
         drivesystem.setDefaultCommand(new ManualDrive());
 
-        uptake.LowerRightUptake();
-        uptake.LowerLeftUptake();
+//              -------------------------- (Driver) Odometry Reset --------------------------
 
-        // set default shooter speed control
-        shooter.setDefaultCommand(new DefaultShooterSpeed());
-
-        // Set default intake control
-        intake.setDefaultCommand(new JogBackIntakeFull());
-
-
-//      -------------------------- Driver Controls --------------------------
-        // Reset odometry
         driverOp.getGamepadButton(GamepadKeys.Button.BACK).whenPressed(new InstantCommand(()-> odometry.setCurrentPos
                 (AutoFunctions.redVsBlue(new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(-90.0)))))));
 
-        // Climb in three seconds
-        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ClimbCommand());
 
-//      -------------------------- (Driver) Shooting Controls  --------------------------
-        // Shoot Green
-        //driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new FastShootGreen());
-        driverOp.getGamepadButton(GamepadKeys.Button.A).whenHeld(new FastShootGreenConstantAim());
+//              -------------------------- (Driver) Turret System --------------------------
 
-        // Reset odometry to apriltag before shooting all according to obelisk pattern
-        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new SequentialCommandGroup(
-                                                                         new ResetOdometryXYAngle(),
-                                                                        new FastShootObeliskColorConstantAim() ));
+        driverOp.getGamepadButton(GamepadKeys.Button.START).whenHeld(new ManualTurretMoveForResetting());
 
-        // Shoot Purple
-        //driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurple());
-        driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new FastShootPurpleConstantAim());
+//              -------------------------- (Driver) Shooting Controls  --------------------------
 
-        // Shoot All According to Obelisk Pattern
-        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenHeld(new FastShootObeliskColorConstantAim());
+        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new ShotSequence());
 
-//      ------------------ (Driver) Shooter Characterization Controls  ------------------
-
-//        driverOp.getGamepadButton(GamepadKeys.Button.B).whenPressed(new CycleLeftUptake());
-
-//        driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new CycleRightUptake());
-
-//      -------------------------- (Driver) Intake Systems --------------------------
-        // Hunt Mode
-        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new HuntModeCommand());
+        //driverOp.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new VaccuumMode());
 
 
-        //driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenReleased(new JogBackIntakeFull());
+//              -------------------------- (Driver) Intake Systems --------------------------
 
-        // Manual Intake
-        driverOp.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new IntakeCommand());
+        driverOp.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenHeld(new ParallelCommandGroup(new IntakeCommand(), new UptakeRampControle()));
+
+        Trigger mytrigger = new Trigger(()-> (RobotContainer.ActiveOpMode.gamepad1.left_trigger > 0.5));
+        mytrigger.whileActiveOnce(new ReverseIntakeCommand());
+
+        driverOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new IntakeSequence());
+
+        //driverOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new HuntModeCommand());
+
+//             -------------------------- Test Buttions/Manual Controls --------------------------
+
+        // Block/Unblock
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->shotblock.Unblock()));
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->shotblock.Block()));
+
+        // Hood Adjust
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()->hoodtilt.SetHoodPosition(hoodtilt.GetHoodPosition()-0.01)));
+        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(()->hoodtilt.SetHoodPosition(hoodtilt.GetHoodPosition()+0.01)));
 
 //      -------------------------- (Driver) Turning To Exact Angle --------------------------
-        // Turn To 0 degrees
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(0.0), false, 5.0));
+//        // Turn To 0 degrees
+//        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(0.0), false, 5.0));
+//
+//        // Turn To 90 degrees
+//        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new TurnTo(AutoFunctions.redVsBlue(-90.0), false, 5.0));
+//
+//        // Turn To 180 degrees
+//        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(180.0), false, 5.0));
+//
+//        // Turn To 270 degrees
+//        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new TurnTo(AutoFunctions.redVsBlue(90.0), false, 5.0));
 
-        // Turn To 90 degrees
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new TurnTo(AutoFunctions.redVsBlue(-90.0), false, 5.0));
 
-        // Turn To 180 degrees
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new TurnTo(AutoFunctions.redVsBlue(180.0), false, 5.0));
+        //             -------------------------- Operator Controls --------------------------
 
-        // Turn To 270 degrees
-        driverOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new TurnTo(AutoFunctions.redVsBlue(90.0), false, 5.0));
+        // enable/disable auto targeting
+        toolOp.getGamepadButton(GamepadKeys.Button.START).whenPressed(new InstantCommand(()->targeting.EnableAutoTargeting(!targeting.isAutoTargetingEnabled())));
 
-//      -------------------------- Operator Controls --------------------------
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new InstantCommand(()->  operatorControls.increaseRampTotal()));
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new InstantCommand(()->  operatorControls.decreaseRampTotal()));
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new InstantCommand(()-> operatorControls.resetRampTotal()));
-        toolOp.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new InstantCommand(()-> telemetrySubsystem.telemetryModeToggle()));
 
-//      -------------------------- Examples --------------------------
+        // OLD - not used - to be deleted
+        // manual rotate turret
+//        toolOp.getGamepadButton(GamepadKeys.Button.X).whenHeld(new SequentialCommandGroup(
+//                new InstantCommand(()-> targeting.EnableAutoTargeting(false)),
+//                new ManualRotateTurret(true)));
+//        toolOp.getGamepadButton(GamepadKeys.Button.B).whenHeld(new SequentialCommandGroup(
+//                new InstantCommand(()-> targeting.EnableAutoTargeting(false)),
+//                new ManualRotateTurret(false)));
+
+
+        //      -------------------------- Examples --------------------------
         // bind commands to buttons
         // bind gyro reset to back button.
         // Note: since reset is very simple command, we can just use 'InstandCommand'
@@ -282,8 +277,14 @@ public class RobotContainer {
 
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
+    }
 
-        artifactsInRamp = 0;
+    /**Robot starting code for teleop - This runs once at start of teleop*/
+    public static void Start_TeleOp() {
+
+        // robot is in teleop mode
+        CurrentRobotMode = Modes.TeleOp;
+
     }
 
     /**Robot initialization for auto - This runs once at initialization of auto*/
@@ -292,17 +293,11 @@ public class RobotContainer {
         // robot is in auto init mode
         CurrentRobotMode = Modes.AutoInit;
 
-        // perform any autonomous-specific initialization here
-        // set limelight to obelisk pipeline
-        if (RobotContainer.isRedAlliance == false){
-            limeLight.SetPipelineMode(1);
-        }else{
-            limeLight.SetPipelineMode(2);
-        }
+        // set limelight to apriltag pipeline
+        limeLight.SetPipelineMode(0);
 
-        artifactsInRamp = 0;
-
-        //obelisk.StartObeliskScan();
+        // reset turret to straight position;
+        turret.ResetTurretPositionStraight();
     }
 
     /**Robot starting code for auto - This runs once at start of auto*/
@@ -311,17 +306,11 @@ public class RobotContainer {
         // robot is in auto mode
         CurrentRobotMode = Modes.Auto;
 
-        // perform any autonomous-specific start functions here
-        obelisk.RecordPattern();
-
         // set limelight to apriltag pipeline
         limeLight.SetPipelineMode(0);
 
         // set default shooter speed control
-        shooter.setDefaultCommand(new DefaultShooterSpeed());
-
-        // Set default intake control
-        intake.setDefaultCommand(new JogBackIntakeFull());
+        //shooter.setDefaultCommand(new DefaultShooterSpeed());
     }
 
 
@@ -334,7 +323,6 @@ public class RobotContainer {
         }
 
         // actual interval time
-
         intervaltime = timer.milliseconds();
 
         // execute robot periodic function 50 times per second (=50Hz)
@@ -354,9 +342,10 @@ public class RobotContainer {
 
             // report time interval on robot controller
             telemetrySubsystem.timerOdometry();
-
-            // show obelisk status - only if in auto-init mode
-            telemetrySubsystem.currentObeliskId();
+            //telemetrySubsystem.addData("Turret Target (degrees): ", turret.getTurretTargetDegrees());
+            //telemetrySubsystem.addData("Turret Current (degrees): ", turret.getTurretDegrees());
+            //telemetrySubsystem.addData("Intake Power: ", intake.readIntakeSetPower());
+            //telemetrySubsystem.addData("Intake Motor Speed (rps): ", intake.intakeMotorCurrentSpeed());
 
             telemetrySubsystem.update();
         }

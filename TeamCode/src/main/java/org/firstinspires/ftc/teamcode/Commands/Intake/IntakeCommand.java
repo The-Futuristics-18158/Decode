@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands.Intake;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -9,18 +10,10 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 // command template
 public class IntakeCommand extends CommandBase {
 
-    private ElapsedTime timer;
-    boolean finished;
-
     // constructor
     public IntakeCommand() {
 
-        // add subsystem requirements (if any) - for example:
-        //addRequirements(RobotContainer.drivesystem);
-        addRequirements(RobotContainer.intake);
-
-        timer = new ElapsedTime();
-        timer.reset();
+      addRequirements(RobotContainer.intake);
 
     }
 
@@ -28,39 +21,22 @@ public class IntakeCommand extends CommandBase {
     @Override
     public void initialize() {
 
-        timer.reset();
-        finished = false;
-        RobotContainer.uptake.LowerLeftUptake();
-        RobotContainer.uptake.LowerRightUptake();
     }
 
     // This method is called periodically while command is active
     @Override
     public void execute() {
-//        if (timer.seconds()>5.0 || (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent() && RobotContainer.colour.isRampArtifactPresent())){
-//            finished = true;
-//            RobotContainer.intake.intakeStop();
-//        }else {
-//            RobotContainer.intake.intakeRun();
-//        }
 
-        if (timer.seconds()>5.0 || ((RobotContainer.artifactCamera.IsLeftPresent()) &&
-                (RobotContainer.artifactCamera.IsRightPresent()) &&
-                (RobotContainer.distance.isRampArtifactPresent()))){
-            finished = true;
-            RobotContainer.intake.intakeStop();
-        }else {
-            if (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent())
-                RobotContainer.intake.intakeRunReducedSpeed();
-            else
-                RobotContainer.intake.intakeRun();
-        }
+        RobotContainer.intake.intakeRun();
+
     }
 
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-        return finished;
+
+        return false;
+
     }
 
     // This method is called once when command is finished.
@@ -68,6 +44,7 @@ public class IntakeCommand extends CommandBase {
     public void end(boolean interrupted) {
 
         RobotContainer.intake.intakeStop();
+
     }
 
 }

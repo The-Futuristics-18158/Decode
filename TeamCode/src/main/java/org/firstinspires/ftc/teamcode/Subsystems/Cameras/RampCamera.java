@@ -1,20 +1,30 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Cameras;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Size;
 import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.util.SortOrder;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.CameraControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainControl;
 import org.firstinspires.ftc.robotcore.external.stream.CameraStreamServer;
+import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.VisionProcessorMode;
 import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorRange;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import java.util.ArrayList;
@@ -39,12 +49,19 @@ public class RampCamera extends SubsystemBase {
     private volatile ColorBlobLocatorProcessor purpleBlobProcessor;
     private volatile ColorBlobLocatorProcessor greenBlobProcessor;
 
+    // processor to fip image right-side-up
+    private volatile ImageFlipProcessor flipProcessor;
+
     // current selected vision mode
     private VisionProcessorMode currentMode = VisionProcessorMode.NONE;
 
     /** Place code here to initialize subsystem */
     public RampCamera(String cameraName) {
 
+        // create processor to flip image right-side up
+        flipProcessor = new ImageFlipProcessor();
+
+        // create purple blob processor
         purpleBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_PURPLE)   // Use a predefined color match
                 //.setTargetColorRange(new ColorRange(ColorSpace.YCrCb,
@@ -75,7 +92,7 @@ public class RampCamera extends SubsystemBase {
         // tell blob processor how to sort its results
         purpleBlobProcessor.setSort(new ColorBlobLocatorProcessor.BlobSort(ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA, SortOrder.DESCENDING));
 
-
+        // create green blob processor
         greenBlobProcessor = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.ARTIFACT_GREEN)   // Use a predefined color match
                 //.setTargetColorRange(new ColorRange(ColorSpace.YCrCb,
@@ -111,12 +128,13 @@ public class RampCamera extends SubsystemBase {
                 .setCamera(RobotContainer.ActiveOpMode.hardwareMap.get(WebcamName.class, cameraName))
                 .setCameraResolution(new Size(320, 240))
                 //.setCameraResolution(new Size(1280,720)) if have an HD camera
+                .addProcessors(flipProcessor)
                 .addProcessors(purpleBlobProcessor, greenBlobProcessor)
                 .enableLiveView(false)
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .build();
 
-        // by default disable all processors
+        // by default enable artifact detection processors
         setVisionProcessingMode(VisionProcessorMode.ARTIFACT);
 
         // show camera stream on panels dashboard
@@ -270,10 +288,10 @@ public class RampCamera extends SubsystemBase {
      * @param enable true to enable live view, false to disable live view
      */
     public void enableDashBoardView(boolean enable) {
-        //if (enable)
-        //    FtcDashboard.getInstance().startCameraStream(visionPortal,4);
-        //else
-        //    FtcDashboard.getInstance().stopCameraStream();
+        if (enable)
+            FtcDashboard.getInstance().startCameraStream(visionPortal,4);
+        else
+            FtcDashboard.getInstance().stopCameraStream();
     }
 
     /**displays camera view in driver station*/
@@ -340,5 +358,29 @@ public class RampCamera extends SubsystemBase {
         exposureControl.setMode(ExposureControl.Mode.Auto);
     }
 
+
+    // Define a custom vision processor to flip frames using OpenCV Core
+    public static class ImageFlipProcessor implements VisionProcessor {
+        @Override
+        public void init(int width, int height, CameraCalibration cameraControlInternal) {
+            // Initialization steps if necessary
+        }
+
+        @Override
+        public Object processFrame(Mat frame, long captureTimeNanos) {
+            // Core.flip takes: (source, destination, flipCode)
+            // Flip Code parameters:
+            //  0 = Vertical Flip (Upside down)
+            //  1 = Horizontal Flip (Mirror image)
+            // -1 = Both (Flipped 180 degrees)
+            Core.flip(frame, frame, -1);
+            return null;
+        }
+
+        @Override
+        public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
+            // No custom screen drawings needed
+        }
+    }
 
 }

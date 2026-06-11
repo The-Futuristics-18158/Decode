@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems.Odometry;
+package org.firstinspires.ftc.teamcode.Subsystems;
 
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.ChassisSpeeds;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveKinematics;
 import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveWheelSpeeds;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -15,21 +16,21 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
 public class DriveTrain extends SubsystemBase {
 
     // constants for Tetrix DC Motor
-    final double MAXRPM = 4400.0;
+    final double MAXRPM = 6000.0;
     final double MAXRPS = MAXRPM / 60.0;
     
     // motor speed ticks per revolution to m/s travel speed
     final double TICKS_PER_ROTATION = (28.0);       // encoder pulses per motor revolution
     final double MAX_SPEED_TICKS_PER_SEC = MAXRPS * TICKS_PER_ROTATION;
     final double WHEEL_DIA = 0.104;                   // wheel diameter in m
-    final double GEAR_RATIO = 12.0;                 // drive gear ratio
+    final double GEAR_RATIO = 20.0;                 // drive gear ratio
     final double TICKSPS_TO_MPS = WHEEL_DIA * Math.PI / TICKS_PER_ROTATION / GEAR_RATIO;
     final double MPS_TO_TICKSPS = 1.0 / TICKSPS_TO_MPS;
     public final double MAX_SPEED = MAXRPS * Math.PI * WHEEL_DIA / GEAR_RATIO;
 
     // Setup Drive Kinematics Object Constants
-    final double TRACK_WIDTH = 0.31;   // Width between the left and right wheels - in m.
-    final double TRACK_LENGTH = 0.29;  // Length between the front and back wheel - in m.
+    final double TRACK_WIDTH = 0.34;   // Width between the left and right wheels - in m.
+    final double TRACK_LENGTH = 0.192;  // Length between the front and back wheel - in m.
     private MecanumDriveKinematics driveKinematics;
 
     // create Mecanum drive and its motors
@@ -58,13 +59,13 @@ public class DriveTrain extends SubsystemBase {
         // setup the Kinematics
         driveKinematics = new MecanumDriveKinematics(
                 // Front Left
-                new Translation2d(TRACK_LENGTH * 0.5, TRACK_WIDTH * 0.5),
+                new Translation2d(TRACK_LENGTH * 0.182, TRACK_WIDTH * 0.5), // length was * 0.5 but due to shorter base had to change for this bot - change back in the future.
                 // Front Right
-                new Translation2d(TRACK_LENGTH * 0.5, TRACK_WIDTH * -0.5),
+                new Translation2d(TRACK_LENGTH * 0.182, TRACK_WIDTH * -0.5), // length was * 0.5 but due to shorter base had to change for this bot - change back in the future.
                 // Back Left
-                new Translation2d(TRACK_LENGTH * -0.5, TRACK_WIDTH * 0.5),
+                new Translation2d(TRACK_LENGTH * -0.818, TRACK_WIDTH * 0.5), // length was * -0.5 but due to shorter base had to change for this bot - change back in the future.
                 // Back Right
-                new Translation2d(TRACK_LENGTH * -0.5, TRACK_WIDTH * -0.5));
+                new Translation2d(TRACK_LENGTH * -0.818, TRACK_WIDTH * -0.5)); // length was * -0.5 but due to shorter base had to change for this bot - change back in the future.
 
         // to the names assigned during the robot configuration step on the DS or RC devices.
         leftFrontDrive = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "leftFrontDrive");
@@ -73,9 +74,9 @@ public class DriveTrain extends SubsystemBase {
         rightBackDrive = RobotContainer.ActiveOpMode.hardwareMap.get(DcMotorEx.class, "rightBackDrive");
 
         // With the shift to DcMotorEx, Inverted function shifted to setDirection.
-        leftFrontDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // set motor to closed-loop speed control mode
@@ -137,6 +138,12 @@ public class DriveTrain extends SubsystemBase {
         rightFrontDrive.setPower(rightFrontControl.calculate(RefRightFrontRPM,CurrentRightFrontRPM));
         leftBackDrive.setPower(leftBackControl.calculate(RefLeftBackRPM,CurrentLeftBackRPM));
         rightBackDrive.setPower(rightBackControl.calculate(RefRightBackRPM, CurrentRightBackRPM));
+
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Front Drive Velocity(rpm)", CurrentLeftFrontRPM);
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Front Referance Speeds(rpm)", RefLeftFrontRPM);
+
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Back Drive Velocity(rpm)", CurrentLeftBackRPM);
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Back Referance Speeds(rpm)", RefLeftBackRPM);
     }
 
 

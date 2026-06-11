@@ -43,34 +43,34 @@ public class ResetOdometryXYAngle extends CommandBase {
     @Override
     public void execute() {
 
-        // get limelight MT2 odometry
-        LLResult result = RobotContainer.limeLight.limeLight.getLatestResult();
-
-        // if we have valid result and it is not stale (>100ms)
-        // and we have at least one apriltag detection
-        if (result!=null && result.isValid() && result.getStaleness() < 100 &&
-            result.getFiducialResults()!=null && !result.getFiducialResults().isEmpty())
-        {
-            NumberSamples++;
-
-            // is this our first reading?
-            if (FirstSample)
-            {
-                // our first sample, just record value
-               PoseX = result.getBotpose().getPosition().x;
-               PoseY = result.getBotpose().getPosition().y;
-               PoseRad = result.getBotpose().getOrientation().getYaw(AngleUnit.RADIANS);
-               FirstSample=false;
-            }
-            else
-            {
-                // this is our 2nd or subsequent sample
-                // Average in the sample
-                PoseX = 0.85*PoseX + 0.15*result.getBotpose().getPosition().x;
-                PoseY = 0.85*PoseY + 0.15*result.getBotpose().getPosition().y;
-                PoseRad = 0.85*PoseRad + 0.15*result.getBotpose().getOrientation().getYaw(AngleUnit.RADIANS);
-            }
-        }
+//        // get limelight MT2 odometry
+//        LLResult result = RobotContainer.limeLight.limeLight.getLatestResult();
+//
+//        // if we have valid result and it is not stale (>100ms)
+//        // and we have at least one apriltag detection
+//        if (result!=null && result.isValid() && result.getStaleness() < 100 &&
+//            result.getFiducialResults()!=null && !result.getFiducialResults().isEmpty())
+//        {
+//            NumberSamples++;
+//
+//            // is this our first reading?
+//            if (FirstSample)
+//            {
+//                // our first sample, just record value
+//               PoseX = result.getBotpose().getPosition().x;
+//               PoseY = result.getBotpose().getPosition().y;
+//               PoseRad = result.getBotpose().getOrientation().getYaw(AngleUnit.RADIANS);
+//               FirstSample=false;
+//            }
+//            else
+//            {
+//                // this is our 2nd or subsequent sample
+//                // Average in the sample
+//                PoseX = 0.85*PoseX + 0.15*result.getBotpose().getPosition().x;
+//                PoseY = 0.85*PoseY + 0.15*result.getBotpose().getPosition().y;
+//                PoseRad = 0.85*PoseRad + 0.15*result.getBotpose().getOrientation().getYaw(AngleUnit.RADIANS);
+//            }
+//        }
     }
 
     // This method to return true only when command is to finish. Otherwise return false

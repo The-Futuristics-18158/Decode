@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull.EndAfterTimeElapsed;
 import org.firstinspires.ftc.teamcode.RobotContainer;
 import org.firstinspires.ftc.teamcode.Utility.Utils;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -60,9 +61,7 @@ public class HuntModeAuto extends CommandBase {
         double y_speed;
         double omega_speed;
 
-        if (timer.seconds() >= seconds || (RobotContainer.colour.isLeftArtifactPresent() &&
-                RobotContainer.colour.isRightArtifactPresent()
-                && RobotContainer.distance.isRampArtifactPresent())){
+        if (timer.seconds() >= seconds){ //May need to adjust timeout
 
             RobotContainer.intake.intakeStop();
             finishedCounter++;
@@ -70,10 +69,7 @@ public class HuntModeAuto extends CommandBase {
 
         }else {
             finishedCounter=0;
-            if (RobotContainer.colour.isLeftArtifactPresent() && RobotContainer.colour.isRightArtifactPresent())
-                RobotContainer.intake.intakeRunReducedSpeed();
-            else
-                RobotContainer.intake.intakeRun();
+            RobotContainer.intake.intakeRun();
         }
 
         double angleError = Utils.AngleDifference(RobotContainer.gyro.getYawAngle(),targetAngle);
@@ -118,11 +114,11 @@ public class HuntModeAuto extends CommandBase {
             }
         }
 
-       // if busy intaking robot, stop and wait for it to finish before proceeding
-        if (RobotContainer.distance.isRampArtifactPresent()) {
-            y_speed = 0.0;
-            x_speed = 0.0;
-        }
+//       // if busy intaking robot, stop and wait for it to finish before proceeding
+//        if (RobotContainer.distance.isRampArtifactPresent()) {
+//            y_speed = 0.0;
+//            x_speed = 0.0;
+//        }
 
         RobotContainer.drivesystem.FieldDrive(x_speed, y_speed, omega_speed);
 
@@ -133,7 +129,6 @@ public class HuntModeAuto extends CommandBase {
 
         return (finishedCounter>=2);
 
-        //return finished;
     }
 
     // This method is called once when command is finished.

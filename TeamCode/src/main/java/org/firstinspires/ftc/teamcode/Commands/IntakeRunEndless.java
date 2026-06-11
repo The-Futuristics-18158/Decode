@@ -1,28 +1,25 @@
-package org.firstinspires.ftc.teamcode.Commands.Intake.EndWhenFull;
+package org.firstinspires.ftc.teamcode.Commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
-
-/**
- * This command ends only when the robot contains three artifacts in it
- *
- * @author knutt5
- */
-public class EndWhenFull3Artifacts extends CommandBase {
+// This command runs the intake.  This command does not end (runs forever).
+// Command intended to be used in a racegroup with other commands.
+public class IntakeRunEndless extends CommandBase {
 
     // constructor
-    public EndWhenFull3Artifacts() {
+    public IntakeRunEndless() {
 
-        // Note: this command does not require any subsystems
-        //addRequirements();
+        // add subsystem requirements (if any) - for example:
+        addRequirements(RobotContainer.intake);
     }
 
     // This method is called once when command is started
     @Override
     public void initialize() {
 
+        //RobotContainer.intake.intakeRun();
     }
 
     // This method is called periodically while command is active
@@ -34,16 +31,14 @@ public class EndWhenFull3Artifacts extends CommandBase {
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-
-        return RobotContainer.colour.isLeftArtifactPresent() &&
-                RobotContainer.colour.isRightArtifactPresent() &&
-                RobotContainer.distance.isRampArtifactPresent();
+        return false;
     }
 
     // This method is called once when command is finished.
     @Override
     public void end(boolean interrupted) {
 
+        RobotContainer.intake.intakeStop();
     }
 
 }

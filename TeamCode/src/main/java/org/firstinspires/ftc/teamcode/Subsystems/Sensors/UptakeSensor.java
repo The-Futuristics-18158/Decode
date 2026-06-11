@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Sensors;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotContainer;
@@ -12,16 +13,16 @@ import org.firstinspires.ftc.teamcode.RobotContainer;
  *
  * @author Blackthrush
  */
-public class DistanceSensor extends SubsystemBase {
+public class UptakeSensor extends SubsystemBase {
 
     // Local objects and variables here
-    private Rev2mDistanceSensor rampSensor;
+    private RevColorSensorV3 uptakeSensor;
 
     /** Place code here to initialize subsystem */
-    public DistanceSensor() {
+    public UptakeSensor() {
 
-    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "rampDistance");
-    rampSensor.initialize();
+    uptakeSensor = RobotContainer.ActiveOpMode.hardwareMap.get(RevColorSensorV3.class, "uptakeSensor");
+    uptakeSensor.initialize();
 
     }
 
@@ -33,32 +34,32 @@ public class DistanceSensor extends SubsystemBase {
 
     }
 
-    private boolean isRampSensorInitialized = true;
+    private boolean isUptakeSensorInitialized = true;
 
 
     /**Uses the distance sensor to determine if an artifact is present on the ramp.
      * @return true if an artifact is detected, false otherwise
      */
-    public boolean isRampArtifactPresent(){
+    public boolean isUpakeArtifactPresent(){
         try {
-            double distance = rampSensor.getDistance(DistanceUnit.MM);
-            return (distance >= 55.0 && distance <= 130.0);
+            double distance = uptakeSensor.getDistance(DistanceUnit.CM);
+            return (distance < 5.0);
         } catch (Exception e) {
             // Log the error (if you can), and handle recovery
-            RobotContainer.telemetrySubsystem.addData("rampDistance Sensor Error", e.getMessage());
+            RobotContainer.telemetrySubsystem.addData("uptake sensor Error", e.getMessage());
             RobotContainer.telemetrySubsystem.update();
             // Try to recover the sensor
-            if (isRampSensorInitialized) {
+            if (isUptakeSensorInitialized) {
                 // First error: attempt to re-initialize
-                isRampSensorInitialized = false;
+                isUptakeSensorInitialized = false;
                 try {
                     // Re-fetch and re-initialize sensor
-                    rampSensor = RobotContainer.ActiveOpMode.hardwareMap.get(Rev2mDistanceSensor.class, "rampDistance");
-                    rampSensor.initialize();
-                    isRampSensorInitialized = true;
+                    uptakeSensor = RobotContainer.ActiveOpMode.hardwareMap.get(RevColorSensorV3.class, "uptakeSensor");
+                    uptakeSensor.initialize();
+                    isUptakeSensorInitialized = true;
                 } catch (Exception ex) {
                     // failed to recover
-                    RobotContainer.telemetrySubsystem.addData("rampDistance Sensor recovery failed", ex.getMessage());
+                    RobotContainer.telemetrySubsystem.addData("uptake sensor recovery failed", ex.getMessage());
                     RobotContainer.telemetrySubsystem.update();
                 }
 

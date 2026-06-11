@@ -1,6 +1,13 @@
-package org.firstinspires.ftc.teamcode.CommandGroups.Shoot;
+package org.firstinspires.ftc.teamcode.CommandGroups.TeleOpSequences;
 
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+
+import org.firstinspires.ftc.teamcode.Commands.Intake.IntakeCommand;
+import org.firstinspires.ftc.teamcode.Commands.UptakeRampControle;
+import org.firstinspires.ftc.teamcode.Commands.Utility.Pause;
+import org.firstinspires.ftc.teamcode.RobotContainer;
 
 // Example Sequential Command Group
 // There are also:
@@ -8,19 +15,27 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 // ParallelRaceGroup
 // ParallelDeadlineGroup
 
-public class LineUpAndShoot extends SequentialCommandGroup {
+public class IntakeSequence extends SequentialCommandGroup {
 
     // constructor
-    public LineUpAndShoot() {
+    public IntakeSequence() {
+        addRequirements(RobotContainer.drivesystem);
+        addRequirements(RobotContainer.intake);
 
         addCommands (
-                // spin up flywheel (continuous on odometry dist if slow spinup)
-                // command (needed) to 'go to nearest shooting position'
-                // command (needed) to aim to target (based limelight detection)
-                // uptake (might be sequence to 'shoot all (everything)
-                // stop flywheel (if spinup is fast)
-                // end
+                // Drive, intake and listen to your sensor all at the same time
+                new ParallelCommandGroup(
+                        new IntakeCommand(),
+                        new UptakeRampControle(),
+                        new InstantCommand(()-> RobotContainer.drivesystem.RobotDrive(1.0, 0.0, 0.0))
+                )
         );
+    }
+    @Override
+    public void end(boolean interrupted){
+        RobotContainer.ramplift.Lower();
+        RobotContainer.intake.intakeStop();
+        RobotContainer.drivesystem.RobotDrive(0.0, 0.0, 0.0);
     }
 
 }

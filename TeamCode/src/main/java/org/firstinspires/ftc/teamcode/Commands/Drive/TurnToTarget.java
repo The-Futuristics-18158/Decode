@@ -73,7 +73,7 @@ public class TurnToTarget extends CommandBase {
 
         // get our current position and the target position
         Pose2d pose = RobotContainer.odometry.getCurrentPos();
-        Translation2d targetPose = RobotContainer.targeting.GetShotTaget();
+        Translation2d targetPose = new Translation2d(); //= RobotContainer.targeting.GetShotTaget();
 
         // determine target angle
         double angle_rad = (new Vector2d(pose.getX() - targetPose.getX(), pose.getY() - targetPose.getY())).angle();

@@ -1,61 +1,56 @@
 package org.firstinspires.ftc.teamcode.Commands.Intake;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RobotContainer;
 
 
 // command template
-public class AdvanceIntake extends CommandBase {
-
-    private ElapsedTime timer;
-    boolean finished;
+public class VaccuumMode extends CommandBase {
 
     // constructor
-    public AdvanceIntake() {
+    public VaccuumMode() {
 
         // add subsystem requirements (if any) - for example:
         //addRequirements(RobotContainer.drivesystem);
-        addRequirements(RobotContainer.intake);
-        timer = new ElapsedTime();
-        timer.reset();
-
     }
 
     // This method is called once when command is started
     @Override
     public void initialize() {
 
-        timer.reset();
-        finished = false;
-        RobotContainer.uptake.LowerLeftUptake();
-        RobotContainer.uptake.LowerRightUptake();
     }
 
     // This method is called periodically while command is active
     @Override
     public void execute() {
-        if (timer.seconds()>2.5 || (RobotContainer.artifactCamera.IsLeftPresent() &&
-                RobotContainer.artifactCamera.IsRightPresent())){
-            finished = true;
-            RobotContainer.intake.intakeStop();
+        // Calls the shotblock getter function then sets the opposite when called.
+        if (RobotContainer.shotblock.ShotBlocked()){
+            RobotContainer.shotblock.Unblock();
         }else {
-            RobotContainer.intake.intakeRun();
+            RobotContainer.shotblock.Block();
         }
+
+        // Calls the Ramp getter function then sets the opposite when called.
+//        if (RobotContainer.ramplift.RampIsUp()){
+//            RobotContainer.ramplift.Lower();
+//        }else {
+//            RobotContainer.ramplift.Raise();
+//        }
     }
 
     // This method to return true only when command is to finish. Otherwise return false
     @Override
     public boolean isFinished() {
-        return finished;
+
+        return true;
+
     }
 
     // This method is called once when command is finished.
     @Override
     public void end(boolean interrupted) {
 
-        RobotContainer.intake.intakeStop();
     }
 
 }

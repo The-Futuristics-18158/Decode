@@ -11,7 +11,7 @@ public class JogBackIntake extends CommandBase {
     public JogBackIntake() {
 
         // add subsystem requirements (if any) - for example:
-        addRequirements(RobotContainer.intake);
+        //addRequirements(RobotContainer.intake);
 
     }
 
@@ -19,7 +19,7 @@ public class JogBackIntake extends CommandBase {
     @Override
     public void initialize() {
 
-        RobotContainer.intake.intakeReverse();
+        //RobotContainer.intake.intakeReverse();
     }
 
     // This method is called periodically while command is active
@@ -38,7 +38,7 @@ public class JogBackIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
 
-        RobotContainer.intake.intakeStop();
+        //RobotContainer.intake.intakeStop();
     }
 
 }

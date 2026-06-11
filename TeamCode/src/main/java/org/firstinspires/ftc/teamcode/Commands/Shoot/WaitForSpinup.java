@@ -24,14 +24,14 @@ public class WaitForSpinup extends CommandBase {
     // This method is called once when command is started
     @Override
     public void initialize() {
-        // start timer;
-        time.reset();
-
-        // determine maximum time before command timeout
-        // assume shooter takes ~4s/3,000rpm. Note: time to spin up varies with square of speed
-        double x = Math.max(RobotContainer.shooter.GetFlyWheelTargetSpeed() / 3000.0, 0.0);
-        maxtime = x * x * 4.0;
-        //maxtime = x * x * 50.0;
+//        // start timer;
+//        time.reset();
+//
+//        // determine maximum time before command timeout
+//        // assume shooter takes ~4s/3,000rpm. Note: time to spin up varies with square of speed
+//        double x = Math.max(RobotContainer.shooter.GetFlyWheelTargetSpeed() / 3000.0, 0.0);
+//        maxtime = x * x * 4.0;
+//        //maxtime = x * x * 50.0;
     }
 
     // This method is called periodically while command is active
@@ -43,9 +43,10 @@ public class WaitForSpinup extends CommandBase {
     @Override
     public boolean isFinished() {
 
+        return true;
         // command is finished when shooter reaches 98% of speed or max time is exceeded
-        return (RobotContainer.shooter.GetFlyWheelSpeed() >=0.98*RobotContainer.shooter.GetFlyWheelTargetSpeed() ||
-                time.seconds() >= maxtime);
+        //return (RobotContainer.shooter.GetFlyWheelSpeed() >=0.98*RobotContainer.shooter.GetFlyWheelTargetSpeed() ||
+        //        time.seconds() >= maxtime);
     }
 
     // This method is called once when command is finished.
